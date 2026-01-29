@@ -46,6 +46,10 @@ echo "::group:: Install Packages"
 dnf5 install -y \
   fastfetch \
   fish \
+  steam \
+  goverlay \
+  mangohud \
+  vkbasalt \
 
 echo "::endgroup::"
 
