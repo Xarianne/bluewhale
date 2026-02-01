@@ -12,9 +12,8 @@ dnf5 -y install \
     scx-manager 
 
 dnf5 -y swap zram-generator-defaults cachyos-settings
-dracut -f
 
 # 3. Cleanup
-dnf5 -f copr disable bieszczaders/kernel-cachyos-addons
+dnf5 -y copr disable bieszczaders/kernel-cachyos-addons
 
 echo "CachyOS add-ons install complete."
