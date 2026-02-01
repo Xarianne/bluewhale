@@ -2,7 +2,7 @@
 set -eoux pipefail
 
 # 1. Enable CachyOS add-on repo
-dnf5 -f copr enable bieszczaders/kernel-cachyos-addons
+dnf5 -y copr enable bieszczaders/kernel-cachyos-addons
 
 # 2. Install addons
 
