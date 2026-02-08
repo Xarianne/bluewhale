@@ -1,0 +1,26 @@
+# yaml-language-server: $schema=https://schema.blue-build.org/recipe-v1.json
+modules:
+- type: dnf
+  repos:
+    copr:
+    - atim/starship
+    - ilyaz/LACT
+    - xariann/tools
+  install:
+    packages:
+    - starship
+    - fastfetch
+    - fish
+    - steam
+    - goverlay
+    - mangohud
+    - vkbasalt
+    - chezmoi
+    - lact
+    - boot-windows
+  remove:
+    packages:
+    # example: removing firefox (in favor of the flatpak)
+    # "firefox" is the main package, "firefox-langpacks" is a dependency
+    - firefox
+    - firefox-langpacks # also remove firefox dependency (not required for all packages, this is a special case)
