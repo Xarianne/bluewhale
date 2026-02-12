@@ -17,7 +17,9 @@ modules:
     - vkbasalt
     - chezmoi
     - lact
+    # xariann/tools
     - boot-windows
+    - game-devices-udev
   remove:
     packages:
     # example: removing firefox (in favor of the flatpak)
