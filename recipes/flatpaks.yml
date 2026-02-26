@@ -7,7 +7,7 @@ modules:
     # If no repo information is specified, Flathub will be used by default
     install: # system flatpaks we want all users to have and not remove
     - org.mozilla.firefox
-    - com.discordapp.Discord
+    - dev.vencord.Vesktop
     - com.github.tchx84.Flatseal
     - io.github.flattool.Warehouse
     - io.github.tobagin.keysmith
@@ -17,5 +17,3 @@ modules:
     - io.github.fabrialberio.pinapp
     - io.missioncenter.MissionCenter
     - org.gnome.Boxes
-
-  - scope: user # Also add Flathub user repo, but no user packages
