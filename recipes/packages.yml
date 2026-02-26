@@ -9,13 +9,17 @@ modules:
     - bieszczaders/kernel-cachyos-addons
   install:
     packages:
+    - bat
+    - chezmoi
+    - eza
     - fastfetch
     - fish
-    - steam
+    - ghostty
     - goverlay
     - mangohud
+    - steam
     - vkbasalt
-    - chezmoi
+    - zoxide
     # atim/starship
     - starship
     # ilyaz/LACT
