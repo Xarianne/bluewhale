@@ -6,9 +6,9 @@ modules:
     - atim/starship
     - ilyaz/LACT
     - xariann/tools
+    - bieszczaders/kernel-cachyos-addons
   install:
     packages:
-    - starship
     - fastfetch
     - fish
     - steam
@@ -16,10 +16,17 @@ modules:
     - mangohud
     - vkbasalt
     - chezmoi
+    # atim/starship
+    - starship
+    # ilyaz/LACT
     - lact
     # xariann/tools
     - boot-windows
     - game-devices-udev
+    # kernel-cachyos-addons
+    - scx-scheds
+    - scx-tools 
+    - scx-manager 
   remove:
     packages:
     # example: removing firefox (in favor of the flatpak)
