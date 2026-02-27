@@ -16,6 +16,7 @@ modules:
     - fish
     - ghostty
     - goverlay
+    - just
     - mangohud
     - steam
     - vkbasalt
