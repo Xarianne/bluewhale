@@ -19,6 +19,7 @@ modules:
     - just
     - mangohud
     - steam
+    - sudo-rs
     - vkbasalt
     - zoxide
     # atim/starship

@@ -25,4 +25,5 @@ modules:
     - im.riot.Riot
     - it.mijorus.gearlever
     - com.beavernotes.beavernotes
-    - system:net.kvirc.KVIrc
+    - net.kvirc.KVIrc
+    - com.visualstudio.code
