@@ -17,3 +17,12 @@ modules:
     - io.github.fabrialberio.pinapp
     - io.missioncenter.MissionCenter
     - org.gnome.Boxes
+    - io.github.fabrialberio.pinapp
+    - com.ranfdev.DistroShelf
+    - io.podman_desktop.PodmanDesktop
+    - org.gnome.Logs
+    - com.vysp3r.ProtonPlus
+    - im.riot.Riot
+    - it.mijorus.gearlever
+    - com.beavernotes.beavernotes
+    - system:net.kvirc.KVIrc
