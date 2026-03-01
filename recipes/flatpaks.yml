@@ -27,3 +27,4 @@ modules:
     - com.beavernotes.beavernotes
     - net.kvirc.KVIrc
     - com.visualstudio.code
+    - com.ranfdev.DistroShelf
