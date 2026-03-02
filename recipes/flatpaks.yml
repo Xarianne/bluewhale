@@ -28,3 +28,4 @@ modules:
     - net.kvirc.KVIrc
     - com.visualstudio.code
     - com.ranfdev.DistroShelf
+    - com.github.zocker_160.SyncThingy
