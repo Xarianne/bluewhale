@@ -5,27 +5,37 @@ modules:
   - notify: false # Send notification after install/uninstall is finished (true/false)
     scope: system
     # If no repo information is specified, Flathub will be used by default
-    install: # system flatpaks we want all users to have and not remove
+    install:
+    # Browsers & Communication
     - org.mozilla.firefox
     - dev.vencord.Vesktop
+    - im.riot.Riot # Element client
+    - net.kvirc.KVIrc
+
+    # Development
+    - com.visualstudio.code
+    - io.podman_desktop.PodmanDesktop
+
+    # System Tools
     - com.github.tchx84.Flatseal
     - io.github.flattool.Warehouse
+    - io.missioncenter.MissionCenter
+    - org.gnome.Logs
+    - it.mijorus.gearlever
+
+    # Utilities
     - io.github.tobagin.keysmith
     - org.localsend.localsend_app
-    - com.obsproject.Studio
     - com.cassidyjames.butler
     - io.github.fabrialberio.pinapp
-    - io.missioncenter.MissionCenter
-    - io.github.fabrialberio.pinapp
-    - com.ranfdev.DistroShelf
-    - io.podman_desktop.PodmanDesktop
-    - org.gnome.Logs
-    - com.vysp3r.ProtonPlus
-    - im.riot.Riot
-    - it.mijorus.gearlever
-    - com.beavernotes.beavernotes
-    - net.kvirc.KVIrc
-    - com.visualstudio.code
     - com.ranfdev.DistroShelf
     - com.github.zocker_160.SyncThingy
+
+    # Content Creation
+    - com.obsproject.Studio
+    - com.beavernotes.beavernotes
     - md.obsidian.Obsidian
+
+    # Gaming
+    - com.vysp3r.ProtonPlus
+
