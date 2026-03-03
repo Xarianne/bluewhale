@@ -16,6 +16,7 @@ modules:
     - fish
     - ghostty
     - goverlay
+    - gnome-boxes
     - gum
     - just
     - mangohud

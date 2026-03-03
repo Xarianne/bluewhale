@@ -16,7 +16,6 @@ modules:
     - com.cassidyjames.butler
     - io.github.fabrialberio.pinapp
     - io.missioncenter.MissionCenter
-    - org.gnome.Boxes
     - io.github.fabrialberio.pinapp
     - com.ranfdev.DistroShelf
     - io.podman_desktop.PodmanDesktop
@@ -29,3 +28,4 @@ modules:
     - com.visualstudio.code
     - com.ranfdev.DistroShelf
     - com.github.zocker_160.SyncThingy
+    - md.obsidian.Obsidian
