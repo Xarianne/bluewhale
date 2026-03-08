@@ -15,6 +15,7 @@ modules:
     - chezmoi
     - eza
     - fastfetch
+    - firewall-config
     - fish
     - gamescope
     - ghostty
