@@ -24,5 +24,6 @@ modules:
   # Split build logic into smaller files to keep this readable.
   - from-file: packages.yml
   - from-file: flatpaks.yml
+  - from-file: dms-hyprland.yml
 
   - type: signing # this sets up the proper policy & signing files for signed images to work fully
