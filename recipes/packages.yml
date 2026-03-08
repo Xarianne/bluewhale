@@ -21,6 +21,7 @@ modules:
     - gum
     - just
     - mangohud
+    - mission-center
     - steam
     - vkbasalt
     - zoxide

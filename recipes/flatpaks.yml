@@ -9,7 +9,6 @@ modules:
     # Browsers & Communication
     - org.mozilla.firefox
     - dev.vencord.Vesktop
-    - im.riot.Riot # Element client
     - net.kvirc.KVIrc
 
     # Development
@@ -33,7 +32,6 @@ modules:
 
     # Content Creation
     - com.obsproject.Studio
-    - com.beavernotes.beavernotes
     - md.obsidian.Obsidian
 
     # Gaming
