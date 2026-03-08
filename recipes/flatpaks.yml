@@ -9,7 +9,6 @@ modules:
     # Browsers & Communication
     - org.mozilla.firefox
     - dev.vencord.Vesktop
-    - net.kvirc.KVIrc
 
     # Development
     - com.visualstudio.code
@@ -18,7 +17,6 @@ modules:
     # System Tools
     - com.github.tchx84.Flatseal
     - io.github.flattool.Warehouse
-    - io.missioncenter.MissionCenter
     - org.gnome.Logs
     - it.mijorus.gearlever
 
