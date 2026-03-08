@@ -11,7 +11,7 @@ modules:
   repos:
     copr:
     - avengemedia/danklinux
-    - avengemedia/dms [eternal_deps]
+    - avengemedia/dms
     - sdegler/hyprland
   install:
     packages:
