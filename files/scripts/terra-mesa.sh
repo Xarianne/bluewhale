@@ -5,8 +5,8 @@ set -eoux pipefail
 dnf5 install -y --refresh --nogpgcheck --repofrompath "terra,https://repos.fyralabs.com/terra$(rpm -E %fedora)" \
   terra-release \
   terra-release-extras \
-  terra-release-multimedia
-  terra-release-mesa \ 
+  terra-release-multimedia \
+  terra-release-mesa
 
 echo "Upgrading Mesa stack..."
 dnf5 upgrade -y --allowerasing \
