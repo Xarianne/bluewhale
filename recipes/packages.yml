@@ -21,7 +21,6 @@ modules:
     - just
     - mangohud
     - steam
-    - sudo-rs
     - vkbasalt
     - zoxide
     # atim/starship
@@ -31,6 +30,7 @@ modules:
     # xariann/tools
     - boot-windows
     - game-devices-udev
+    - nautilus-copy-path # delete if base is not Silverblue
     # kernel-cachyos-addons
     - scx-scheds
     - scx-tools 
