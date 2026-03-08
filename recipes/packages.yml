@@ -7,6 +7,8 @@ modules:
     - ilyaz/LACT
     - xariann/tools
     - bieszczaders/kernel-cachyos-addons
+    - scottames/ghostty
+    - alternateved/eza
   install:
     packages:
     - bat
@@ -21,7 +23,6 @@ modules:
     - gum
     - just
     - mangohud
-    - mission-center
     - steam
     - vkbasalt
     - zoxide
