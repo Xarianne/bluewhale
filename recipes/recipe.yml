@@ -17,20 +17,20 @@ modules:
       - source: system
         destination: / # copies files/system/* (* means everything inside it) into your image's root folder /
 
-  # - type: script
-    # scripts:
-    # - terra-mesa.sh
+  - type: script
+    scripts:
+    - terra-mesa.sh
   
   ##---------------------------------------------------------------------------##
   # Use this when not wanting to update mesa and/or terra repos are not available
   # such as for branched test builds or rawhide
-  - type: bling
-    install:
-    - negativo17
+  # - type: bling
+    # install:
+    # - negativo17
 
-  - type: script
-    scripts:
-    - negativo17-codecs.sh
+  # - type: script
+    # scripts:
+    # - negativo17-codecs.sh
   ##---------------------------------------------------------------------------##
 
   # Split build logic into smaller files to keep this readable.
