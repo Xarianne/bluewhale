@@ -30,7 +30,7 @@ modules:
 
   - type: script
     scripts:
-   - negativo17-codecs.sh
+    - negativo17-codecs.sh
   ##---------------------------------------------------------------------------##
 
   # Split build logic into smaller files to keep this readable.
