@@ -33,4 +33,5 @@ modules:
 
     # Gaming
     - com.vysp3r.ProtonPlus
+    - io.github.Faugus.faugus-launcher
 
