@@ -7,7 +7,6 @@ modules:
     # If no repo information is specified, Flathub will be used by default
     install:
     # Browsers & Communication
-    - org.mozilla.firefox
     - dev.vencord.Vesktop
 
     # Development
