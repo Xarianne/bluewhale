@@ -19,7 +19,7 @@ modules:
 
   - type: script
     scripts:
-   - terra-mesa.sh
+    - terra-mesa.sh
   
   ##---------------------------------------------------------------------------##
   # Use this when not wanting to update mesa and/or terra repos are not available
