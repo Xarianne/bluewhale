@@ -33,9 +33,16 @@ modules:
     # - negativo17-codecs.sh
   ##---------------------------------------------------------------------------##
 
+  - type: systemd
+    system:
+      enabled:
+        - rpm-ostreed-automatic.timer
+
   # Split build logic into smaller files to keep this readable.
   - from-file: packages.yml
   - from-file: flatpaks.yml
   - from-file: fedora-qa.yml
 
   - type: signing # this sets up the proper policy & signing files for signed images to work fully
+
+
