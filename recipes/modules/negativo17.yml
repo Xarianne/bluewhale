@@ -1,12 +1,10 @@
 ---
-# yaml-language-server: $schema=https://schema.blue-build.org/recipe-v1.json
+# yaml-language-server: $schema=https://schema.blue-build.org/module-list-v1.json
+modules:
+  - type: bling
+    install:
+      - negativo17
 
-# Use this when not wanting to update mesa and/or terra repos are not available
-# such as for branched test builds or rawhide
-type: bling
-install:
-  - negativo17
-
-type: script
-scripts:
-  - negativo17-codecs.sh
+  - type: script
+    scripts:
+      - negativo17-codecs.sh
