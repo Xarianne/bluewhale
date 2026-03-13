@@ -24,7 +24,7 @@ modules:
   - from-file: packages/packages.yml
   # - from-file: packages/flatpaks.yml
   # - from-file: packages/fedora-qa.yml
-  - from-file: modules/kargs.yml
+  # - from-file: modules/kargs.yml
 
   - type: systemd
     system:
