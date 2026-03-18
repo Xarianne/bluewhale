@@ -18,13 +18,17 @@ modules:
         destination: / # copies files/system/* (* means everything inside it) into your image's root folder /
 
   # Split build logic into smaller files to keep this readable.
-  # - from-file: modules/terra-mesa.yml
   # Use either negativo or terra-mesa
-  - from-file: modules/negativo17.yml
+  # - from-file: modules/negativo17.yml
+  - from-file: modules/terra-mesa.yml
   - from-file: packages/packages.yml
-  # - from-file: packages/flatpaks.yml
-  # - from-file: packages/fedora-qa.yml
-  # - from-file: modules/kargs.yml
+  - from-file: packages/flatpaks.yml
+  - from-file: packages/fedora-qa.yml
+
+=======
+  - from-file: packages/flatpaks.yml
+  - from-file: packages/fedora-qa.yml
+>>>>>>> f071ed5 (Clean up)
 
   - type: systemd
     system:
