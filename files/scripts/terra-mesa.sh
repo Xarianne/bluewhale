@@ -5,17 +5,9 @@ set -eoux pipefail
 dnf5 install -y --refresh --nogpgcheck --repofrompath "terra,https://repos.fyralabs.com/terra$(rpm -E %fedora)" \
   terra-release \
   terra-release-extras \
-  terra-release-multimedia \
   terra-release-mesa
 
 echo "Upgrading Mesa stack..."
 dnf5 upgrade -y --allowerasing \
   mesa* \
   libgbm
-
-echo "Installing Multimedia Codecs..."
-dnf5 install -y --allowerasing \
-  ffmpeg \
-  gstreamer1-plugins-bad \
-  gstreamer1-plugins-bad-free-extras \
-  gstreamer1-plugins-ugly
