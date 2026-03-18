@@ -25,11 +25,6 @@ modules:
   - from-file: packages/flatpaks.yml
   - from-file: packages/fedora-qa.yml
 
-=======
-  - from-file: packages/flatpaks.yml
-  - from-file: packages/fedora-qa.yml
->>>>>>> f071ed5 (Clean up)
-
   - type: systemd
     system:
       enabled:
