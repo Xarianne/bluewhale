@@ -11,9 +11,3 @@ echo "Upgrading Mesa stack..."
 dnf5 upgrade -y --allowerasing \
   mesa* \
   libgbm
-
-echo "Upgrading codecs..."
-dnf5 install -y --allowerasing \
-  ffmpeg \
-  gstreamer1-plugins-bad \
-  gstreamer1-plugins-ugly
