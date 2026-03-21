@@ -3,12 +3,12 @@ modules:
 - type: dnf
   repos:
     copr:
-    - atim/starship
-    - ilyaz/LACT
+    # - atim/starship
+    # - ilyaz/LACT
     - xariann/tools
     - bieszczaders/kernel-cachyos-addons
-    - scottames/ghostty
-    - alternateved/eza
+    # - scottames/ghostty
+    # - alternateved/eza
   install:
     packages:
     - bat
@@ -18,9 +18,8 @@ modules:
     - firewall-config
     - fish
     - gamescope
-    - ghostty
+    # - ghostty
     - goverlay
-    - gnome-boxes
     - gum
     - just
     - mangohud
@@ -30,11 +29,11 @@ modules:
     # atim/starship
     - starship
     # ilyaz/LACT
-    - lact
+    # - lact
     # xariann/tools
     - boot-windows
     - game-devices-udev
-    - nautilus-copy-path # delete if base is not Silverblue
+    # - nautilus-copy-path # delete if base is not Silverblue
     # kernel-cachyos-addons
     - scx-scheds
     - scx-tools 
