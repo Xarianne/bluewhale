@@ -8,7 +8,12 @@ modules:
     install:
     # Browsers & Communication
     - dev.vencord.Vesktop
-
+    
+    # Multimedia
+    - org.jellyfin.JellyfinDesktop
+    - tv.kodi.Kodi
+    - com.nextcloud.desktopclient.nextcloud
+    
     # Development
     - com.visualstudio.code
     - io.podman_desktop.PodmanDesktop
