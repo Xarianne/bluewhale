@@ -22,6 +22,10 @@ modules:
   - from-file: packages/packages.yml
   - from-file: packages/flatpaks.yml
 
+  - type: brew
+    nofile-limits: true # increase nofile limits
+    brew-analytics: false # disable telemetry
+
   - type: systemd
     system:
       enabled:
