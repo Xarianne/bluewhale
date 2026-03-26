@@ -12,3 +12,6 @@ modules:
         - scx-scheds
         - scx-tools
         - scx-manager
+    remove:
+      packages:
+        - firefox
