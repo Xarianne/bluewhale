@@ -9,6 +9,12 @@ modules:
     # Browsers & Communication
     - dev.vencord.Vesktop
     - org.mozilla.firefox
+
+    # Gaming
+    - com.valvesoftware.Steam
+    - io.github.benjamimgois.goverlay
+    - org.freedesktop.Platform.VulkanLayer.MangoHud
+    - org.freedesktop.Platform.VulkanLayer.vkBasalt
     
     # Multimedia
     - org.jellyfin.JellyfinDesktop
