@@ -25,7 +25,6 @@ modules:
     - com.cassidyjames.butler
     - io.github.fabrialberio.pinapp
     - com.ranfdev.DistroShelf
-    - com.github.zocker_160.SyncThingy
     - io.github.ilya_zlobintsev.LACT
 
     # Content Creation
