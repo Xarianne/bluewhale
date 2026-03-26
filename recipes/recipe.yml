@@ -19,7 +19,6 @@ modules:
 
   # Split build logic into smaller files to keep this readable.
   # Use either negativo or terra-mesa if you are using terra-extras-multimedia
-  - from-file: modules/negativo17.yml
   - from-file: packages/packages.yml
   - from-file: packages/flatpaks.yml
 
