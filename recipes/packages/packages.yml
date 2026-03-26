@@ -6,6 +6,7 @@ modules:
       - bieszczaders/kernel-cachyos-addons
     install:
       packages:
+        - chezmoi
         - fish
         - firewall-config
         - game-devices-udev
