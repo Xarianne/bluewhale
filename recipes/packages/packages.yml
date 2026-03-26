@@ -1,39 +1,14 @@
 # yaml-language-server: $schema=https://schema.blue-build.org/recipe-v1.json
 modules:
-- type: dnf
-  repos:
-    copr:
-    - atim/starship
-    # - ilyaz/LACT
-    - xariann/tools
-    - bieszczaders/kernel-cachyos-addons
-    # - scottames/ghostty
-    # - alternateved/eza
-  install:
-    packages:
-    - bat
-    - chezmoi
-    - eza
-    - fastfetch
-    - firewall-config
-    - fish
-    - gamescope
-    - goverlay
-    - gum
-    - just
-    - mangohud
-    - steam
-    - vkbasalt
-    - zoxide
-    # atim/starship
-    - starship
-    # ilyaz/LACT
-    # - lact
-    # xariann/tools
-    - boot-windows
-    - game-devices-udev
-    # - nautilus-copy-path # delete if base is not Silverblue
-    # kernel-cachyos-addons
-    - scx-scheds
-    - scx-tools 
-    - scx-manager
+  - type: dnf
+    repos:
+      - xariann/tools
+      - bieszczaders/kernel-cachyos-addons
+    install:
+      packages:
+        - fish
+        - firewall-config
+        - game-devices-udev
+        - scx-scheds
+        - scx-tools
+        - scx-manager
