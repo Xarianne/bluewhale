@@ -2,8 +2,9 @@
 modules:
   - type: dnf
     repos:
-      - xariann/tools
-      - bieszczaders/kernel-cachyos-addons
+      cope: 
+        - xariann/tools
+        - bieszczaders/kernel-cachyos-addons
     install:
       packages:
         - chezmoi
