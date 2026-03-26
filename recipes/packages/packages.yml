@@ -3,7 +3,7 @@ modules:
 - type: dnf
   repos:
     copr:
-    # - atim/starship
+    - atim/starship
     # - ilyaz/LACT
     - xariann/tools
     - bieszczaders/kernel-cachyos-addons
@@ -18,7 +18,6 @@ modules:
     - firewall-config
     - fish
     - gamescope
-    # - ghostty
     - goverlay
     - gum
     - just
@@ -37,4 +36,4 @@ modules:
     # kernel-cachyos-addons
     - scx-scheds
     - scx-tools 
-    - scx-manager 
+    - scx-manager
