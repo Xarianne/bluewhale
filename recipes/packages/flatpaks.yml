@@ -8,6 +8,7 @@ modules:
     install:
     # Browsers & Communication
     - dev.vencord.Vesktop
+    - org.mozilla.firefox
     
     # Multimedia
     - org.jellyfin.JellyfinDesktop
