@@ -2,7 +2,7 @@
 modules:
   - type: dnf
     repos:
-      cope: 
+      copr: 
         - xariann/tools
         - bieszczaders/kernel-cachyos-addons
     install:
