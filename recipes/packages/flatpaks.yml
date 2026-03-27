@@ -26,6 +26,7 @@ modules:
     # Development
     - com.visualstudio.code
     - io.podman_desktop.PodmanDesktop
+    - md.obsidian.Obsidian
 
     # System Tools
     - com.github.tchx84.Flatseal
@@ -43,5 +44,4 @@ modules:
 
     # Content Creation
     - com.obsproject.Studio
-    - md.obsidian.Obsidian
 
