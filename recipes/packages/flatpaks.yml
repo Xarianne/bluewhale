@@ -11,10 +11,6 @@ modules:
     - org.mozilla.firefox
 
     # Gaming
-    - com.valvesoftware.Steam
-    - io.github.benjamimgois.goverlay
-    - org.freedesktop.Platform.VulkanLayer.MangoHud
-    - org.freedesktop.Platform.VulkanLayer.vkBasalt
     - com.vysp3r.ProtonPlus
     - io.github.Faugus.faugus-launcher
     
