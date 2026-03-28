@@ -3,14 +3,21 @@ modules:
   - type: dnf
     repos:
       copr: 
-        - xariann/tools
+        # When using Ublue base my tool aren't needed
+        # - xariann/tools
         - bieszczaders/kernel-cachyos-addons
     install:
       packages:
+        # gaming
+        - steam
+        - goverlay
+        - mangohud
+        - vkbasalt
+        # other
         - chezmoi
         - fish
         - firewall-config
-        - game-devices-udev
+        # - game-devices-udev
         - scx-scheds
         - scx-tools
         - scx-manager
