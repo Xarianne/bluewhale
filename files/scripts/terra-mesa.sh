@@ -1,7 +1,7 @@
 #!/usr/bin/bash
 set -eoux pipefail
 
-# 1. Enable Terra repos (Refresh metadata to ensure we see the latest 43/Rawhide builds)
+# 1. Enable Terra repos (Refresh metadata to ensure we see the latest builds)
 dnf5 install -y --refresh --nogpgcheck --repofrompath "terra,https://repos.fyralabs.com/terra$(rpm -E %fedora)" \
   terra-release \
   terra-release-extras \
