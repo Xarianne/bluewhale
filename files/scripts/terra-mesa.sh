@@ -1,17 +1,31 @@
 #!/usr/bin/bash
 set -eoux pipefail
 
-# 1. Enable Terra repos (Refresh metadata to ensure we see the latest builds)
+# 1. Enable Terra Repos (Mesa & Multimedia are key for your RX 9070)
 dnf5 install -y --refresh --nogpgcheck --repofrompath "terra,https://repos.fyralabs.com/terra$(rpm -E %fedora)" \
   terra-release \
-  terra-release-extras \
   terra-release-mesa \
   terra-release-multimedia
 
-echo "Upgrading Mesa stack..."
-dnf5 upgrade -y --allowerasing \
-  mesa* \
-  libgbm \
-  ffmpeg \
-  gstreamer1-plugins-bad \
-  gstreamer1-plugins-ugly
+# 2. Mirroring uBlue Overrides (Adjusted for Terra 44 Names)
+# We remove the '-freeworld' suffixes and target the base names
+OVERRIDES=(
+    "mesa-va-drivers"
+    "mesa-vulkan-drivers"
+    "mesa-dri-drivers"
+    "mesa-libgbm"
+    "mesa-libEGL"
+    "mesa-libGL"
+    "ffmpeg"
+    "gstreamer1-plugins-bad"
+    "gstreamer1-plugins-ugly"
+    "gstreamer1-vaapi"
+    "gstreamer1-plugin-libav"
+)
+
+echo "Performing uBlue-style override with Terra packages..."
+
+dnf5 install -y --allowerasing --skip-unavailable "${OVERRIDES[@]}"
+
+# 3. Cleanup
+dnf5 clean all
