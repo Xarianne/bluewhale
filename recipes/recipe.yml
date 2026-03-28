@@ -21,7 +21,7 @@ modules:
   # Use either negativo or terra-mesa if you are using terra-extras-multimedia
   - from-file: packages/packages.yml
   - from-file: packages/flatpaks.yml
-  - from-file: packages/terra-mesa.yml
+  - from-file: modules/terra-mesa.yml
 
   - type: systemd
     system:
