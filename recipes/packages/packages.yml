@@ -17,6 +17,8 @@ modules:
         - chezmoi
         - fish
         - game-devices-udev
+        - just
+        - gum
         - scx-scheds
         - scx-tools
         - scx-manager
