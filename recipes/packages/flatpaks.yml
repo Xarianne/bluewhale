@@ -29,6 +29,7 @@ modules:
     - io.github.flattool.Warehouse
     - org.gnome.Logs
     - it.mijorus.gearlever
+    - org.gnome.World.PikaBackup
 
     # Utilities
     - io.github.tobagin.keysmith
@@ -36,7 +37,6 @@ modules:
     - com.cassidyjames.butler
     - io.github.fabrialberio.pinapp
     - com.ranfdev.DistroShelf
-    - io.github.ilya_zlobintsev.LACT
 
     # Content Creation
     - com.obsproject.Studio
