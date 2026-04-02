@@ -13,6 +13,7 @@ modules:
         - goverlay
         - mangohud
         - vkbasalt
+        - input-remapper
         # other
         - chezmoi
         - fish
