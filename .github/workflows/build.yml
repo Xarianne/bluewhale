@@ -31,19 +31,11 @@ jobs:
     steps:
       # the build is fully handled by the reusable github action
       - name: Build Custom Image
-        # FIXED: explicitly tell Forgejo to pull this action from github
-        uses: https://github.com/blue-build/github-action@v1.11
+        uses: blue-build/github-action@v1.11
         with:
           recipe: ${{ matrix.recipe }}
-
-          # Push to the local registry we created in docker-compose.
-          # host.containers.internal is the Podman way to access the host's localhost.
-          registry: host.containers.internal:5000
-
-          # Commented out as they aren't needed for a local, anonymous registry
-          # cosign_private_key: ${{ secrets.SIGNING_SECRET }}
-          # registry_token: ${{ github.token }}
-
+          cosign_private_key: ${{ secrets.SIGNING_SECRET }}
+          registry_token: ${{ github.token }}
           pr_event_number: ${{ github.event.number }}
 
           # enabled by default, disable if your image is small and you want faster builds
