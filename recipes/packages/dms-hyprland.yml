@@ -1,0 +1,24 @@
+# yaml-language-server: $schema=https://schema.blue-build.org/recipe-v1.json
+#
+# ----------------------------------------------------------------
+#
+# Don't forget to run the dankinstall script in a distrobox to harvest dotfile updates
+# To have full control the distrobox can be set up with its own home folder
+# which can then be copied into the actual home folder, so changes can be viewed before applying them
+# Link to the install script: https://danklinux.com/docs/getting-started
+modules:
+- type: dnf
+  repos:
+    copr:
+    - avengemedia/danklinux
+    - avengemedia/dms
+    - sdegler/hyprland
+  install:
+    packages:
+    - dgop
+    - dms
+    - golang-bin
+    - hyprland
+    - matugen
+    - nautilus
+    - quickshell

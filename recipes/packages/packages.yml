@@ -1,0 +1,29 @@
+# yaml-language-server: $schema=https://schema.blue-build.org/recipe-v1.json
+modules:
+  - type: dnf
+    repos:
+      copr:
+        - bieszczaders/kernel-cachyos-addons
+    install:
+      packages:
+        # gaming
+        - steam
+        - goverlay
+        - mangohud
+        - vkbasalt
+        - input-remapper
+        # other
+        - chezmoi
+        - fish
+        - just
+        - gum
+        - scx-scheds
+        - scx-tools
+        - scx-manager
+        - python3-pip        # Provides pip
+        - podman-compose     # The tool you need for your Forgejo stack
+
+    remove:
+      packages:
+        - firefox
+        - firefox-langpacks

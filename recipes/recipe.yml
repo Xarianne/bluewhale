@@ -1,0 +1,37 @@
+---
+# yaml-language-server: $schema=https://schema.blue-build.org/recipe-v1.json
+# image will be published to ghcr.io/<user>/<name>
+name: bluewhale
+# description will be included in the image's metadata
+description: This is my personal OS image.
+
+# the base image to build on top of (FROM) and the version tag to use
+base-image: quay.io/fedora/fedora-kinoite
+image-version: 43 # latest is also supported if you want new updates ASAP
+
+# module configuration, executed in order
+# you can include multiple instances of the same module
+modules:
+  - type: files
+    files:
+      - source: system
+        destination: / # copies files/system/* (* means everything inside it) into your image's root folder /
+
+  - type: script
+    scripts:
+      - terra-mesa.sh # Have to run this before installing any package
+
+  # Split build logic into smaller files to keep this readable.
+  # Use either negativo or terra-mesa if you are using terra-extras-multimedia
+  - from-file: packages/packages.yml
+  - from-file: packages/ai.yml
+  - from-file: modules/kargs.yml
+
+  - type: systemd
+    system:
+      enabled:
+        - rpm-ostreed-automatic.timer
+
+  - type: signing # this sets up the proper policy & signing files for signed images to work fully
+
+
