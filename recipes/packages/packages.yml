@@ -4,6 +4,7 @@ modules:
     repos:
       copr:
         - bieszczaders/kernel-cachyos-addons
+        - xariann/tools
     install:
       packages:
         # gaming
@@ -12,16 +13,17 @@ modules:
         - mangohud
         - vkbasalt
         - input-remapper
-        # other
-        - chezmoi
+        # Utilities
         - fish
         - just
         - gum
+        - podman-compose
+        # From xariann/tools
+        - game-devices-udev
+        # From bieszczaders/kernel-cachyos-addons
         - scx-scheds
         - scx-tools
         - scx-manager
-        - python3-pip        # Provides pip
-        - podman-compose     # The tool you need for your Forgejo stack
 
     remove:
       packages:
