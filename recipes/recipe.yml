@@ -19,7 +19,7 @@ modules:
 
   - type: script
     scripts:
-      - terra-mesa.sh # Have to run this before installing any package
+      - negativo17-codecs.sh # Have to run this before installing any package
 
   # Split build logic into smaller files to keep this readable.
   # Use either negativo or terra-mesa if you are using terra-extras-multimedia
