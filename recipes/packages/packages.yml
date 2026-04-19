@@ -29,3 +29,4 @@ modules:
       packages:
         - firefox
         - firefox-langpacks
+        - fedora-flathub-remote
