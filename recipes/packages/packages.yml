@@ -4,7 +4,7 @@ modules:
     repos:
       copr:
         - bieszczaders/kernel-cachyos-addons
-        - xariann/tools
+        # - xariann/tools # Not needed with Ublue base
     install:
       packages:
         # gaming
@@ -17,9 +17,10 @@ modules:
         - fish
         - just
         - gum
-        - podman-compose
+        - docker
+        - docker-compose
         # From xariann/tools
-        - game-devices-udev
+        # - game-devices-udev
         # From bieszczaders/kernel-cachyos-addons
         - scx-scheds
         - scx-tools
