@@ -4,6 +4,8 @@ modules:
     repos:
       copr:
         - bieszczaders/kernel-cachyos-addons
+        - deltacopy/darkly
+        - infinality/kwin-effects-better-blur-dx
         # - xariann/tools # Not needed with Ublue base
     install:
       packages:
@@ -19,12 +21,16 @@ modules:
         - gum
         - docker
         - docker-compose
-        # From xariann/tools
-        # - game-devices-udev
         # From bieszczaders/kernel-cachyos-addons
         - scx-scheds
         - scx-tools
         - scx-manager
+        # From deltacopy/darkly
+        - darkly
+        # From infinality/kwin-effects-better-blur-dx
+        - kwin-effects-better-blur-dx
+        # From xariann/tools
+        # - game-devices-udev
 
     remove:
       packages:
