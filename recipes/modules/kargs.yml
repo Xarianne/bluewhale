@@ -3,4 +3,5 @@
 type: kargs
 arch: x86_64  # only inject kernel arguments to these specific OS architectures
 kargs:
-  - amdgpu.ppfeaturemask=0xffffffff
+  - amdgpu.ppfeaturemask=0xffffffff # AMD overclocking
+  - module_blacklist=rxrpc,esp4,esp6 # Dirty Frag mitigation
