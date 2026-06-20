@@ -3,11 +3,6 @@ modules:
   - type: dnf
     install:
       packages:
-        - rocm-hip
-        - rocm-opencl
-        - rocblas
-        - hipblas
-        - miopen
         - rocm-smi
         - rocminfo
-        - nodejs
+        - nodejs # Lets LM Studio run MCP servers
