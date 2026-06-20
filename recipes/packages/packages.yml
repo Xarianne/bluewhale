@@ -2,11 +2,12 @@
 modules:
   - type: dnf
     repos:
+      cleanup: true # clean up added repos after module is done
       copr:
         - bieszczaders/kernel-cachyos-addons
         - deltacopy/darkly
         - infinality/kwin-effects-better-blur-dx
-        # - xariann/tools # Not needed with Ublue base
+        # - xariann/tools # My personal COPR, not needed with Universal Blue base
     install:
       packages:
         # gaming
@@ -17,8 +18,8 @@ modules:
         - input-remapper
         # Utilities
         - fish
-        - just
-        - gum
+        - just # Should already be included with Ublue base, adding just in case
+        - gum # Should already be included with Ublue base, adding just in case
         - docker
         - docker-compose
         # From bieszczaders/kernel-cachyos-addons
@@ -34,6 +35,6 @@ modules:
 
     remove:
       packages:
-        - firefox
+        - firefox # Using Flatpak instead
         - firefox-langpacks
-        - fedora-flathub-remote
+        - fedora-flathub-remote # Using Flathub instead, might not be needed with Ublue base
