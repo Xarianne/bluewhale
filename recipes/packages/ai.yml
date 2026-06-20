@@ -5,4 +5,3 @@ modules:
       packages:
         - rocm-smi
         - rocminfo
-        - nodejs # Lets LM Studio run MCP servers
