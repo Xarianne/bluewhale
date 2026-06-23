@@ -15,12 +15,9 @@ modules:
     - io.github.Faugus.faugus-launcher
     
     # Multimedia
-    - org.jellyfin.JellyfinDesktop
-    - tv.kodi.Kodi
     - com.nextcloud.desktopclient.nextcloud
     
     # Development
-    - com.visualstudio.code
     - io.podman_desktop.PodmanDesktop
     - md.obsidian.Obsidian
 
