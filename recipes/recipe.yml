@@ -27,6 +27,9 @@ modules:
   - from-file: packages/ai.yml
   - from-file: modules/kargs.yml
 
+  - type: brew
+    nofile-limits: true # increase nofile limits
+
   - type: systemd
     system:
       enabled:
