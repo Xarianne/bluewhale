@@ -25,7 +25,7 @@ modules:
   # Use either negativo or terra-mesa if you are using terra-extras-multimedia
   - from-file: packages/packages.yml
   - from-file: packages/ai.yml
-  - from-file: modules/flatpaks.yml
+  - from-file: packages/flatpaks.yml
 
   - type: brew
     nofile-limits: true # increase nofile limits
