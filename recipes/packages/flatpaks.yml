@@ -34,6 +34,7 @@ modules:
     - com.cassidyjames.butler
     - io.github.fabrialberio.pinapp
     - com.ranfdev.DistroShelf
+    - run com.jeffser.Alpaca
 
     # Content Creation
     - com.obsproject.Studio
