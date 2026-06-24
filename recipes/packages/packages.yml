@@ -17,6 +17,8 @@ modules:
         - vkbasalt
         - input-remapper
         # Utilities
+        - fuse
+        - fuse-libs
         - fish
         - just # Should already be included with Ublue base, adding just in case
         - gum # Should already be included with Ublue base, adding just in case
