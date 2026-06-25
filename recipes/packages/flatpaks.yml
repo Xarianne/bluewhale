@@ -7,7 +7,6 @@ modules:
     # If no repo information is specified, Flathub will be used by default
     install:
     # Browsers & Communication
-    - dev.vencord.Vesktop
     - org.mozilla.firefox
 
     # Gaming
@@ -16,10 +15,6 @@ modules:
     
     # Multimedia
     - com.nextcloud.desktopclient.nextcloud
-    
-    # Development
-    - io.podman_desktop.PodmanDesktop
-    - md.obsidian.Obsidian
 
     # System Tools
     - com.github.tchx84.Flatseal
@@ -31,11 +26,6 @@ modules:
     # Utilities
     - io.github.tobagin.keysmith
     - org.localsend.localsend_app
-    - com.cassidyjames.butler
     - io.github.fabrialberio.pinapp
     - com.ranfdev.DistroShelf
-    - com.jeffser.Alpaca
-
-    # Content Creation
-    - com.obsproject.Studio
 
