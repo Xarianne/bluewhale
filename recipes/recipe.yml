@@ -26,8 +26,8 @@ modules:
   - type: brew
     nofile-limits: true # increase nofile limits
 
-  # - type: systemd
-    # system:
+  - type: systemd
+    system:
       # enabled:
         # - rpm-ostreed-automatic.timer
     user:
