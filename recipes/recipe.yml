@@ -26,10 +26,10 @@ modules:
   - type: brew
     nofile-limits: true # increase nofile limits
 
-  - type: systemd
-    system:
-      enabled:
-        - rpm-ostreed-automatic.timer
+  # - type: systemd
+    # system:
+      # enabled:
+        # - rpm-ostreed-automatic.timer
     user:
       masked:
         - app-org.kde.xwaylandvideobridge@autostart.service
