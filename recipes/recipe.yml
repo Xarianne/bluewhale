@@ -27,7 +27,7 @@ modules:
     nofile-limits: true # increase nofile limits
 
   - type: systemd
-    system:
+    # system:
       # enabled:
         # - rpm-ostreed-automatic.timer
     user:
