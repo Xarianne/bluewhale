@@ -23,6 +23,10 @@ modules:
   - from-file: packages/flatpaks.yml
   - from-file: modules/kargs.yml
 
+  - type: script
+    scripts:
+      - install-goose.sh
+
   - type: brew
     nofile-limits: true # increase nofile limits
 
