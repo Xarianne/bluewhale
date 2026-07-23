@@ -11,8 +11,3 @@ dnf5 install -y \
     scx-tools \
     scx-manager
 dnf5 -y copr disable bieszczaders/kernel-cachyos-addons
-
-dnf5 -y copr enable deltacopy/darkly
-dnf5 install -y \
-    darkly
-dnf5 -y copr disable deltacopy/darkly
