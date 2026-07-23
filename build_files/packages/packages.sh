@@ -4,4 +4,6 @@ set -ouex pipefail
 
 dnf5 install -y \
     input-remapper \
-    fish
+    fish \
+    steam \
+    goverlay
