@@ -12,6 +12,11 @@ dnf5 install -y \
     scx-manager
 dnf5 -y copr disable bieszczaders/kernel-cachyos-addons
 
+dnf5 -y copr enable deltacopy/darkly
+dnf5 install -y \
+    darkly
+dnf5 -y copr disable deltacopy/darkly
+
 dnf5 -y copr enable infinality/kwin-effects-better-blur-dx
 dnf5 install -y \
     kwin-effects-better-blur-dx
