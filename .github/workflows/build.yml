@@ -6,7 +6,7 @@ on:
       - main
     paths-ignore:
       - '**/README.md'
-      - '**/Docs/'
+      - '**/Docs/**'
   schedule:
     - cron: '05 10 * * *'  # 10:05am UTC everyday
   push:
@@ -14,7 +14,7 @@ on:
       - main
     paths-ignore:
       - '**/README.md'
-      - '**/Docs/'
+      - '**/Docs/**'
   workflow_dispatch:
 
 env:
