@@ -15,5 +15,4 @@ source "${SCRIPT_DIR}/packages/copr.sh"
 source "${SCRIPT_DIR}/packages/packages.sh"
 source "${SCRIPT_DIR}/modules/kargs.sh"
 source "${SCRIPT_DIR}/modules/systemd.sh"
-source "${SCRIPT_DIR}/packages/cosmic.sh"
 
