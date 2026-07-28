@@ -9,4 +9,5 @@ dnf5 install -y \
     fuse-libs \
     goverlay \
     input-remapper \
-    steam
+    steam \
+    shellcheck # Linter for scripts used by this image
