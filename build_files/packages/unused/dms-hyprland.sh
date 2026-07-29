@@ -2,15 +2,26 @@
 
 set -ouex pipefail
 
-dnf5 -y copr enable lionheartp/Hyprland
-dnf5 install -y \
-    hyprland
-dnf5 -y copr disable lionheartp/Hyprland
+echo "::group:: Install Hyprland from lionheartp/Hyprland"
 
-dnf5 -y copr enable avengemedia/dms
-dnf5 install -y \
+copr_install_isolated lionheartp/Hyprland \
+    hyprland
+
+echo "::endgroup::"
+
+echo "::group:: Install dms from avengemedia/dms"
+
+copr_install_isolated avengemedia/dms \
     dms
-dnf5 -y copr disable avengemedia/dms
+
+echo "::endgroup::"
+
+echo "::group:: Install additional packages"
 
 dnf5 install -y \
     golang-bin
+
+echo "Additional packages installed"
+echo "::endgroup::"
+
+echo "dms-hyprland installation complete"

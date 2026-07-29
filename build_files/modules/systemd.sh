@@ -2,5 +2,12 @@
 
 set -ouex pipefail
 
+echo "::group:: Configure systemd services"
+
 # Masked globally since there's no logged-in user session during the build.
 systemctl --global mask app-org.kde.xwaylandvideobridge@autostart.service
+
+echo "systemd services configured"
+echo "::endgroup::"
+
+echo "systemd configuration complete"

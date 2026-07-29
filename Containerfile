@@ -36,6 +36,17 @@ RUN --mount=type=bind,from=ctx,source=/,target=/ctx \
     --mount=type=tmpfs,dst=/tmp \
     /ctx/build.sh
 
+### CLEANUP
+## Run the final cleanup stage after build.sh to revert dnf5 defaults, ensure
+## the Fedora Flatpak repo service is masked, and wipe stray build artifacts
+## from /var, /tmp, /boot, and /run. Mirrors the @ublue-os/bluefin pattern.
+
+RUN --mount=type=bind,from=ctx,source=/,target=/ctx \
+    --mount=type=cache,dst=/var/cache \
+    --mount=type=cache,dst=/var/log \
+    --mount=type=tmpfs,dst=/tmp \
+    /ctx/clean-stage.sh
+
 ### LINTING
 ## Verify final image and contents are correct.
 RUN bootc container lint
