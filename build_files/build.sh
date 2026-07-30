@@ -17,4 +17,3 @@ source "${SCRIPT_DIR}/packages/packages.sh"
 source "${SCRIPT_DIR}/modules/kargs.sh"
 source "${SCRIPT_DIR}/modules/plasma-login.sh"
 source "${SCRIPT_DIR}/modules/systemd.sh"
-

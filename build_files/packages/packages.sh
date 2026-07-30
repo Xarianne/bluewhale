@@ -7,11 +7,11 @@ set -ouex pipefail
 echo "::group:: Install packages"
 
 dnf5 install -y \
-    fish \
-    fuse-libs \
-    goverlay \
-    input-remapper \
-    steam
+	fish \
+	fuse-libs \
+	goverlay \
+	input-remapper \
+	steam
 
 echo "Packages installed"
 echo "::endgroup::"
