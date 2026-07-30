@@ -1,0 +1,4 @@
+# Masked: prevent input-remapper udev autoload from grabbing evdev devices
+# at boot, which can interfere with the Plasma Login greeter keyboard input.
+# input-remapper can still be started manually via the GUI when needed.
+# Overrides /usr/lib/udev/rules.d/99-input-remapper.rules.
