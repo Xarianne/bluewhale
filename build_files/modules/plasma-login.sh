@@ -24,5 +24,14 @@ else
 	echo "Locale already set in ${SYSCONFIG_FILE}, skipping"
 fi
 
+# Fix the actual race condition from RH #2483625: the greeter's QML singletons
+# (Authenticator, UserModel, SessionModel, etc.) query AccountsService over
+# D-Bus. If plasmalogin starts before accounts-daemon is ready, those singletons
+# fail to initialize, the login screen is black/empty, and the greeter may crash.
+# A drop-in in /etc/systemd/system/plasmalogin.service.d orders the service after
+# accounts-daemon using Wants (not Requires), so a failing accounts-daemon does
+# not prevent the greeter from starting; system_files/ already copies it to /.
+echo "Plasma Login Manager systemd drop-in is provided via system_files/"
+
 echo "Plasma Login Manager configured"
 echo "::endgroup::"
