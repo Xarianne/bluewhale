@@ -31,7 +31,6 @@ jobs:
           git remote add upstream https://github.com/ublue-os/image-template.git
           git fetch --no-tags upstream main
 
-          git switch -c automation/upstream-template-sync
           backup_dir=$(mktemp -d)
           git archive HEAD | tar -x -C "${backup_dir}"
 
