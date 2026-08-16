@@ -37,6 +37,10 @@ jobs:
           # Copy the upstream snapshot without requiring shared Git history.
           git checkout FETCH_HEAD -- .
 
+          # Do not create noise from upstream placeholder files that are not
+          # needed once this repository has its own system files.
+          find . -type f -name .gitkeep -delete
+
           # Restore files that are intentionally owned by Bluewhale rather
           # than inherited wholesale from the template.
           preserve_paths=(
