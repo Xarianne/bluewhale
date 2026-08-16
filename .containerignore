@@ -1,7 +1,9 @@
-cosign.key
+.git/
+.github/
+.claude/
 output/
 _build*/
 previous.manifest.json
 changelog.md
 output.env
-.claude
+cosign.key

@@ -12,6 +12,9 @@ export bib_image := env_var("BIB_IMAGE")
 alias build-vm := build-qcow2
 alias rebuild-vm := rebuild-qcow2
 alias run-vm := run-vm-qcow2
+alias build-iso := build-iso-kde
+alias rebuild-iso := rebuild-iso-kde
+alias run-vm-iso := run-vm-iso-kde
 
 [private]
 default:
@@ -252,27 +255,49 @@ _rootful_load_image $target_image=image_name $tag=default_tag:
     #!/usr/bin/bash
     set -eoux pipefail
 
-    # Check if already running as root or under sudo
-    if [[ -n "${SUDO_USER:-}" || "${UID}" -eq "0" ]]; then
-        echo "Already root or running under sudo, no need to load image from user podman."
+    # Determine the source user for podman scp
+    if [[ -n "${SUDO_USER:-}" ]]; then
+        SRC_USER="${SUDO_USER}"
+        SRC_UID=$(id -u "${SUDO_USER}")
+    else
+        SRC_USER="${USER}"
+        SRC_UID="${UID}"
+    fi
+
+    # If running as root without sudo, we can't copy from any user — exit
+    if [[ -z "${SUDO_USER:-}" && "${UID}" -eq "0" ]]; then
+        echo "Running as root without sudo, nothing to copy."
         exit 0
     fi
 
-    # Try to resolve the image tag using podman inspect
+    # When running under sudo, check if image is already in root podman
+    if [[ -n "${SUDO_USER:-}" && "${UID}" -eq "0" ]]; then
+        set +e
+        podman inspect -t image "${target_image}:${tag}" >/dev/null 2>&1
+        ROOT_RC=$?
+        set -e
+        if [[ $ROOT_RC -eq 0 ]]; then
+            echo "Image already exists in root podman storage."
+            exit 0
+        fi
+    fi
+
+    # Try to resolve the image tag in the source user's podman
     set +e
-    resolved_tag=$(podman inspect -t image "${target_image}:${tag}" | jq -r '.[].RepoTags.[0]')
+    resolved_tag=$(sudo -u "${SRC_USER}" podman inspect -t image "${target_image}:${tag}" | jq -r '.[].RepoTags.[0]')
     return_code=$?
     set -e
 
-    USER_IMG_ID=$(podman images --filter reference="${target_image}:${tag}" --format "'{{ '{{.ID}}' }}'")
+    USER_IMG_ID=$(sudo -u "${SRC_USER}" podman images --filter reference="${target_image}:${tag}" --format "'{{ '{{.ID}}' }}'")
 
     if [[ $return_code -eq 0 ]]; then
-        # If the image is found, load it into rootful podman
+        # If the image is found in user podman, load it into rootful podman
         ID=$(just sudoif podman images --filter reference="${target_image}:${tag}" --format "'{{ '{{.ID}}' }}'")
         if [[ "$ID" != "$USER_IMG_ID" ]]; then
             # If the image ID is not found or different from user, copy the image from user podman to root podman
             COPYTMP=$(mktemp -p "${PWD}" -d -t _build_podman_scp.XXXXXXXXXX)
-            just sudoif TMPDIR=${COPYTMP} podman image scp ${UID}@localhost::"${target_image}:${tag}" root@localhost::"${target_image}:${tag}"
+            chmod 777 "${COPYTMP}"
+            just sudoif env TMPDIR="${COPYTMP}" podman image scp ${SRC_UID}@localhost::"${target_image}:${tag}" root@localhost::"${target_image}:${tag}"
             rm -rf "${COPYTMP}"
         fi
     else
@@ -336,9 +361,13 @@ build-qcow2 $target_image=("localhost/" + image_name) $tag=default_tag: && (_bui
 [group('Build Virtal Machine Image')]
 build-raw $target_image=("localhost/" + image_name) $tag=default_tag: && (_build-bib target_image tag "raw" "disk_config/disk.toml")
 
-# Build an ISO virtual machine image
+# Build a KDE ISO virtual machine image
 [group('Build Virtal Machine Image')]
-build-iso $target_image=("localhost/" + image_name) $tag=default_tag: && (_build-bib target_image tag "iso" "disk_config/iso.toml")
+build-iso-kde $target_image=("localhost/" + image_name) $tag=default_tag: && (_build-bib target_image tag "iso" "disk_config/iso-kde.toml")
+
+# Build a GNOME ISO virtual machine image
+[group('Build Virtal Machine Image')]
+build-iso-gnome $target_image=("localhost/" + image_name) $tag=default_tag: && (_build-bib target_image tag "iso" "disk_config/iso-gnome.toml")
 
 # Rebuild a QCOW2 virtual machine image
 [group('Build Virtal Machine Image')]
@@ -348,9 +377,13 @@ rebuild-qcow2 $target_image=("localhost/" + image_name) $tag=default_tag: && (_r
 [group('Build Virtal Machine Image')]
 rebuild-raw $target_image=("localhost/" + image_name) $tag=default_tag: && (_rebuild-bib target_image tag "raw" "disk_config/disk.toml")
 
-# Rebuild an ISO virtual machine image
+# Rebuild a KDE ISO virtual machine image
 [group('Build Virtal Machine Image')]
-rebuild-iso $target_image=("localhost/" + image_name) $tag=default_tag: && (_rebuild-bib target_image tag "iso" "disk_config/iso.toml")
+rebuild-iso-kde $target_image=("localhost/" + image_name) $tag=default_tag: && (_rebuild-bib target_image tag "iso" "disk_config/iso-kde.toml")
+
+# Rebuild a GNOME ISO virtual machine image
+[group('Build Virtal Machine Image')]
+rebuild-iso-gnome $target_image=("localhost/" + image_name) $tag=default_tag: && (_rebuild-bib target_image tag "iso" "disk_config/iso-gnome.toml")
 
 # Run a virtual machine with the specified image type and configuration
 _run-vm $target_image $tag $type $config:
@@ -402,9 +435,13 @@ run-vm-qcow2 $target_image=("localhost/" + image_name) $tag=default_tag: && (_ru
 [group('Run Virtal Machine')]
 run-vm-raw $target_image=("localhost/" + image_name) $tag=default_tag: && (_run-vm target_image tag "raw" "disk_config/disk.toml")
 
-# Run a virtual machine from an ISO
+# Run a virtual machine from a KDE ISO
 [group('Run Virtal Machine')]
-run-vm-iso $target_image=("localhost/" + image_name) $tag=default_tag: && (_run-vm target_image tag "iso" "disk_config/iso.toml")
+run-vm-iso-kde $target_image=("localhost/" + image_name) $tag=default_tag: && (_run-vm target_image tag "iso" "disk_config/iso-kde.toml")
+
+# Run a virtual machine from a GNOME ISO
+[group('Run Virtal Machine')]
+run-vm-iso-gnome $target_image=("localhost/" + image_name) $tag=default_tag: && (_run-vm target_image tag "iso" "disk_config/iso-gnome.toml")
 
 # Run a virtual machine using systemd-vmspawn
 [group('Run Virtal Machine')]
