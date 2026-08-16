@@ -1,0 +1,53 @@
+---
+name: Sync upstream image template
+
+on:
+  schedule:
+    - cron: '17 08 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  sync:
+    name: Open upstream sync PR
+    runs-on: ubuntu-24.04
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+
+      - name: Merge upstream template
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git remote add upstream https://github.com/ublue-os/image-template.git
+          git fetch --no-tags upstream main
+
+          git switch -c automation/upstream-template-sync
+          if ! git merge --no-edit --no-ff FETCH_HEAD; then
+            git merge --abort || true
+            echo "Upstream changes conflict with local customizations. No PR was opened."
+            exit 1
+          fi
+
+      - name: Create or update pull request
+        uses: peter-evans/create-pull-request@5f6978faf089d4d20b00c7766989d076bb2fc7f1 # v8.1.1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          branch: automation/upstream-template-sync
+          delete-branch: true
+          title: "Sync upstream image template"
+          commit-message: "Sync upstream image template"
+          body: |
+            This PR merges changes from `ublue-os/image-template` into Bluewhale.
+
+            Review all changes carefully because Bluewhale has custom package,
+            branding, and ISO configuration changes.

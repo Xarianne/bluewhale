@@ -7,6 +7,7 @@ on:
     paths-ignore:
       - '**/README.md'
       - '**/Docs/**'
+      - '.github/workflows/upstream-sync.yml'
   schedule:
     - cron: '05 10 * * *'  # 10:05am UTC everyday
   push:
@@ -15,6 +16,7 @@ on:
     paths-ignore:
       - '**/README.md'
       - '**/Docs/**'
+      - '.github/workflows/upstream-sync.yml'
   workflow_dispatch:
 
 env:
