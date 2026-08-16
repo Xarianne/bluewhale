@@ -31,49 +31,14 @@ jobs:
           git remote add upstream https://github.com/ublue-os/image-template.git
           git fetch --no-tags upstream main
 
-          backup_dir=$(mktemp -d)
-          git archive HEAD | tar -x -C "${backup_dir}"
+          # Only compare workflow files. Bluewhale owns its Containerfile,
+          # Justfile, package scripts, system files, and ISO configuration.
+          while IFS= read -r path; do
+            [[ "${path}" == ".github/workflows/upstream-sync.yml" ]] && continue
+            git checkout FETCH_HEAD -- "${path}"
+          done < <(git ls-tree -r --name-only FETCH_HEAD -- .github/workflows)
 
-          # Copy the upstream snapshot without requiring shared Git history.
-          git checkout FETCH_HEAD -- .
-
-          # Do not create noise from upstream placeholder files that are not
-          # needed once this repository has its own system files.
-          find . -type f -name .gitkeep -delete
-
-          # Restore files that are intentionally owned by Bluewhale rather
-          # than inherited wholesale from the template.
-          preserve_paths=(
-            "Containerfile"
-            "Justfile"
-            ".containerignore"
-            ".gitignore"
-            "README.md"
-            "LICENSE"
-            "artifacthub-repo.yml"
-            "cosign.pub"
-            "image-template.env"
-            "build_files"
-            "system_files"
-            "disk_config"
-            ".github/workflows/build.yml"
-            ".github/workflows/build-disk.yml"
-            ".github/workflows/upstream-sync.yml"
-            ".github/renovate.json5"
-            ".github/dependabot.yml"
-          )
-
-          for path in "${preserve_paths[@]}"; do
-            if [[ -d "${backup_dir}/${path}" ]]; then
-              mkdir -p "${GITHUB_WORKSPACE}/${path}"
-              cp -a "${backup_dir}/${path}/." "${GITHUB_WORKSPACE}/${path}/"
-            elif [[ -f "${backup_dir}/${path}" ]]; then
-              mkdir -p "${GITHUB_WORKSPACE}/$(dirname "${path}")"
-              cp -a "${backup_dir}/${path}" "${GITHUB_WORKSPACE}/${path}"
-            fi
-          done
-
-          git add --all
+          git add .github/workflows
           git diff --cached --quiet || git commit -m "Sync upstream image template"
 
       - name: Create or update pull request
@@ -85,8 +50,8 @@ jobs:
           title: "Sync upstream image template"
           commit-message: "Sync upstream image template"
           body: |
-            This PR syncs the current file snapshot from
-            `ublue-os/image-template` into Bluewhale.
+            This PR compares upstream workflow changes from
+            `ublue-os/image-template` with Bluewhale.
 
-            Bluewhale-owned package, branding, workflow, and ISO files are
-            intentionally preserved. Review all other changes carefully.
+            Only files under `.github/workflows/` are considered. All image,
+            package, system, and ISO files remain owned by Bluewhale.
