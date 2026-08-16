@@ -21,7 +21,7 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Merge upstream template
+      - name: Sync upstream template files
         shell: bash
         run: |
           set -euo pipefail
@@ -32,11 +32,46 @@ jobs:
           git fetch --no-tags upstream main
 
           git switch -c automation/upstream-template-sync
-          if ! git merge --no-edit --no-ff FETCH_HEAD; then
-            git merge --abort || true
-            echo "Upstream changes conflict with local customizations. No PR was opened."
-            exit 1
-          fi
+          backup_dir=$(mktemp -d)
+          git archive HEAD | tar -x -C "${backup_dir}"
+
+          # Copy the upstream snapshot without requiring shared Git history.
+          git checkout FETCH_HEAD -- .
+
+          # Restore files that are intentionally owned by Bluewhale rather
+          # than inherited wholesale from the template.
+          preserve_paths=(
+            "Containerfile"
+            "Justfile"
+            ".containerignore"
+            ".gitignore"
+            "README.md"
+            "LICENSE"
+            "artifacthub-repo.yml"
+            "cosign.pub"
+            "image-template.env"
+            "build_files"
+            "system_files"
+            "disk_config"
+            ".github/workflows/build.yml"
+            ".github/workflows/build-disk.yml"
+            ".github/workflows/upstream-sync.yml"
+            ".github/renovate.json5"
+            ".github/dependabot.yml"
+          )
+
+          for path in "${preserve_paths[@]}"; do
+            if [[ -d "${backup_dir}/${path}" ]]; then
+              mkdir -p "${GITHUB_WORKSPACE}/${path}"
+              cp -a "${backup_dir}/${path}/." "${GITHUB_WORKSPACE}/${path}/"
+            elif [[ -f "${backup_dir}/${path}" ]]; then
+              mkdir -p "${GITHUB_WORKSPACE}/$(dirname "${path}")"
+              cp -a "${backup_dir}/${path}" "${GITHUB_WORKSPACE}/${path}"
+            fi
+          done
+
+          git add --all
+          git diff --cached --quiet || git commit -m "Sync upstream image template"
 
       - name: Create or update pull request
         uses: peter-evans/create-pull-request@5f6978faf089d4d20b00c7766989d076bb2fc7f1 # v8.1.1
@@ -47,7 +82,8 @@ jobs:
           title: "Sync upstream image template"
           commit-message: "Sync upstream image template"
           body: |
-            This PR merges changes from `ublue-os/image-template` into Bluewhale.
+            This PR syncs the current file snapshot from
+            `ublue-os/image-template` into Bluewhale.
 
-            Review all changes carefully because Bluewhale has custom package,
-            branding, and ISO configuration changes.
+            Bluewhale-owned package, branding, workflow, and ISO files are
+            intentionally preserved. Review all other changes carefully.
