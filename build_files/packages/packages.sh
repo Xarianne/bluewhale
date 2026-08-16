@@ -7,11 +7,15 @@ set -ouex pipefail
 echo "::group:: Install packages"
 
 dnf5 install -y \
+	eza \
+	fastfetch \
 	fish \
 	fuse-libs \
+	fzf \
 	goverlay \
 	input-remapper \
-	steam
+	steam \
+	zoxide
 
 echo "Packages installed"
 echo "::endgroup::"

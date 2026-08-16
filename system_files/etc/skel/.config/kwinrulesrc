@@ -1,0 +1,33 @@
+[0ffde34e-a3a0-48a5-9c8f-d124fea20a8d]
+Description=Ghostty
+opacityactive=95
+opacityactiverule=2
+opacityinactive=90
+opacityinactiverule=2
+wmclass=.ghostty-wrapped com.mitchellh.ghostty
+wmclasscomplete=true
+wmclassmatch=1
+
+[5dfdf78c-b3c1-421e-ade8-b1c54e909a86]
+Description=System Settings
+opacityactive=80
+opacityactiverule=2
+opacityinactive=80
+opacityinactiverule=2
+wmclass=systemsettings systemsettings
+wmclasscomplete=true
+wmclassmatch=1
+
+[8c37b483-bcc7-4833-9cec-cd47b29b4a83]
+Description=Settings for dolphin org.kde.dolphin
+opacityactive=80
+opacityactiverule=2
+opacityinactive=80
+opacityinactiverule=2
+wmclass=dolphin org.kde.dolphin
+wmclasscomplete=true
+wmclassmatch=1
+
+[General]
+count=3
+rules=8c37b483-bcc7-4833-9cec-cd47b29b4a83,0ffde34e-a3a0-48a5-9c8f-d124fea20a8d,5dfdf78c-b3c1-421e-ade8-b1c54e909a86

@@ -28,4 +28,13 @@ copr_install_isolated infinality/kwin-effects-better-blur-dx \
 
 echo "::endgroup::"
 
+echo "::endgroup::"
+
+echo "::group:: Install tools from my COPR"
+
+copr_install_isolated xariann/tools \
+	boot-windows
+
+echo "::endgroup::"
+
 echo "COPR package installation complete"

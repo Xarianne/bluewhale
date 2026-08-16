@@ -1,0 +1,10 @@
+[linux]
+# Use flakes for home-manager upgrade
+home_manager_arguments = ["--flake", "/home/xariann/.config/home-manager"]
+
+# Use bootc instead of rpm-ostree for image-based system upgrades
+bootc = true
+
+[misc]
+# Using flakes, don't need legacy nix-channel
+disable = ["nix", "toolbx", "containers", "gearlever", "antigravity", "claude_code"]
