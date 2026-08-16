@@ -22,6 +22,11 @@ rm -rf "${CLEAN_ROOT}/.gitkeep"
 find "${CLEAN_ROOT}/var"/* -maxdepth 0 -type d \! -name cache \! -name tmp -exec rm -fr {} \;
 find "${CLEAN_ROOT}/var/cache"/* -maxdepth 0 -type d \! -name libdnf5 \! -name rpm-ostree -exec rm -fr {} \;
 
+# Keep the runtime temp directory available for rpm-ostree, but do not ship
+# files left there by package installation or other build steps.
+mkdir -p "${CLEAN_ROOT}/var/tmp"
+find "${CLEAN_ROOT}/var/tmp" -mindepth 1 -maxdepth 1 -exec rm -fr {} +
+
 # Clear tmpfs-backed runtime directories without deleting the directories
 # themselves. Buildah may have bind mounts in these paths during RUN, so
 # replacing the mountpoint can fail with EBUSY.
