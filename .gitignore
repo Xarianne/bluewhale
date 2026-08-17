@@ -2,6 +2,7 @@ cosign.key
 output/
 _build*/
 *_rpm-ostree_*
+*_chunkah_*
 previous.manifest.json
 changelog.md
 output.env
