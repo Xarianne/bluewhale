@@ -11,11 +11,10 @@ cp -avf "/ctx/system_files"/. /
 
 SCRIPT_DIR="$(dirname "$0")"
 
-source "${SCRIPT_DIR}/copr-helpers.sh"
+source "${SCRIPT_DIR}/packages/packages.sh"
+source "${SCRIPT_DIR}/copr-helper.sh"
 source "${SCRIPT_DIR}/packages/copr.sh"
 source "${SCRIPT_DIR}/packages/opencode.sh"
-source "${SCRIPT_DIR}/packages/packages.sh"
 source "${SCRIPT_DIR}/modules/kargs.sh"
 source "${SCRIPT_DIR}/modules/os-release.sh"
-source "${SCRIPT_DIR}/modules/plasma-login.sh"
 source "${SCRIPT_DIR}/modules/systemd.sh"
