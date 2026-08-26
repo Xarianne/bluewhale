@@ -25,4 +25,5 @@ modules:
     - org.localsend.localsend_app
     - io.github.fabrialberio.pinapp
     - com.ranfdev.DistroShelf
+    - io.podman_desktop.PodmanDesktop
 
