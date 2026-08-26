@@ -42,7 +42,7 @@ modules:
         - app-input\x2dremapper\x2dautoload@autostart.service
 
   - type: kargs
-    arch: x86_64  # only inject kernel arguments to these specific OS architectures
+    arch: x86_64
     kargs:
         - amdgpu.ppfeaturemask=0xffffffff # AMD overclocking
 
