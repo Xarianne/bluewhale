@@ -8,8 +8,13 @@ modules:
         - goverlay
         - input-remapper
         # Everything else
+        - bat
+        - eza
+        - fastfetch
         - fuse-libs # Needed for some appimages, fuse already in image
         - fish
+        - fzf
+        - zoxide
 
     remove:
       packages:
