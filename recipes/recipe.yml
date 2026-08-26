@@ -17,6 +17,8 @@ modules:
       - source: system
         destination: / # copies files/system/* (* means everything inside it) into your image's root folder /
 
+  - type: justfiles
+
   # Split build logic into smaller files to keep this readable.
   # Use either negativo or terra-mesa if you are using terra-extras-multimedia
   - from-file: packages/packages.yml
