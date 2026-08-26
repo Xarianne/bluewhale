@@ -1,3 +1,3 @@
 function brewbundle
-    brew bundle --file ~/.config/metapac/Brewfile $argv
+    brew bundle --file ~/brewfile/Brewfile $argv
 end

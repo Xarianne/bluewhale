@@ -1,0 +1,13 @@
+[Unit]
+Description=Install image-shipped Homebrew bundle into the default user's home
+# Run after brew-setup so /home/linuxbrew/.linuxbrew/bin/brew exists.
+After=brew-setup.service
+ConditionPathExists=/usr/etc/skel/Brewfile
+
+[Service]
+Type=oneshot
+ExecStart=/usr/libexec/brew-bundle-apply.sh
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target
