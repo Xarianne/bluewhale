@@ -35,6 +35,7 @@ modules:
     system:
       enabled:
         - rpm-ostreed-automatic.timer
+        - fish-defaults.service
     user:
       masked:
         # input-remapper still works on demand via GUI or CLI; this only

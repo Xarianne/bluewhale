@@ -1,0 +1,13 @@
+[Unit]
+Description=Apply image-shipped fish defaults to the default user's home
+# Run after brew-setup so /home/linuxbrew exists when 00-brew.fish loads.
+After=brew-setup.service
+ConditionPathExists=/usr/etc/skel/.config/fish/config.fish
+
+[Service]
+Type=oneshot
+ExecStart=/usr/libexec/fish-defaults-apply.sh
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target
