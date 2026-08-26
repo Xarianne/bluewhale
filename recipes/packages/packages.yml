@@ -1,0 +1,16 @@
+# yaml-language-server: $schema=https://schema.blue-build.org/recipe-v1.json
+modules:
+  - type: dnf
+    install:
+      packages:
+        # Gaming
+        - steam
+        - goverlay
+        - input-remapper
+        # Everything else
+        - fuse-libs # Needed for some appimages, fuse already in image
+        - fish
+
+    remove:
+      packages:
+        - fedora-flathub-remote # Using Flathub instead, might not be needed with Ublue base

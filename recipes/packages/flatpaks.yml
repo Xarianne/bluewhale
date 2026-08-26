@@ -1,0 +1,28 @@
+# yaml-language-server: $schema=https://schema.blue-build.org/recipe-v1.json
+modules:
+- type: default-flatpaks
+  configurations:
+  - notify: false # Send notification after install/uninstall is finished (true/false)
+    scope: system
+    # If no repo information is specified, Flathub will be used by default
+    install:
+    # Gaming
+    - io.github.Faugus.faugus-launcher
+    - com.vysp3r.ProtonPlus
+    
+    # Multimedia
+    - com.nextcloud.desktopclient.nextcloud
+
+    # System Tools
+    - com.github.tchx84.Flatseal
+    - io.github.flattool.Warehouse
+    - org.gnome.Logs
+    - it.mijorus.gearlever
+    - org.gnome.World.PikaBackup
+
+    # Utilities
+    - io.github.tobagin.keysmith
+    - org.localsend.localsend_app
+    - io.github.fabrialberio.pinapp
+    - com.ranfdev.DistroShelf
+

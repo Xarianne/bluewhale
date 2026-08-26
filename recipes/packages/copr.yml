@@ -1,0 +1,14 @@
+# yaml-language-server: $schema=https://schema.blue-build.org/recipe-v1.json
+modules:
+  - type: dnf
+    repos:
+      cleanup: true # clean up added repos after module is done
+      copr:
+        - deltacopy/darkly
+        - xariann/tools
+    install:
+      packages:
+        # From deltacopy/darkly
+        - darkly
+        # From xariann/tools
+        - boot-windows
