@@ -9,9 +9,6 @@ modules:
     # Gaming
     - io.github.Faugus.faugus-launcher
     - com.vysp3r.ProtonPlus
-    
-    # Multimedia
-    - com.nextcloud.desktopclient.nextcloud
 
     # System Tools
     - com.github.tchx84.Flatseal
