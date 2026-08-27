@@ -47,7 +47,7 @@ Compact guidance for working on this BlueBuild image repository.
 - `files/system/etc/rpm-ostreed.conf` stages automatic updates (`AutomaticUpdatePolicy=stage`).
 - Kernel argument `amdgpu.ppfeaturemask=0xffffffff` is injected via `recipes/modules/kargs.yml` (x86_64 only).
 - COPR repos are cleaned up after the package install step (`cleanup: true`).
-- `recipes/packages/kwallet-fix.yml` masks the legacy `kwalletd6` D-Bus activation so only `ksecretd` runs. This works around a `kf6-kwallet` 6.29.0 regression where both daemons run concurrently and qtkeychain credentials don't persist across reboots (e.g. Nextcloud flatpak re-auths every boot). Upstream: https://invent.kde.org/frameworks/kwallet/-/work_items/11
+- `recipes/packages/kwallet-fix.yml` masks the legacy `kwalletd6` D-Bus activation so only `ksecretd` runs on the host. It also installs a script + systemd user service (`bluewhale-flatpak-overrides.service`) that applies a flatpak override removing `org.kde.kwalletd6` talk permission from the Nextcloud flatpak, so its sandboxed qtkeychain uses `libsecret` → host `ksecretd` instead of activating the runtime's own `kwalletd6`. This works around a `kf6-kwallet` 6.29.0 regression where credentials don't persist across reboots. Upstream: https://invent.kde.org/frameworks/kwallet/-/work_items/11
 
 ## Gotchas
 

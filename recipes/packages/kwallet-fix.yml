@@ -1,17 +1,29 @@
 # yaml-language-server: $schema=https://schema.blue-build.org/recipe-v1.json
-# Mask the legacy kwalletd6 D-Bus activation so only ksecretd runs.
+# Work around kf6-kwallet 6.29.0 dual-daemon issue where qtkeychain
+# credentials (e.g. Nextcloud's OAuth tokens) don't persist across reboots.
 #
 # kf6-kwallet 6.29.0 ships both ksecretd (Secret Service) and kwalletd6
-# (legacy KWallet API). When both are active, qtkeychain writes tokens via
-# one daemon and reads via the other, so credentials (e.g. Nextcloud's
-# OAuth tokens) don't persist across reboots.
+# (legacy KWallet API). qtkeychain prefers kwallet6 on Plasma, but the
+# flatpak sandbox bundles its own kwalletd6 (via org.kde.Platform runtime)
+# that can't be PAM-unlocked, so tokens written to it are lost on reboot.
 #
-# Masking the D-Bus session service file prevents kwalletd6 from
-# auto-activating. qtkeychain then falls through to libsecret, which
-# talks to ksecretd via org.freedesktop.secrets.
+# Two measures:
+# 1. Mask the host's kwalletd6 D-Bus activation so only ksecretd runs on
+#    the host. qtkeychain on host apps then falls through to libsecret.
+# 2. Install a flatpak override that removes org.kde.kwalletd6 talk
+#    permission from the Nextcloud flatpak. This prevents the sandbox
+#    from activating its own kwalletd6, so qtkeychain uses libsecret via
+#    the host's org.freedesktop.secrets (ksecretd, PAM-unlocked).
+#
+# The flatpak override must be applied at runtime (after flatpaks are
+# installed) because /var/lib/flatpak is not committed to the ostree.
+# A systemd user service handles this on first boot.
 #
 # Upstream issue: https://invent.kde.org/frameworks/kwallet/-/work_items/11
 modules:
   - type: script
     snippets:
       - "ln -sf /dev/null /usr/share/dbus-1/services/org.kde.kwalletd6.service"
+      - "mkdir -p /usr/libexec/bluewhale"
+      - "printf '#!/bin/sh\nset -eu\nmkdir -p /var/lib/flatpak/overrides\nprintf \"[Context]\\\\n[Session Bus Policy]\\\\norg.kde.kwalletd6=none\\\\n\" > /var/lib/flatpak/overrides/com.nextcloud.desktopclient.nextcloud\n' > /usr/libexec/bluewhale/apply-flatpak-overrides.sh"
+      - "chmod +x /usr/libexec/bluewhale/apply-flatpak-overrides.sh"
