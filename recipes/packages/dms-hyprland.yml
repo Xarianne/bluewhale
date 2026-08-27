@@ -14,6 +14,7 @@ modules:
   install:
     packages:
     - dgop
+    - dnf-plugins-core
     - dms
     - golang-bin
     - hyprland
