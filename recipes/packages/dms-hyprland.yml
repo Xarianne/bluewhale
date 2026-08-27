@@ -19,5 +19,4 @@ modules:
     - golang-bin
     - hyprland
     - matugen
-    - nautilus
     - quickshell
