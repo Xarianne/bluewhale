@@ -27,10 +27,6 @@ modules:
   - from-file: packages/dms-hyprland.yml
   - from-file: packages/flatpaks.yml
 
-  - type: script
-    scripts:
-      - kwallet-fix.sh
-
   - type: brew
     direct-pull: true
     nofile-limits: true # increase nofile limits

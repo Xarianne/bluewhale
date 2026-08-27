@@ -42,16 +42,12 @@ Compact guidance for working on this BlueBuild image repository.
 
 ## Notable behavior
 
-- `files/system/etc/udev/rules.d/60-steam-input.rules` — custom Steam/controller udev rules overlay.
 - `rpm-ostreed-automatic.timer` is enabled; the override at `files/system/etc/rpm-ostreed-automatic.timer.d/override.conf` sets `OnBootSec=15min` and `OnUnitInactiveSec=1d`.
 - `files/system/etc/rpm-ostreed.conf` stages automatic updates (`AutomaticUpdatePolicy=stage`).
 - Kernel argument `amdgpu.ppfeaturemask=0xffffffff` is injected via `recipes/modules/kargs.yml` (x86_64 only).
 - COPR repos are cleaned up after the package install step (`cleanup: true`).
-- `files/scripts/kwallet-fix.sh` is referenced by a `script` module in `recipes/recipe.yml`. It masks the legacy `kwalletd6` D-Bus activation so only `ksecretd` runs on the host, and installs a boot-time script to `/usr/libexec/bluewhale/`. A systemd user service (`bluewhale-flatpak-overrides.service`) runs that script at boot to apply a flatpak override removing `org.kde.kwalletd6` talk permission from the Nextcloud flatpak, so its sandboxed qtkeychain uses `libsecret` → host `ksecretd` instead of activating the runtime's own `kwalletd6`. This works around a `kf6-kwallet` 6.29.0 regression where credentials don't persist across reboots. Upstream: https://invent.kde.org/frameworks/kwallet/-/work_items/11
 
 ## Gotchas
 
 - `*.iso`, `*.iso-CHECKSUM`, `Containerfile`, and `.bluebuild-scripts_*` are generated artifacts and gitignored.
-- Dependabot only watches `github-actions` updates daily.
-- `CODEOWNERS` was updated to `@xarianne`.
 - Do not `git commit`, `git push`, or open PRs without explicit user review and approval.
