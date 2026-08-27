@@ -1,0 +1,17 @@
+# yaml-language-server: $schema=https://schema.blue-build.org/recipe-v1.json
+# Mask the legacy kwalletd6 D-Bus activation so only ksecretd runs.
+#
+# kf6-kwallet 6.29.0 ships both ksecretd (Secret Service) and kwalletd6
+# (legacy KWallet API). When both are active, qtkeychain writes tokens via
+# one daemon and reads via the other, so credentials (e.g. Nextcloud's
+# OAuth tokens) don't persist across reboots.
+#
+# Masking the D-Bus session service file prevents kwalletd6 from
+# auto-activating. qtkeychain then falls through to libsecret, which
+# talks to ksecretd via org.freedesktop.secrets.
+#
+# Upstream issue: https://invent.kde.org/frameworks/kwallet/-/work_items/11
+modules:
+  - type: script
+    snippets:
+      - "ln -sf /dev/null /usr/share/dbus-1/services/org.kde.kwalletd6.service"

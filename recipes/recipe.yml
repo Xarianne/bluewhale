@@ -26,6 +26,7 @@ modules:
   - from-file: packages/third-party.yml
   - from-file: packages/dms-hyprland.yml
   - from-file: packages/flatpaks.yml
+  - from-file: packages/kwallet-fix.yml
 
   - type: brew
     direct-pull: true
