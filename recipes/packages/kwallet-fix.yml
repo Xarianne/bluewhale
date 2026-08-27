@@ -17,13 +17,12 @@
 #
 # The flatpak override must be applied at runtime (after flatpaks are
 # installed) because /var/lib/flatpak is not committed to the ostree.
-# A systemd user service handles this on first boot.
+# A systemd user service (bluewhale-flatpak-overrides.service) runs
+# the script at boot.
 #
 # Upstream issue: https://invent.kde.org/frameworks/kwallet/-/work_items/11
 modules:
   - type: script
     snippets:
       - "ln -sf /dev/null /usr/share/dbus-1/services/org.kde.kwalletd6.service"
-      - "mkdir -p /usr/libexec/bluewhale"
-      - "printf '#!/bin/sh\nset -eu\nmkdir -p /var/lib/flatpak/overrides\nprintf \"[Context]\\\\n[Session Bus Policy]\\\\norg.kde.kwalletd6=none\\\\n\" > /var/lib/flatpak/overrides/com.nextcloud.desktopclient.nextcloud\n' > /usr/libexec/bluewhale/apply-flatpak-overrides.sh"
-      - "chmod +x /usr/libexec/bluewhale/apply-flatpak-overrides.sh"
+      - "mkdir -p /usr/libexec/bluewhale && cp files/scripts/apply-flatpak-overrides.sh /usr/libexec/bluewhale/apply-flatpak-overrides.sh && chmod +x /usr/libexec/bluewhale/apply-flatpak-overrides.sh"
