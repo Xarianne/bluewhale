@@ -18,5 +18,4 @@ modules:
     - hyprland
     - matugen
     - quickshell
-    - ghostty
     - qt6ct
