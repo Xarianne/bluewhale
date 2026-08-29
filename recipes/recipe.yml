@@ -32,10 +32,6 @@ modules:
     nofile-limits: true # increase nofile limits
     brew-analytics: true
 
-  - type: script
-    scripts:
-      - pam-kwallet-authselect.sh
-
   - type: systemd
     system:
       enabled:
