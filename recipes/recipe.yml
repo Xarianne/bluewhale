@@ -24,7 +24,6 @@ modules:
   - from-file: packages/packages.yml
   - from-file: packages/copr.yml
   - from-file: packages/third-party.yml
-  - from-file: packages/noctalia-hyprland.yml
   - from-file: packages/flatpaks.yml
 
   - type: brew
