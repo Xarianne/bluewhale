@@ -23,4 +23,5 @@ modules:
     - io.github.fabrialberio.pinapp
     - com.ranfdev.DistroShelf
     - io.podman_desktop.PodmanDesktop
+    - io.gitlab.adhami3310.Impression
 
