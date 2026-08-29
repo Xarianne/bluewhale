@@ -21,16 +21,6 @@ Compact guidance for working on this BlueBuild image repository.
 - Run `bluebuild validate` to validate [`recipes/recipe.yml`](recipes/recipe.yml) locally.
 - There is no local test suite; CI is the primary verification.
 
-## Repo layout
-
-- `recipes/recipe.yml` — main recipe that includes sub-files in order.
-- `recipes/packages/*.yml` — BlueBuild `dnf`, `default-flatpaks`, and similar package/flatpak/repo modules.
-- `recipes/modules/*.yml` — non-package modules such as kernel arguments.
-- `files/system/` — overlay files copied into the image root (`/`).
-- `files/scripts/` — custom build-time scripts; only referenced here, not executed unless listed in the recipe.
-- `modules/` — empty placeholder for custom BlueBuild modules.
-- `files/system/nix/.gitkeep` — exists only so the overlay creates `/nix`; no custom script needed for this.
-- `cosign.pub` / `cosign.key` — Sigstore signing keys. The private key is gitignored; never commit or expose it.
 
 ## Editing conventions
 
@@ -48,6 +38,4 @@ Compact guidance for working on this BlueBuild image repository.
 - COPR repos are cleaned up after the package install step (`cleanup: true`).
 
 ## Gotchas
-
-- `*.iso`, `*.iso-CHECKSUM`, `Containerfile`, and `.bluebuild-scripts_*` are generated artifacts and gitignored.
 - Do not `git commit`, `git push`, or open PRs without explicit user review and approval.

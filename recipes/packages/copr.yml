@@ -12,3 +12,4 @@ modules:
         - darkly
         # From xariann/tools
         - boot-windows
+        - nautilus-copy-path
