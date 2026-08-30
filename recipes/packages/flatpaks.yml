@@ -24,4 +24,5 @@ modules:
     - com.ranfdev.DistroShelf
     - io.podman_desktop.PodmanDesktop
     - io.gitlab.adhami3310.Impression
+    - com.nextcloud.desktopclient.nextcloud
 

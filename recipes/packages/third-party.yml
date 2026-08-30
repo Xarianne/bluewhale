@@ -7,3 +7,5 @@ modules:
       packages:
         # OpenCode Desktop (latest release from GitHub)
         - https://github.com/anomalyco/opencode/releases/latest/download/opencode-desktop-linux-x86_64.rpm
+        # Goose
+        - https://github.com/aaif-goose/goose/releases/download/v1.48.0/Goose-1.48.0-1.arm64.rpm
