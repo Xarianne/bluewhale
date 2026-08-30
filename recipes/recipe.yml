@@ -35,13 +35,6 @@ modules:
     system:
       enabled:
         - rpm-ostreed-automatic.timer
-    user:
-      enabled:
-        - bluewhale-flatpak-overrides.service
-      masked:
-        # input-remapper still works on demand via GUI or CLI; this only
-        # prevents the autoload service from running at login
-        - app-input\x2dremapper\x2dautoload@autostart.service
 
   - type: kargs
     arch: x86_64
