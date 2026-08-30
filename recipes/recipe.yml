@@ -26,11 +26,6 @@ modules:
   - from-file: packages/flatpaks.yml
   - from-file: packages/dms-hyprland-gnome.yml
 
-  - type: brew
-    direct-pull: true
-    nofile-limits: true # increase nofile limits
-    brew-analytics: true
-
   - type: systemd
     system:
       enabled:
