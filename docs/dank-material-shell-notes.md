@@ -23,7 +23,7 @@ Add `qt6ct` to the install list in `recipes/packages/dms-hyprland.yml`:
     - matugen
     - quickshell
     - ghostty
-    - qt6ct
+    - qt6ct # Only if running KDE
 ```
 
 Rebuild and rebase to pick up the new package.
