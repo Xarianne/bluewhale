@@ -4,12 +4,8 @@ modules:
     repos:
       cleanup: true # clean up added repos after module is done
       copr:
-        - deltacopy/darkly
         - xariann/tools
     install:
       packages:
-        # From deltacopy/darkly
-        - darkly
-        # From xariann/tools
         - boot-windows
         - nautilus-copy-path
