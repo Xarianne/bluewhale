@@ -5,7 +5,9 @@ modules:
       cleanup: true # clean up added repos after module is done
       copr:
         - xariann/tools
+        - monkeygold/nautilus-open-any-terminal
     install:
       packages:
         - boot-windows
         - nautilus-copy-path
+        - nautilus-open-any-terminal
