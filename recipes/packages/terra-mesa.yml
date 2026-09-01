@@ -6,22 +6,21 @@
 #
 # ublue silverblue-main distro-syncs mesa-* from negativo17 fedora-multimedia and
 # versionlocks the Mesa packages listed in the replace step. Those locks must be
-# dropped before BlueBuild replace (dnf distro-sync) can pull Terra F44 Mesa
-# (currently mesa-vulkan-drivers 1:26.2.1-5.fc44 vs negativo17 26.1.4-4.fc44).
+# dropped before BlueBuild replace (dnf distro-sync) can pull Terra F44 Mesa.
 #
+# Add the Terra repo by URL (dnf module). Do not put a files/dnf/ tree in the repo;
+# BlueBuild's files/ layout is scripts/ and system/ (see getting-started / template).
 # repos.cleanup stays false so terra / terra-mesa still exist for replace.
-# Do not copy files/scripts/Unused/terra-mesa.sh: it used dnf5 install
-# --skip-unavailable of a short list instead of distro-sync mesa*, never dropped
-# ublue versionlocks, missed mesa-filesystem, and can leave negativo17 Mesa in place.
+# Do not copy files/scripts/Unused/terra-mesa.sh.
 modules:
-  # 1. Add official Terra repo (id: terra). terra-source stays disabled in the repo file.
+  # 1. Add official Terra repo by URL (id: terra). %OS_VERSION% is Fedora VERSION_ID.
   # 2. Bootstrap terra-release + terra-gpg-keys. no-gpgchecks is required only here
   #    because the key file is provided by terra-gpg-keys (chicken-and-egg).
   - type: dnf
     repos:
       cleanup: false
       files:
-        - terra.repo
+        - https://raw.githubusercontent.com/terrapkg/packages/f%OS_VERSION%/anda/terra/release/terra.repo
     install:
       no-gpgchecks: true
       packages:
