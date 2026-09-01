@@ -4,7 +4,7 @@ Compact guidance for working on this BlueBuild image repository.
 
 ## What this repo is
 
-- A personal custom Fedora Kinoite (Atomic) image built with [BlueBuild](https://blue-build.org/).
+- A personal custom Fedora Atomic image built with [BlueBuild](https://blue-build.org/). The desktop environment is not fixed.
 - Image name: `bluewhale`; published to `ghcr.io/xarianne/bluewhale`.
 - Not intended for distribution.
 
