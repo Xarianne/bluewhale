@@ -1,21 +1,19 @@
 # yaml-language-server: $schema=https://schema.blue-build.org/recipe-v1.json
 #
-# Terra Mesa swap for bluewhale-testing only. Do not include this from production recipe.yml.
+# Terra Mesa + multimedia swap for bluewhale-testing only.
+# Do not include this from production recipe.yml.
 # Official install: https://developer.fyralabs.com/terra/installing
 # Mesa subrepo: https://terrapkg-packages.mintlify.app/subrepos/mesa
 #
-# ublue silverblue-main distro-syncs mesa-* from negativo17 fedora-multimedia and
-# versionlocks the Mesa packages listed in the replace step. Those locks must be
-# dropped before BlueBuild replace (dnf distro-sync) can pull Terra F44 Mesa.
+# ublue silverblue-main distro-syncs mesa-* (and libva/libheif) from negativo17
+# fedora-multimedia and versionlocks Mesa. Drop those Mesa locks before replace.
+# This does not disable the negativo repo; it replaces Mesa from terra-mesa and
+# the ffmpeg/libav codec stack from terra-multimedia.
 #
-# Add the Terra repo by URL (dnf module). Do not put a files/dnf/ tree in the repo;
-# BlueBuild's files/ layout is scripts/ and system/ (see getting-started / template).
-# repos.cleanup stays false so terra / terra-mesa still exist for replace.
-# Do not copy files/scripts/Unused/terra-mesa.sh.
+# Terra multimedia does not ship gstreamer1-plugins-bad/ugly/vaapi (those names
+# were negativo-style). It ships ffmpeg, libav*, and gstreamer1-plugin-libav.
+# Add Terra repo by URL. files/ is scripts/ and system/, not files/dnf/.
 modules:
-  # 1. Add official Terra repo by URL (id: terra). %OS_VERSION% is Fedora VERSION_ID.
-  # 2. Bootstrap terra-release + terra-gpg-keys. no-gpgchecks is required only here
-  #    because the key file is provided by terra-gpg-keys (chicken-and-egg).
   - type: dnf
     repos:
       cleanup: false
@@ -29,8 +27,6 @@ modules:
             - terra-release
             - terra-gpg-keys
 
-  # 3. Enable Mesa (repo id terra-mesa, priority 80) and multimedia subrepos.
-  #    Enabling terra-release-multimedia is enough; no hand-picked ffmpeg/gstreamer list.
   - type: dnf
     install:
       packages:
@@ -39,14 +35,10 @@ modules:
             - terra-release-mesa
             - terra-release-multimedia
 
-  # 4. Clear ublue Mesa versionlocks. The dnf module cannot versionlock delete.
-  #    Do not delete intel/libva/libheif locks; they are not needed for this AMD swap.
   - type: script
     scripts:
       - clear-ublue-mesa-versionlock.sh
 
-  # 5. distro-sync Mesa from terra-mesa (BlueBuild replace uses distro-sync, not install).
-  #    allow-erasing: true so negativo17 Mesa can be replaced. No skip-unavailable.
   - type: dnf
     replace:
       - from-repo: terra-mesa
@@ -59,3 +51,13 @@ modules:
           - mesa-libgbm
           - mesa-va-drivers
           - mesa-vulkan-drivers
+      - from-repo: terra-multimedia
+        allow-erasing: true
+        packages:
+          - ffmpeg
+          - libavcodec
+          - libavdevice
+          - libavfilter
+          - libavformat
+          - libavutil
+          - gstreamer1-plugin-libav
