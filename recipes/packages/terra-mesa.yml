@@ -1,0 +1,62 @@
+# yaml-language-server: $schema=https://schema.blue-build.org/recipe-v1.json
+#
+# Terra Mesa swap for bluewhale-testing only. Do not include this from production recipe.yml.
+# Official install: https://developer.fyralabs.com/terra/installing
+# Mesa subrepo: https://terrapkg-packages.mintlify.app/subrepos/mesa
+#
+# ublue silverblue-main distro-syncs mesa-* from negativo17 fedora-multimedia and
+# versionlocks the Mesa packages listed in the replace step. Those locks must be
+# dropped before BlueBuild replace (dnf distro-sync) can pull Terra F44 Mesa
+# (currently mesa-vulkan-drivers 1:26.2.1-5.fc44 vs negativo17 26.1.4-4.fc44).
+#
+# repos.cleanup stays false so terra / terra-mesa still exist for replace.
+# Do not copy files/scripts/Unused/terra-mesa.sh: it used dnf5 install
+# --skip-unavailable of a short list instead of distro-sync mesa*, never dropped
+# ublue versionlocks, missed mesa-filesystem, and can leave negativo17 Mesa in place.
+modules:
+  # 1. Add official Terra repo (id: terra). terra-source stays disabled in the repo file.
+  # 2. Bootstrap terra-release + terra-gpg-keys. no-gpgchecks is required only here
+  #    because the key file is provided by terra-gpg-keys (chicken-and-egg).
+  - type: dnf
+    repos:
+      cleanup: false
+      files:
+        - terra.repo
+    install:
+      no-gpgchecks: true
+      packages:
+        - repo: terra
+          packages:
+            - terra-release
+            - terra-gpg-keys
+
+  # 3. Enable Mesa (repo id terra-mesa, priority 80) and multimedia subrepos.
+  #    Enabling terra-release-multimedia is enough; no hand-picked ffmpeg/gstreamer list.
+  - type: dnf
+    install:
+      packages:
+        - repo: terra
+          packages:
+            - terra-release-mesa
+            - terra-release-multimedia
+
+  # 4. Clear ublue Mesa versionlocks. The dnf module cannot versionlock delete.
+  #    Do not delete intel/libva/libheif locks; they are not needed for this AMD swap.
+  - type: script
+    scripts:
+      - clear-ublue-mesa-versionlock.sh
+
+  # 5. distro-sync Mesa from terra-mesa (BlueBuild replace uses distro-sync, not install).
+  #    allow-erasing: true so negativo17 Mesa can be replaced. No skip-unavailable.
+  - type: dnf
+    replace:
+      - from-repo: terra-mesa
+        allow-erasing: true
+        packages:
+          - mesa-dri-drivers
+          - mesa-filesystem
+          - mesa-libEGL
+          - mesa-libGL
+          - mesa-libgbm
+          - mesa-va-drivers
+          - mesa-vulkan-drivers
