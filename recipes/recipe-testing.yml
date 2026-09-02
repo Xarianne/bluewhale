@@ -1,9 +1,9 @@
 ---
 # yaml-language-server: $schema=https://schema.blue-build.org/recipe-v1.json
 # image will be published to ghcr.io/<user>/<name>
-name: bluewhale
+name: bluewhale-testing
 # description will be included in the image's metadata
-description: This is my personal OS image. Not meant for distribution.
+description: Terra Mesa testing image. Personal OS image, not for distribution. Not the production bluewhale image.
 
 # the base image to build on top of (FROM) and the version tag to use
 base-image: ghcr.io/ublue-os/silverblue-main
@@ -20,12 +20,14 @@ modules:
   - type: justfiles
 
   # Split build logic into smaller files to keep this readable.
-  # Use either negativo or terra-mesa if you are using terra-extras-multimedia
-  # Terra Mesa testing image: recipes/recipe-testing.yml (name: bluewhale-testing)
   - from-file: packages/packages.yml
   - from-file: packages/copr.yml
   - from-file: packages/flatpaks.yml
   - from-file: packages/dms-hyprland-gnome.yml
+
+  # Terra Mesa swap after shared package from-files so it replaces Mesa last.
+  # Testing-only; production recipe.yml does not include this.
+  - from-file: packages/terra-mesa.yml
 
   - type: brew
     direct-pull: true

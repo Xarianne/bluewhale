@@ -1,0 +1,63 @@
+# yaml-language-server: $schema=https://schema.blue-build.org/recipe-v1.json
+#
+# Terra Mesa + multimedia swap for bluewhale-testing only.
+# Do not include this from production recipe.yml.
+# Official install: https://developer.fyralabs.com/terra/installing
+# Mesa subrepo: https://terrapkg-packages.mintlify.app/subrepos/mesa
+#
+# ublue silverblue-main distro-syncs mesa-* (and libva/libheif) from negativo17
+# fedora-multimedia and versionlocks Mesa. Drop those Mesa locks before replace.
+# This does not disable the negativo repo; it replaces Mesa from terra-mesa and
+# the ffmpeg/libav codec stack from terra-multimedia.
+#
+# Terra multimedia does not ship gstreamer1-plugins-bad/ugly/vaapi (those names
+# were negativo-style). It ships ffmpeg, libav*, and gstreamer1-plugin-libav.
+# Add Terra repo by URL. files/ is scripts/ and system/, not files/dnf/.
+modules:
+  - type: dnf
+    repos:
+      cleanup: false
+      files:
+        - https://raw.githubusercontent.com/terrapkg/packages/f%OS_VERSION%/anda/terra/release/terra.repo
+    install:
+      no-gpgchecks: true
+      packages:
+        - repo: terra
+          packages:
+            - terra-release
+            - terra-gpg-keys
+
+  - type: dnf
+    install:
+      packages:
+        - repo: terra
+          packages:
+            - terra-release-mesa
+            - terra-release-multimedia
+
+  - type: script
+    scripts:
+      - clear-ublue-mesa-versionlock.sh
+
+  - type: dnf
+    replace:
+      - from-repo: terra-mesa
+        allow-erasing: true
+        packages:
+          - mesa-dri-drivers
+          - mesa-filesystem
+          - mesa-libEGL
+          - mesa-libGL
+          - mesa-libgbm
+          - mesa-va-drivers
+          - mesa-vulkan-drivers
+      - from-repo: terra-multimedia
+        allow-erasing: true
+        packages:
+          - ffmpeg
+          - libavcodec
+          - libavdevice
+          - libavfilter
+          - libavformat
+          - libavutil
+          - gstreamer1-plugin-libav
