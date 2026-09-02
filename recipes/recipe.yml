@@ -21,7 +21,6 @@ modules:
 
   # Split build logic into smaller files to keep this readable.
   # Use either negativo or terra-mesa if you are using terra-extras-multimedia
-  # Terra Mesa testing image: recipes/recipe-testing.yml (name: bluewhale-testing)
   - from-file: packages/packages.yml
   - from-file: packages/copr.yml
   - from-file: packages/flatpaks.yml
