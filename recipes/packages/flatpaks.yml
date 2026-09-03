@@ -29,4 +29,5 @@ modules:
     - dev.vencord.Vesktop
     - com.obsproject.Studio
     - md.obsidian.Obsidian
+    - org.gnome.Showtime
 
