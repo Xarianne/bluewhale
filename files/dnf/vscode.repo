@@ -1,0 +1,10 @@
+# Official Microsoft repository for Visual Studio Code
+# https://code.visualstudio.com/docs/setup/linux
+# Note: `autorefresh=1` from the docs' template is omitted - dnf5 rejects it as an unknown option.
+[code]
+name=Visual Studio Code
+baseurl=https://packages.microsoft.com/yumrepos/vscode
+enabled=1
+type=rpm-md
+gpgcheck=1
+gpgkey=https://packages.microsoft.com/keys/microsoft.asc

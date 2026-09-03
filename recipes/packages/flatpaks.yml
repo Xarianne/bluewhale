@@ -16,6 +16,7 @@ modules:
     - org.gnome.Logs
     - it.mijorus.gearlever
     - org.gnome.World.PikaBackup
+    - io.github.kolunmi.Bazaar
 
     # Utilities
     - io.github.tobagin.keysmith
@@ -25,4 +26,5 @@ modules:
     - io.podman_desktop.PodmanDesktop
     - io.gitlab.adhami3310.Impression
     - com.nextcloud.desktopclient.nextcloud
+    - dev.vencord.Vesktop
 
