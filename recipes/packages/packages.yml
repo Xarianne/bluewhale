@@ -19,4 +19,4 @@ modules:
 
     remove:
       packages:
-        - fedora-flathub-remote # Using Flathub instead, might not be needed with Ublue base
+        - fedora-flathub-remote # Shipping in the Fedora base; we use Flathub instead

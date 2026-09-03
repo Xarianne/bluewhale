@@ -32,6 +32,9 @@ Compact guidance for working on this BlueBuild image repository.
 
 ## Notable behavior
 
+- The base image is plain Fedora Atomic (`quay.io/fedora/fedora-silverblue`), not Universal Blue.
+- `recipes/packages/rpmfusion.yml` adds RPM Fusion by installing the release RPMs from `download1.rpmfusion.org` (pinned; `mirrors.rpmfusion.org` is an unreliable redirector, so the module's `nonfree: rpmfusion` shortcut is not used; repos persist since later modules install `steam` from rpmfusion-nonfree), installs `mesa-va-drivers-freeworld` (side-loaded full-codec VA/VDPAU stack; Fedora 44 has no standalone mesa-va/vdpau-drivers to swap), installs codec packages, and swaps `ffmpeg-free` for full `ffmpeg` (with `allow-erasing` to replace the `*-free` ffmpeg family).
+- `recipes/packages/ublue.yml` installs the full Universal Blue ujust setup from the `ublue-os/packages` COPR (`ublue-os-just`, `ublue-os-update-services`, `ublue-os-udev-rules`, `uupd`) plus the Fedora tools its recipes call, so `ujust` (incl. BlueBuild's `60-custom.just`) and the game-devices udev rules track upstream on each rebuild. `uupd.timer` is NOT enabled — automatic updates stay on `rpm-ostreed-automatic.timer` (`ujust toggle-updates` can switch at runtime).
 - `rpm-ostreed-automatic.timer` is enabled; the override at `files/system/etc/rpm-ostreed-automatic.timer.d/override.conf` sets `OnBootSec=15min` and `OnUnitInactiveSec=1d`.
 - `files/system/etc/rpm-ostreed.conf` stages automatic updates (`AutomaticUpdatePolicy=stage`).
 - Kernel argument `amdgpu.ppfeaturemask=0xffffffff` is injected via `recipes/modules/kargs.yml` (x86_64 only).
