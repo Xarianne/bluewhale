@@ -27,4 +27,6 @@ modules:
     - io.gitlab.adhami3310.Impression
     - com.nextcloud.desktopclient.nextcloud
     - dev.vencord.Vesktop
+    - com.obsproject.Studio
+    - md.obsidian.Obsidian
 
