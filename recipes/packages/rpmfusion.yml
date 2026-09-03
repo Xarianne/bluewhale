@@ -1,24 +1,7 @@
 # yaml-language-server: $schema=https://schema.blue-build.org/recipe-v1.json
 # RPM Fusion for multimedia codecs and mesa (freeworld versions with
 # patented codec support, replacing Fedora's stripped builds).
-#
-# The release RPMs are pinned to download1.rpmfusion.org (RPM Fusion's
-# canonical master), NOT the module's built-in `nonfree: rpmfusion`:
-# that uses mirrors.rpmfusion.org, a redirector which has served
-# garbage from out-of-sync mirrors and broken builds. The repos they
-# install persist in the image intentionally (no cleanup) so that:
-# - later modules can install from them (steam is in rpmfusion-nonfree)
-# - dnf/rpm-ostree can be used against them on the running system
-#
-# Verified against quay.io/fedora/fedora-silverblue:44:
-# - Fedora 44 has no standalone mesa-va-drivers/mesa-vdpau-drivers
-#   packages to swap (VA/VDPAU lives in mesa-dri-drivers). RPM Fusion's
-#   mesa-va-drivers-freeworld is a self-contained side-loaded package
-#   (/usr/lib64/dri-freeworld/, own libgallium with h264/h265) covering
-#   both VA and VDPAU — plain install, no swap.
-# - ffmpeg needs allow-erasing so the whole ffmpeg *-free family
-#   (libavcodec-free, libswscale-free, etc.) is replaced by
-#   ffmpeg + ffmpeg-libs in one transaction.
+# See docs/rpmfusion.md for details.
 modules:
   # Separate module: the codec packages below need the rpmfusion repos,
   # which only become available after these release RPMs are installed.

@@ -1,29 +1,7 @@
 # yaml-language-server: $schema=https://schema.blue-build.org/recipe-v1.json
 # Pull in Universal Blue's ujust setup and udev rules from their official
-# COPR, so we automatically track upstream changes on each rebuild
-# (same packages Universal Blue installs in their own base images).
-#
-# ublue-os-just: provides `ujust` and ALL default recipes (00-default,
-#   10-update, 15-luks, 20-clean, 30-distrobox, 40-nvidia, 50-akmods),
-#   plus the master justfile which also imports 60-custom.just — where
-#   the BlueBuild `justfiles` module places files/justfiles/.
-#   (ublue-os-luks is pulled in automatically as a hard dependency.)
-# ublue-os-udev-rules: vendors fabiscafe/game-devices-udev (from Codeberg,
-#   release-tracked), plus Sunshine and Framework device rules — the same
-#   udev rules Universal Blue ships in their base images.
-# ublue-os-update-services: flatpak auto-update timers (system + user)
-#   that ujust's toggle-updates switches alongside rpm-ostreed-automatic.
-#   Note: its /usr/lib rpm-ostreed-automatic.timer.d override is masked
-#   by our own one in files/system/etc/ (same name, /etc wins).
-# uupd: Universal Blue's unified updater, used by `ujust update` and
-#   `ujust toggle-updates`. Its timer is intentionally NOT enabled here;
-#   automatic system updates stay on our rpm-ostreed-automatic setup
-#   (use `ujust toggle-updates` to switch at runtime).
-#
-# The remaining packages are plain Fedora tools that specific ujust
-# recipes call: distrobox (distrobox-*), dmidecode (bios-info),
-# fpaste (device-info), jq (toggle-nvk), mokutil (enroll-secure-boot-key).
-# powerstat (check-idle-power-draw) arrives via a Recommends.
+# COPR, so we automatically track upstream changes on each rebuild.
+# See docs/ublue-packages.md for details.
 modules:
   - type: dnf
     repos:
