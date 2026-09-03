@@ -6,7 +6,7 @@ name: bluewhale
 description: This is my personal OS image. Not meant for distribution.
 
 # the base image to build on top of (FROM) and the version tag to use
-base-image: ghcr.io/ublue-os/silverblue-main
+base-image: quay.io/fedora/fedora-silverblue
 image-version: 44 # latest is also supported if you want new updates ASAP
 
 # module configuration, executed in order
@@ -20,7 +20,10 @@ modules:
   - type: justfiles
 
   # Split build logic into smaller files to keep this readable.
-  # Use either negativo or terra-mesa if you are using terra-extras-multimedia
+  # rpmfusion.yml must come first: it adds the RPM Fusion repos which
+  # later modules install from (e.g. steam).
+  - from-file: packages/rpmfusion.yml
+  - from-file: packages/ublue.yml
   - from-file: packages/packages.yml
   - from-file: packages/repos.yml
   - from-file: packages/flatpaks.yml
@@ -35,6 +38,10 @@ modules:
     system:
       enabled:
         - rpm-ostreed-automatic.timer
+        - flatpak-system-update.timer # from ublue-os-update-services
+    user:
+      enabled:
+        - flatpak-user-update.timer # from ublue-os-update-services
 
   - type: kargs
     arch: x86_64
