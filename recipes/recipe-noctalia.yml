@@ -9,10 +9,11 @@ description: This is my personal OS image. Not meant for distribution.
 base-image: quay.io/fedora/fedora-silverblue
 image-version: 44 # latest is also supported if you want new updates ASAP
 
-# this variant builds as ghcr.io/.../bluewhale:main
-# (alt-tags replace the default latest/timestamp tags)
+# this variant builds as ghcr.io/.../bluewhale:noctalia
+# (alt-tags replace the default latest/timestamp tags; the DMS variant
+# gets :main the same way from its own recipe)
 alt-tags:
-  - main
+  - noctalia
 
 # module configuration, executed in order
 # you can include multiple instances of the same module
@@ -35,7 +36,7 @@ modules:
   - from-file: packages/packages.yml
   - from-file: packages/repos.yml
   - from-file: packages/flatpaks.yml
-  - from-file: packages/dms-hyprland-gnome.yml
+  - from-file: packages/noctalia.yml
 
   - type: brew
     direct-pull: true
@@ -47,6 +48,9 @@ modules:
       enabled:
         - rpm-ostreed-automatic.timer
         - flatpak-system-update.timer # from ublue-os-update-services
+        - greetd.service # Noctalia Greeter replaces GDM as the login screen
+      disabled:
+        - gdm.service
     user:
       enabled:
         - flatpak-user-update.timer # from ublue-os-update-services

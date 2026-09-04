@@ -26,7 +26,8 @@ jobs:
       matrix:
         recipe:
           # !! Add your recipes here
-          - recipe.yml
+          - recipe.yml # :main — GNOME + Hyprland/DMS
+          - recipe-noctalia.yml # :noctalia — Noctalia + Umbriel + Greeter
     steps:
       # the build is fully handled by the reusable github action
       - name: Build Custom Image
