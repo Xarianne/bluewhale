@@ -30,6 +30,23 @@ the Umbriel compositor, and the Noctalia Greeter login screen.
   Terra package strips the upstream tmpfiles config, and `/var` content from
   the image is not carried into deployments.
 
+## Umbriel starts blank without Noctalia
+
+Umbriel's upstream packaged config has `autostart = []`, so a session with no
+user config opens on a black screen with just a cursor (compositor running,
+shell never launched). The image ships a full default config at
+`files/system/etc/xdg/umbriel/config.toml` (lands in `/etc/xdg/umbriel/`,
+which is in Umbriel's lookup chain) based on upstream's
+[`examples/config.toml`](https://github.com/noctalia-dev/umbriel/blob/main/examples/config.toml)
+with two changes:
+
+1. `[general] autostart = ["noctalia"]` — launches the shell at session start
+2. `Mod+Return` spawns `ptyxis` instead of `kitty` (not in the image)
+
+A user's `~/.config/umbriel/config.toml` takes precedence over it completely
+(no merging across lookup paths), so any user override should start from a
+copy of this file. Sync it with upstream's example from time to time.
+
 ## GNOME under the greeter
 
 GNOME is kept and can be selected in the greeter's session picker, but
