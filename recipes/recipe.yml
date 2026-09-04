@@ -9,6 +9,12 @@ description: This is my personal OS image. Not meant for distribution.
 base-image: quay.io/fedora/fedora-silverblue
 image-version: 44 # latest is also supported if you want new updates ASAP
 
+# this branch builds as ghcr.io/.../bluewhale:noctalia instead of the
+# auto-generated br-noctalia-44 (alt-tags override latest/timestamp tags);
+# drop this before merging into main
+alt-tags:
+  - noctalia
+
 # module configuration, executed in order
 # you can include multiple instances of the same module
 modules:

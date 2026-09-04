@@ -41,7 +41,10 @@ which is in Umbriel's lookup chain) based on upstream's
 with two changes:
 
 1. `[general] autostart = ["noctalia"]` — launches the shell at session start
-2. `Mod+Return` spawns `ptyxis` instead of `kitty` (not in the image)
+2. `Mod+Return` opens the Noctalia launcher (upstream spawns a terminal there).
+   `kitty` is installed explicitly by the recipe so users can bind it locally
+   (this machine: `Mod+T`; ptyxis stays single-instance on spawn, which is
+   annoying for a compositor keybind)
 
 A user's `~/.config/umbriel/config.toml` takes precedence over it completely
 (no merging across lookup paths), so any user override should start from a
