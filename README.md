@@ -6,8 +6,8 @@ A personal custom [BlueBuild](https://blue-build.org/) Fedora Atomic image for s
 
 Two images are published from this repo:
 
-- **`ghcr.io/xarianne/bluewhale:latest`** (branch: `main`) — Silverblue (GNOME) with Hyprland + [Dank Material Shell](https://danklinux.com/) alongside
-- **`ghcr.io/xarianne/bluewhale:noctalia`** (branch: `noctalia`) — Silverblue (GNOME) with the [Noctalia](https://noctalia.dev/) family instead: Noctalia shell, the Umbriel compositor, and Noctalia Greeter (via greetd) replacing GDM as the login screen. Details: [docs/noctalia.md](https://github.com/Xarianne/bluewhale/blob/noctalia/docs/noctalia.md) (lives on the noctalia branch)
+- **`ghcr.io/xarianne/bluewhale:main`** (recipe: `recipes/recipe.yml`) — Silverblue (GNOME) with Hyprland + [Dank Material Shell](https://danklinux.com/) alongside
+- **`ghcr.io/xarianne/bluewhale:noctalia`** (recipe: `recipes/recipe-noctalia.yml`) — Silverblue (GNOME) with the [Noctalia](https://noctalia.dev/) family instead: Noctalia shell, the Umbriel compositor, and Noctalia Greeter (via greetd) replacing GDM as the login screen. Details: [docs/noctalia.md](docs/noctalia.md)
 
 Switch between them with `sudo bootc switch ghcr.io/xarianne/bluewhale:<tag>`.
 
