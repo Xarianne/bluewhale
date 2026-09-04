@@ -24,6 +24,9 @@ modules:
   # later modules install from (e.g. steam).
   - from-file: packages/rpmfusion.yml
   - from-file: packages/ublue.yml
+  - type: script # must come after ublue.yml (needs ublue-os-just installed)
+    scripts:
+      - hide-ujust-recipes.sh # hide unwanted upstream ujust recipes from listings, see docs/ublue-packages.md
   - from-file: packages/packages.yml
   - from-file: packages/repos.yml
   - from-file: packages/flatpaks.yml
@@ -47,5 +50,7 @@ modules:
     arch: x86_64
     kargs:
         - amdgpu.ppfeaturemask=0xffffffff # AMD overclocking
+
+  - type: initramfs # rebuild includes tpm2-tss module → LUKS TPM2 auto-unlock works (ublue base does this too)
 
   - type: signing # this sets up the proper policy & signing files for signed images to work fully
