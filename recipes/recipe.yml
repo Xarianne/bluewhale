@@ -30,7 +30,7 @@ modules:
   - from-file: packages/packages.yml
   - from-file: packages/repos.yml
   - from-file: packages/flatpaks.yml
-  - from-file: packages/dms-hyprland-gnome.yml
+  - from-file: packages/noctalia.yml
 
   - type: brew
     direct-pull: true
@@ -42,6 +42,9 @@ modules:
       enabled:
         - rpm-ostreed-automatic.timer
         - flatpak-system-update.timer # from ublue-os-update-services
+        - greetd.service # Noctalia Greeter replaces GDM as the login screen
+      disabled:
+        - gdm.service
     user:
       enabled:
         - flatpak-user-update.timer # from ublue-os-update-services
