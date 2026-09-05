@@ -27,7 +27,7 @@ jobs:
         recipe:
           # !! Add your recipes here
           - recipe.yml # :main — GNOME + Hyprland/DMS
-          - recipe-noctalia.yml # :noctalia — Noctalia + Umbriel + Greeter
+          # recipe-noctalia.yml disabled on purpose; re-add to build :noctalia again
     steps:
       # the build is fully handled by the reusable github action
       - name: Build Custom Image
