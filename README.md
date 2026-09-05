@@ -4,10 +4,9 @@ A personal custom [BlueBuild](https://blue-build.org/) Fedora Atomic image for s
 
 ## Variants
 
-Two image variants live in this repo (one build currently disabled):
+- **`ghcr.io/xarianne/bluewhale:main`** — Silverblue (GNOME) with Hyprland + [Dank Material Shell](https://danklinux.com/) alongside. Builds on every push to `main` and daily at 06:00 UTC.
 
-- **`ghcr.io/xarianne/bluewhale:main`** (recipe: `recipes/recipe.yml`) — Silverblue (GNOME) with Hyprland + [Dank Material Shell](https://danklinux.com/) alongside. Builds on every push and daily.
-- **`ghcr.io/xarianne/bluewhale:noctalia`** (recipe: `recipes/recipe-noctalia.yml`, *build currently disabled in the workflow matrix*) — Silverblue (GNOME) with the [Noctalia](https://noctalia.dev/) family instead: Noctalia shell, the Umbriel compositor, and Noctalia Greeter (via greetd) replacing GDM as the login screen. Details: [docs/noctalia.md](docs/noctalia.md). The last published image stays on GHCR but receives no updates while disabled; re-add the matrix entry in `build.yml` to resume.
+There is also an experimental **Noctalia** variant (Noctalia shell, Umbriel compositor, Noctalia Greeter via greetd replacing GDM) on the [`noctalia` branch](https://github.com/Xarianne/bluewhale/tree/noctalia). It never builds automatically — trigger it manually via Actions → bluebuild → Run workflow → `noctalia`, which publishes `ghcr.io/xarianne/bluewhale:br-noctalia-44`. Parked because Umbriel is still rough around the edges (e.g. games intermittently losing mouse input).
 
 Switch between them with `sudo bootc switch ghcr.io/xarianne/bluewhale:<tag>`.
 

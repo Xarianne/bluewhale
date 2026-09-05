@@ -5,6 +5,8 @@ on:
         "00 06 * * *" # build at 06:00 UTC every day
         # (20 minutes after last ublue images start building)
   push:
+    branches: # only main builds automatically; other branches (e.g. noctalia) are dispatch-only
+      - main
     paths-ignore: # don't rebuild if only documentation has changed
       - "**.md"
 
@@ -27,7 +29,8 @@ jobs:
         recipe:
           # !! Add your recipes here
           - recipe.yml # :main — GNOME + Hyprland/DMS
-          # recipe-noctalia.yml disabled on purpose; re-add to build :noctalia again
+          # (the Noctalia variant lives on the noctalia branch: builds only via
+          #  manual workflow_dispatch there, tagged br-noctalia-44)
     steps:
       # the build is fully handled by the reusable github action
       - name: Build Custom Image
