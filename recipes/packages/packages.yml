@@ -5,7 +5,6 @@ modules:
       packages:
         # Gaming
         - steam
-        - goverlay
         - input-remapper
         # Everything else
         - bat
