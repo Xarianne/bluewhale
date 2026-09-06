@@ -30,5 +30,5 @@ modules:
     - com.obsproject.Studio
     - md.obsidian.Obsidian
     - org.gnome.Showtime
-    - flathub org.gnome.Boxes
+    - org.gnome.Boxes
 
