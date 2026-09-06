@@ -12,10 +12,10 @@ modules:
         - eza
         - fastfetch
         - fuse-libs # Needed for some appimages, fuse already in image
-        - fish
         - fzf
         - gum
         - kitty # terminal for the Umbriel/Noctalia session (ptyxis stays single-instance on spawn)
+        - trash-cli
         - zoxide
 
     remove:
