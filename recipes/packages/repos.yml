@@ -3,10 +3,6 @@ modules:
   - type: dnf
     repos:
       cleanup: true # clean up added repos after module is done
-      keys:
-        - https://packages.microsoft.com/keys/microsoft.asc
-      files:
-        - vscode.repo # from files/dnf/
       copr:
         - xariann/tools
         - monkeygold/nautilus-open-any-terminal
@@ -15,4 +11,3 @@ modules:
         - boot-windows
         - nautilus-copy-path
         - nautilus-open-any-terminal
-        - code
