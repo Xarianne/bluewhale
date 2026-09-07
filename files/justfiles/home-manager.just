@@ -59,10 +59,17 @@ setup-home-manager:
             '{' \
             '  home.username = "xariann";' \
             '  home.homeDirectory = "/var/home/xariann";' \
-            '  home.stateVersion = "25.05";' \
+            '  home.stateVersion = "26.05";' \
             '' \
-            '  # Example package (commented out). Add your own here.' \
-            '  # home.packages = with pkgs; [ home-manager ];' \
+            '  # Example packages (commented out). Add your own here.' \
+            '  # home.packages = with pkgs; [' \
+            '  #   home-manager' \
+            '  #   nh' \
+            '  # ];' \
+            '' \
+            '  # Weekly Nix garbage collection.' \
+            '  nix.gc.automatic = true;' \
+            '  nix.gc.frequency = "weekly";' \
             '' \
             '  programs.home-manager.enable = true;' \
             '}' > "$HM_DIR/home.nix"
@@ -96,5 +103,5 @@ update-home-manager:
         echo "No Home Manager flake found at $HM_DIR. Run 'just setup-home-manager' first."
         exit 1
     fi
-    nix flake update "$HM_DIR"
+    nix flake update --flake "$HM_DIR"
     nix run home-manager/master -- switch --flake "$HM_DIR"
