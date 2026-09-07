@@ -52,7 +52,6 @@ modules:
     user:
       enabled:
         - flatpak-user-update.timer # from ublue-os-update-services
-        - devbox-update.timer # ours, files/system/usr/lib/systemd/user/ — no-op until devbox is installed
 
   - type: kargs
     arch: x86_64

@@ -13,10 +13,6 @@ modules:
         - ublue-os-just
         - ublue-os-udev-rules
         - ublue-os-update-services
-        - uupd
         # Tools used by ujust recipes
-        - distrobox
         - dmidecode
         - fpaste
-        - jq
-        - mokutil

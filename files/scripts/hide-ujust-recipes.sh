@@ -25,7 +25,17 @@ HIDE=(
   "10-update.just|^alias changelog :="
   "10-update.just|^toggle-updates ACTION="
   "10-update.just|^alias auto-update :="
-  # 30-distrobox.just (assemble/new/install-resolve stay)
+  # 30-distrobox.just (containers are managed via the DistroShelf flatpak,
+  # which bundles its own distrobox copy; the host binary isn't installed,
+  # so every recipe here would just fail)
+  "30-distrobox.just|^alias assemble :="
+  "30-distrobox.just|^distrobox-assemble CONTAINER="
+  "30-distrobox.just|^alias distrobox :="
+  "30-distrobox.just|^distrobox-new IMAGE="
+  "30-distrobox.just|^install-resolve ACTION="
+  "30-distrobox.just|^alias install-resolve-studio :="
+  "30-distrobox.just|^alias install-davinci :="
+  "30-distrobox.just|^alias install-davinci-resolve :="
   "30-distrobox.just|^setup-distrobox-app CONTAINER="
   # 40-nvidia.just (AMD-only system)
   "40-nvidia.just|^toggle-nvk:"

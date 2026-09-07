@@ -21,9 +21,6 @@ Universal Blue installs in their own base images (`ublue-os/main`'s
   in `files/system/etc/` — `/etc` wins, so our custom schedule stays in
   effect. (It only auto-updates Flatpaks; OS auto-updates remain on our
   `rpm-ostreed-automatic.timer` setup.)
-- `uupd`: Universal Blue's unified updater (used by `ujust update` /
-  `toggle-updates`, both hidden — see below). Its timer is intentionally
-  **not** enabled; use `ujust toggle-updates` to switch at runtime.
 
 ## Hiding unwanted recipes (`files/scripts/hide-ujust-recipes.sh`)
 
@@ -40,7 +37,7 @@ sources:
 https://github.com/ublue-os/packages/tree/main/packages/ublue-os-just/src/recipes
 
 Visible recipes: bios-info, check-idle-power-draw, check-local-overrides,
-clean-system, distrobox-assemble, distrobox-new, install-resolve,
+clean-system,
 logs-last-boot, logs-this-boot, setup-luks-tpm-unlock,
 remove-luks-tpm-unlock, update-firmware.
 
@@ -58,7 +55,6 @@ base.
 ## Supporting tools from Fedora repos
 
 Recipes call tools not present in the Fedora base, installed in the same
-module: `distrobox` (`distrobox-*`), `dmidecode` (`bios-info`), `fpaste`
-(`device-info`, hidden), `jq` (`toggle-nvk`, hidden), `mokutil`
-(`enroll-secure-boot-key`, hidden). `powerstat` (`check-idle-power-draw`)
-arrives via a `Recommends` since weak dependencies are on by default.
+module: `dmidecode` (`bios-info`), `fpaste` (`device-info`, hidden).
+`powerstat` (`check-idle-power-draw`) arrives via a `Recommends` since weak
+dependencies are on by default.

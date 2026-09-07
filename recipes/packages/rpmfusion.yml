@@ -3,8 +3,7 @@
 # patented codec support, replacing Fedora's stripped builds).
 # See docs/rpmfusion.md for details.
 modules:
-  # Separate module: the codec packages below need the rpmfusion repos,
-  # which only become available after these release RPMs are installed.
+  # Enable RPM Fusion repos
   - type: dnf
     install:
       packages:
@@ -17,10 +16,9 @@ modules:
         # mesa VA/VDPAU with full codec support (h264, h265, ...)
         - mesa-va-drivers-freeworld
         # Multimedia codecs
-        - libavcodec-freeworld # complement to Fedora's openh264
+        - libavcodec-freeworld
         - gstreamer1-plugin-libav
     replace:
-      # full ffmpeg instead of Fedora's codec-restricted ffmpeg-free
       - from-repo: rpmfusion-free-updates
         allow-erasing: true
         packages:
