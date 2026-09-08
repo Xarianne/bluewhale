@@ -1,11 +1,5 @@
 ---
 # yaml-language-server: $schema=https://schema.blue-build.org/recipe-v1.json
-# Fedora branched (testing) variant — a full clone of the main image built
-# on the *next, not yet released* Fedora. During the pre-release phase the
-# updates-testing repo is enabled by default in the base image, so this IS
-# the testing stream; karma tooling comes from packages/test-kit.yml.
-# Details and lifecycle: docs/fedora-testing.md
-# image will be published to ghcr.io/<user>/<name>
 name: bluewhale-testing
 # description will be included in the image's metadata
 description: Fedora branched (pre-release) testing variant of my personal OS image. Not meant for distribution.
@@ -17,20 +11,12 @@ base-image: quay.io/fedora/fedora-silverblue
 # Fedora GA, once that branch exists; see docs/fedora-testing.md
 image-version: 45
 
-# builds as ghcr.io/.../bluewhale-testing:latest (plus :45 and timestamp tags)
-
-# module configuration, executed in order
-# you can include multiple instances of the same module
 modules:
   - type: files
     files:
       - source: system
         destination: / # copies files/system/* (* means everything inside it) into your image's root folder /
 
-  # Split build logic into smaller files to keep this readable.
-  # rpmfusion.yml must come first: it adds the RPM Fusion repos which
-  # later modules install from (e.g. steam).
-  - from-file: packages/rpmfusion.yml
   - from-file: packages/ublue.yml
 
   - type: justfiles # must come after ublue.yml so /usr/bin/ujust exists; BlueBuild then skips blujust and injects into ujust's 60-custom.just
@@ -40,7 +26,6 @@ modules:
       - hide-ujust-recipes.sh # hide unwanted upstream ujust recipes from listings, see docs/ublue-packages.md
 
   - from-file: packages/packages.yml
-  - from-file: packages/repos.yml
   - from-file: packages/flatpaks.yml
   - from-file: packages/test-kit.yml # variant-only: Bodhi karma tooling (docs/fedora-testing.md)
   - from-file: packages/dms-hyprland-gnome.yml

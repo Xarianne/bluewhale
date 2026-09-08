@@ -1,39 +1,20 @@
 ---
 # yaml-language-server: $schema=https://schema.blue-build.org/recipe-v1.json
-# Rawhide variant — a full clone of the main image built on Fedora Rawhide
-# (the always-rolling development stream). Karma tooling comes from
-# packages/test-kit.yml; note Bodhi karma applies to branched/stable
-# updates, not rawhide builds — this image is for early bug hunting.
-# Details: docs/fedora-testing.md
-# image will be published to ghcr.io/<user>/<name>
+
 name: bluewhale-rawhide
 # description will be included in the image's metadata
 description: Fedora Rawhide variant of my personal OS image. Not meant for distribution.
 
 # the base image to build on top of (FROM) and the version tag to use
 base-image: quay.io/fedora/fedora-silverblue
-# Floating tag: follows rawhide forever, NEVER bump. BlueBuild resolves the
-# numeric version (e.g. 46) itself at build time from the base image; that
-# also feeds %OS_VERSION%, and rpmfusion-free-release-<n> == -rawhide, so
-# packages/rpmfusion.yml works unmodified. Expect occasional failed daily
-# builds when rawhide churn breaks COPR packages — that is rawhide life.
 image-version: rawhide
 
-# builds as ghcr.io/.../bluewhale-rawhide:latest (plus numeric :<ver> and
-# timestamp tags; the numeric tag silently becomes :47 when rawhide rolls)
-
-# module configuration, executed in order
-# you can include multiple instances of the same module
 modules:
   - type: files
     files:
       - source: system
         destination: / # copies files/system/* (* means everything inside it) into your image's root folder /
 
-  # Split build logic into smaller files to keep this readable.
-  # rpmfusion.yml must come first: it adds the RPM Fusion repos which
-  # later modules install from (e.g. steam).
-  - from-file: packages/rpmfusion.yml
   - from-file: packages/ublue.yml
 
   - type: justfiles # must come after ublue.yml so /usr/bin/ujust exists; BlueBuild then skips blujust and injects into ujust's 60-custom.just
@@ -43,7 +24,6 @@ modules:
       - hide-ujust-recipes.sh # hide unwanted upstream ujust recipes from listings, see docs/ublue-packages.md
 
   - from-file: packages/packages.yml
-  - from-file: packages/repos.yml
   - from-file: packages/flatpaks.yml
   - from-file: packages/test-kit.yml # variant-only: Bodhi karma tooling (docs/fedora-testing.md)
   - from-file: packages/dms-hyprland-gnome.yml

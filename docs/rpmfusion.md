@@ -1,8 +1,15 @@
-# RPM Fusion setup (`recipes/packages/rpmfusion.yml`)
+# RPM Fusion setup (top of `recipes/packages/packages.yml`)
 
 The RPM Fusion repos are added for one consumer: `steam`
 (rpmfusion-nonfree). The repos persist in the image so dnf/rpm-ostree can use
 them on the running system too.
+
+The release RPMs live in their **own dnf module entry at the top** of
+`packages.yml`, before the entry containing `steam`. They must be a separate,
+earlier transaction: dnf resolves every package in a transaction *before*
+installing anything, so a same-transaction install of release RPMs + steam
+fails with `No match for argument: steam` (the repo doesn't exist at
+resolution time yet).
 
 ## Master-mirror pinning
 

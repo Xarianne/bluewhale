@@ -26,9 +26,6 @@ modules:
         destination: / # variant-only: greetd config, Umbriel default config, tmpfiles entry (see docs/noctalia.md)
 
   # Split build logic into smaller files to keep this readable.
-  # rpmfusion.yml must come first: it adds the RPM Fusion repos which
-  # later modules install from (e.g. steam).
-  - from-file: packages/rpmfusion.yml
   - from-file: packages/ublue.yml
 
   - type: justfiles # must come after ublue.yml so /usr/bin/ujust exists; BlueBuild then skips blujust and injects into ujust's 60-custom.just
@@ -38,7 +35,6 @@ modules:
       - hide-ujust-recipes.sh # hide unwanted upstream ujust recipes from listings, see docs/ublue-packages.md
 
   - from-file: packages/packages.yml
-  - from-file: packages/repos.yml
   - from-file: packages/flatpaks.yml
   - from-file: packages/noctalia.yml
 

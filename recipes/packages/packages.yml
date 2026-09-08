@@ -1,10 +1,39 @@
 # yaml-language-server: $schema=https://schema.blue-build.org/recipe-v1.json
 modules:
+  # Must stay first and stay separate: it establishes the RPM Fusion
+  # repos, which steam installs from. Cannot be one transaction with the steam install
+  # dnf resolves all packages before installing anything, so the repos wouldn't exist yet when steam is looked up.
+  - type: dnf
+    install:
+      packages:
+        - https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-%OS_VERSION%.noarch.rpm
+        - https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-%OS_VERSION%.noarch.rpm
+
+  - type: dnf
+    repos:
+      cleanup: true
+      copr:
+        - xariann/tools
+    install:
+      packages:
+        - boot-windows
+        - nautilus-copy-path
+
+  - type: dnf
+    repos:
+      cleanup: true
+      copr:
+        - monkeygold/nautilus-open-any-terminal
+    install:
+      packages:
+        - nautilus-open-any-terminal
+
+  # Entry 3: everything else (Fedora repos + steam from RPM Fusion).
   - type: dnf
     install:
       packages:
         # Gaming
-        - steam
+        - steam # RPM Fusion
         - input-remapper
         # Everything else
         - bat
@@ -13,15 +42,14 @@ modules:
         - fuse-libs # Needed for some appimages, fuse already in image
         - fzf
         - gum
-        - kitty # terminal for the Umbriel/Noctalia session (ptyxis stays single-instance on spawn)
         - trash-cli
         - zoxide
 
     remove:
       packages:
-        - fedora-flathub-remote # Shipping in the Fedora base; we use Flathub instead
+        - fedora-flathub-remote
         # Firefox RPM replaced by Mozilla's official tarball (~/Apps/firefox):
-        # self-updating, full codecs, upstream sandbox unpatch­ed by Fedora
+        # self-updating, full codecs, upstream sandbox unpatched by Fedora
         - firefox
         - firefox-langpacks
         - fedora-bookmarks # default bookmarks preset for the RPM firefox
