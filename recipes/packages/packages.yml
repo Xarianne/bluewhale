@@ -41,6 +41,7 @@ modules:
         - fastfetch
         - fuse-libs # Needed for some appimages, fuse already in image
         - fzf
+        - ghostty
         - gum
         - trash-cli
         - zoxide

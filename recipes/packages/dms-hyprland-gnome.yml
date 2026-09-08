@@ -18,3 +18,7 @@ modules:
     - hyprland
     - matugen
     - quickshell
+
+install:
+    packages:
+    - kitty
