@@ -5,7 +5,7 @@ the Umbriel compositor, and the Noctalia Greeter login screen.
 
 Built by [`recipes/recipe-noctalia.yml`](../recipes/recipe-noctalia.yml) on
 manual workflow dispatch only (parked — see README); publishes
-`ghcr.io/xarianne/bluewhale-noctalia:noctalia`.
+`ghcr.io/xarianne/bluewhale-noctalia:latest`.
 
 ## Where the packages come from
 

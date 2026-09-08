@@ -11,6 +11,14 @@ on:
       - "**.md"
 
   workflow_dispatch: # allow manually triggering builds
+    inputs:
+      image:
+        description: What to build (main already builds on push/schedule)
+        type: choice
+        options:
+          - noctalia-only
+          - both
+        default: noctalia-only
 concurrency:
   # only run one build at a time
   group: ${{ github.workflow }}-${{ github.ref || github.run_id }}
@@ -19,6 +27,8 @@ jobs:
   bluebuild:
     name: Build Main Image
     runs-on: ubuntu-latest
+    # skipped when a manual run picked "noctalia-only" in the dispatch dialog
+    if: github.event_name != 'workflow_dispatch' || github.event.inputs.image == 'both'
     permissions:
       contents: read
       packages: write
@@ -28,7 +38,7 @@ jobs:
       - name: Build Custom Image
         uses: blue-build/github-action@v1.12
         with:
-          recipe: recipe.yml # :main — GNOME + Hyprland/DMS
+          recipe: recipe.yml # bluewhale:latest — GNOME + Hyprland/DMS
           cosign_private_key: ${{ secrets.SIGNING_SECRET }}
           registry_token: ${{ github.token }}
           pr_event_number: ${{ github.event.number }}
@@ -43,8 +53,9 @@ jobs:
       contents: read
       packages: write
       id-token: write
-    # Manual builds only (Actions → bluebuild → Run workflow).
-    # To build it daily too, comment out the line below and uncomment this one:
+    # Manual builds only (Actions → bluebuild → Run workflow; the "image"
+    # dropdown there also decides whether the main image joins in).
+    # To build it daily too, replace the `if:` below with:
     # if: github.event_name == 'workflow_dispatch' || github.event_name == 'schedule'
     if: github.event_name == 'workflow_dispatch'
     steps:
@@ -52,7 +63,7 @@ jobs:
       - name: Build Custom Image
         uses: blue-build/github-action@v1.12
         with:
-          recipe: recipe-noctalia.yml # bluewhale-noctalia:noctalia — Noctalia shell + Umbriel + greetd
+          recipe: recipe-noctalia.yml # bluewhale-noctalia:latest — Noctalia shell + Umbriel + greetd
           cosign_private_key: ${{ secrets.SIGNING_SECRET }}
           registry_token: ${{ github.token }}
           pr_event_number: ${{ github.event.number }}
