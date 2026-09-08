@@ -11,6 +11,9 @@ Two images are published from this repo:
 
 Switch between them with `sudo bootc switch ghcr.io/xarianne/<image>:latest`.
 
+### Why keep GNOME?
+Taking a page from Tumbleweed's book. Hyprland and Umbriel are fast-moving, occasionally something breaks, so having a secondary desktop environment I can log into is a safety net.
+
 - How the image is built and edited: [docs/building-conventions.md](docs/building-conventions.md)
 - More docs: [docs/rpmfusion.md](docs/rpmfusion.md) · [docs/ublue-packages.md](docs/ublue-packages.md) · [docs/Workarounds.md](docs/Workarounds.md) · [docs/vscode-repo.md](docs/vscode-repo.md) · [Setup.md](Setup.md)
 
