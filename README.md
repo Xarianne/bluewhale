@@ -4,7 +4,7 @@ A personal custom [BlueBuild](https://blue-build.org/) Fedora Atomic image for s
 
 ## Variants
 
-Two images are published from this repo (single branch, no branch-based variants):
+Two images are published from this repo:
 
 - **`ghcr.io/xarianne/bluewhale:main`** — Silverblue (GNOME) with Hyprland + [Dank Material Shell](https://danklinux.com/) alongside. Builds on every push to `main` and daily at 06:00 UTC.
 - **`ghcr.io/xarianne/bluewhale-noctalia:noctalia`** — experimental variant with the [Noctalia](https://noctalia.dev/) family instead: Noctalia shell, Umbriel compositor, Noctalia Greeter (via greetd) replacing GDM. **Manual builds only** (Actions → bluebuild → Run workflow); parked because Umbriel is still rough around the edges (e.g. games intermittently losing mouse input). Details: [docs/noctalia.md](docs/noctalia.md)
