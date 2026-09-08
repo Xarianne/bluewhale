@@ -19,15 +19,6 @@ modules:
         - boot-windows
         - nautilus-copy-path
 
-  - type: dnf
-    repos:
-      cleanup: true
-      copr:
-        - monkeygold/nautilus-open-any-terminal
-    install:
-      packages:
-        - nautilus-open-any-terminal
-
   # ghostty isn't in the official Fedora repos; the host only finds it via a
   # COPR (avengemedia/danklinux). Use scottames/ghostty, the COPR recommended
   # on ghostty.org.

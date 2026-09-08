@@ -7,19 +7,6 @@ Built daily by [`recipes/recipe-noctalia.yml`](../recipes/recipe-noctalia.yml)
 (alongside the other images — see README); publishes
 `ghcr.io/xarianne/bluewhale-noctalia:latest`.
 
-## Where the packages come from
-
-- `noctalia` (shell, v5) and `greetd` come from the Fedora repos.
-- `umbriel-nightly` and `noctalia-greeter` come from the **Terra** repo
-  ([terra.fyralabs.com](https://terra.fyralabs.com/)), vendored as
-  `files/dnf/terra.repo`; Umbriel is not packaged in Fedora. Umbriel is only
-  available on Terra as nightly git snapshots (`umbriel-nightly`), with
-  `xwayland-satellite` and `xdg-desktop-portal-umbriel-nightly` pulled in as
-  dependencies. There is no stable Fedora/Umbriel package yet.
-- The Terra GPG key URL in `recipes/packages/noctalia.yml` hardcodes
-  `terra44`; bump it together with `image-version` in
-  `recipes/recipe-noctalia.yml`.
-
 ## The login screen (Greeter instead of GDM)
 
 - The recipe disables `gdm.service` and enables `greetd.service`; both alias
@@ -46,10 +33,9 @@ which is in Umbriel's lookup chain) based on upstream's
 with two changes:
 
 1. `[general] autostart = ["noctalia"]` — launches the shell at session start
-2. `Mod+Return` opens the Noctalia launcher (upstream spawns a terminal there).
-   `kitty` is installed explicitly by the recipe so users can bind it locally
-   (this machine: `Mod+T`; ptyxis stays single-instance on spawn, which is
-   annoying for a compositor keybind)
+2. `Mod+Return` opens the Noctalia launcher (upstream spawns a terminal there);
+   a local terminal bind is left to the user (this machine: `Mod+T`; ptyxis
+   stays single-instance on spawn, which is annoying for a compositor keybind)
 
 A user's `~/.config/umbriel/config.toml` takes precedence over it completely
 (no merging across lookup paths), so any user override should start from a

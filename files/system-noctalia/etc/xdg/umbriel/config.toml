@@ -2,7 +2,7 @@
 # Based on upstream examples/config.toml, with two changes:
 #   1. autostart launches Noctalia (upstream default is empty -> plain black screen)
 #   2. Mod+Return opens the Noctalia launcher instead of spawning kitty;
-#      kitty (installed explicitly by the recipe) is available per-user via Mod+T
+#      ghostty is available per-user via Mod+T
 # Lookup order: ~/.config/umbriel/config.toml wins over this file.
 # Sync occasionally with https://github.com/noctalia-dev/umbriel/blob/main/examples/config.toml
 
