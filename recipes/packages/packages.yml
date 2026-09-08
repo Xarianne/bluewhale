@@ -28,7 +28,19 @@ modules:
       packages:
         - nautilus-open-any-terminal
 
-  # Entry 3: everything else (Fedora repos + steam from RPM Fusion).
+  # ghostty isn't in the official Fedora repos; the host only finds it via a
+  # COPR (avengemedia/danklinux). Use scottames/ghostty, the COPR recommended
+  # on ghostty.org.
+  - type: dnf
+    repos:
+      cleanup: true
+      copr:
+        - scottames/ghostty
+    install:
+      packages:
+        - ghostty
+
+  # everything else (Fedora repos + steam from RPM Fusion).
   - type: dnf
     install:
       packages:
@@ -41,7 +53,6 @@ modules:
         - fastfetch
         - fuse-libs # Needed for some appimages, fuse already in image
         - fzf
-        - ghostty
         - gum
         - trash-cli
         - zoxide
