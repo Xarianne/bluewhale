@@ -12,11 +12,6 @@ served garbage (HTML error pages with HTTP 200) from out-of-sync mirrors,
 producing "not a rpm" build failures. Dnf URL package downloads don't
 retry/validate across mirrors the way repo metadata does.
 
-Since the base is plain Fedora (`quay.io/fedora/fedora-silverblue`), the
-shortcut's other behaviors are no-ops anyway: there is no negativo17 repo to
-disable (only Universal Blue bases add one), and the Cisco openh264 repo is
-already shipped and enabled by Fedora.
-
 The repos persist in the image intentionally (no cleanup) so that:
 
 - later modules can install from them (`steam` is in rpmfusion-nonfree)
@@ -44,3 +39,12 @@ must be replaced by `ffmpeg` + `ffmpeg-libs` in one transaction;
 
 All of the above was verified by hand in a container on
 `quay.io/fedora/fedora-silverblue:44`.
+
+## Why not just use the Universal Blue or Bluebuild base images?
+
+Even though they do the codec swap themselves via negativo17, that swap has been 
+problematic as it pins the mesa to a slightly older version. Occasionally said
+versions might have a regression, while Fedora progresses forward
+to a version that might fix it. One such example is an AV1 regression that 
+was present in mesa 26.1.4, which negativo17 served. But Fedora had moved on to
+26.1.8 which fixed the regression. So I decided to own the codec stack.
