@@ -17,11 +17,11 @@ on:
         type: choice
         options:
           - main-only
-          - testing-only
-          - rawhide-only
-          - noctalia-only
-          - everything
-        default: everything
+          # - testing-only
+          # - rawhide-only
+          # - noctalia-only
+          # - everything
+        default: main-only
 concurrency:
   # only run one build at a time
   group: ${{ github.workflow }}-${{ github.ref || github.run_id }}
