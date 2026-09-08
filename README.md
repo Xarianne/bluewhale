@@ -17,5 +17,4 @@ Taking a page from Tumbleweed's book. Hyprland and Umbriel are fast-moving, occa
 ## Docs
 
 - How the image is built and edited: [docs/building-conventions.md](docs/building-conventions.md)
-- More docs: [docs/rpmfusion.md](docs/rpmfusion.md) · [docs/ublue-packages.md](docs/ublue-packages.md) · [docs/Workarounds.md](docs/Workarounds.md) · [docs/vscode-repo.md](docs/vscode-repo.md) · [Setup.md](Setup.md)
-
+- More docs inside the docs folder.
