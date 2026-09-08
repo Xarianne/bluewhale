@@ -3,8 +3,8 @@
 Notes on the Noctalia family (<https://noctalia.dev/>): the Noctalia shell,
 the Umbriel compositor, and the Noctalia Greeter login screen.
 
-Built by [`recipes/recipe-noctalia.yml`](../recipes/recipe-noctalia.yml) on
-manual workflow dispatch only (parked — see README); publishes
+Built daily by [`recipes/recipe-noctalia.yml`](../recipes/recipe-noctalia.yml)
+(alongside the other images — see README); publishes
 `ghcr.io/xarianne/bluewhale-noctalia:latest`.
 
 ## Where the packages come from

@@ -13,12 +13,15 @@ on:
   workflow_dispatch: # allow manually triggering builds
     inputs:
       image:
-        description: What to build (main already builds on push/schedule)
+        description: What to build (all images build on push/schedule anyway)
         type: choice
         options:
+          - main-only
+          - testing-only
+          - rawhide-only
           - noctalia-only
-          - both
-        default: noctalia-only
+          - everything
+        default: everything
 concurrency:
   # only run one build at a time
   group: ${{ github.workflow }}-${{ github.ref || github.run_id }}
@@ -27,8 +30,7 @@ jobs:
   bluebuild:
     name: Build Main Image
     runs-on: ubuntu-latest
-    # skipped when a manual run picked "noctalia-only" in the dispatch dialog
-    if: github.event_name != 'workflow_dispatch' || github.event.inputs.image == 'both'
+    if: github.event_name != 'workflow_dispatch' || github.event.inputs.image == 'main-only' || github.event.inputs.image == 'everything'
     permissions:
       contents: read
       packages: write
@@ -46,18 +48,56 @@ jobs:
           # enabled by default, disable if your image is small and you want faster builds
           maximize_build_space: true
 
-  noctalia:
-    name: Build Noctalia Image
+  testing:
+    name: Build Testing Image
     runs-on: ubuntu-latest
+    if: github.event_name != 'workflow_dispatch' || github.event.inputs.image == 'testing-only' || github.event.inputs.image == 'everything'
     permissions:
       contents: read
       packages: write
       id-token: write
-    # Manual builds only (Actions → bluebuild → Run workflow; the "image"
-    # dropdown there also decides whether the main image joins in).
-    # To build it daily too, replace the `if:` below with:
-    # if: github.event_name == 'workflow_dispatch' || github.event_name == 'schedule'
-    if: github.event_name == 'workflow_dispatch'
+    steps:
+      # the build is fully handled by the reusable github action
+      - name: Build Custom Image
+        uses: blue-build/github-action@v1.12
+        with:
+          recipe: recipe-testing.yml # bluewhale-testing:latest — Fedora branched (pre-release) + karma tools
+          cosign_private_key: ${{ secrets.SIGNING_SECRET }}
+          registry_token: ${{ github.token }}
+          pr_event_number: ${{ github.event.number }}
+
+          # enabled by default, disable if your image is small and you want faster builds
+          maximize_build_space: true
+
+  rawhide:
+    name: Build Rawhide Image
+    runs-on: ubuntu-latest
+    if: github.event_name != 'workflow_dispatch' || github.event.inputs.image == 'rawhide-only' || github.event.inputs.image == 'everything'
+    permissions:
+      contents: read
+      packages: write
+      id-token: write
+    steps:
+      # the build is fully handled by the reusable github action
+      - name: Build Custom Image
+        uses: blue-build/github-action@v1.12
+        with:
+          recipe: recipe-rawhide.yml # bluewhale-rawhide:latest — Fedora Rawhide + karma tools; occasional build failures are expected
+          cosign_private_key: ${{ secrets.SIGNING_SECRET }}
+          registry_token: ${{ github.token }}
+          pr_event_number: ${{ github.event.number }}
+
+          # enabled by default, disable if your image is small and you want faster builds
+          maximize_build_space: true
+
+  noctalia:
+    name: Build Noctalia Image
+    runs-on: ubuntu-latest
+    if: github.event_name != 'workflow_dispatch' || github.event.inputs.image == 'noctalia-only' || github.event.inputs.image == 'everything'
+    permissions:
+      contents: read
+      packages: write
+      id-token: write
     steps:
       # the build is fully handled by the reusable github action
       - name: Build Custom Image

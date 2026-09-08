@@ -1,0 +1,9 @@
+# yaml-language-server: $schema=https://schema.blue-build.org/recipe-v1.json
+# Bodhi karma tooling for the testing/rawhide variants (second-disk test
+# rigs). See docs/fedora-testing.md for the Fedora account (FAS) setup.
+modules:
+  - type: dnf
+    install:
+      packages:
+        - fedora-easy-karma # guided CLI karma for installed updates-testing packages
+        - bodhi-client # full Bodhi CLI for querying/commenting updates

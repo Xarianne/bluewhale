@@ -1,19 +1,23 @@
 ---
 # yaml-language-server: $schema=https://schema.blue-build.org/recipe-v1.json
-# Experimental Noctalia/Umbriel variant. Builds daily alongside the other
-# images (see the `noctalia` job in .github/workflows/build.yml)
+# Fedora branched (testing) variant — a full clone of the main image built
+# on the *next, not yet released* Fedora. During the pre-release phase the
+# updates-testing repo is enabled by default in the base image, so this IS
+# the testing stream; karma tooling comes from packages/test-kit.yml.
+# Details and lifecycle: docs/fedora-testing.md
 # image will be published to ghcr.io/<user>/<name>
-name: bluewhale-noctalia
+name: bluewhale-testing
 # description will be included in the image's metadata
-description: Experimental Noctalia/Umbriel variant of my personal OS image. Not meant for distribution.
+description: Fedora branched (pre-release) testing variant of my personal OS image. Not meant for distribution.
 
 # the base image to build on top of (FROM) and the version tag to use
 base-image: quay.io/fedora/fedora-silverblue
-image-version: 44 # latest is also supported if you want new updates ASAP
+# Pin the branched release number — there is no floating "branched" tag.
+# BUMP after every Fedora GA (branched becomes stable, stop being a test
+# rig) to the newly branched version: 45 -> 46 around Aug/Oct 2026+6mo.
+image-version: 45
 
-# builds as ghcr.io/.../bluewhale-noctalia:latest (plus :44 and timestamp tags);
-# the name differs from recipe.yml on purpose: two recipes sharing a name
-# would race over the auto-generated version tag (:44) on the same GHCR package
+# builds as ghcr.io/.../bluewhale-testing:latest (plus :45 and timestamp tags)
 
 # module configuration, executed in order
 # you can include multiple instances of the same module
@@ -22,8 +26,6 @@ modules:
     files:
       - source: system
         destination: / # copies files/system/* (* means everything inside it) into your image's root folder /
-      - source: system-noctalia
-        destination: / # variant-only: greetd config, Umbriel default config, tmpfiles entry (see docs/noctalia.md)
 
   # Split build logic into smaller files to keep this readable.
   # rpmfusion.yml must come first: it adds the RPM Fusion repos which
@@ -40,7 +42,8 @@ modules:
   - from-file: packages/packages.yml
   - from-file: packages/repos.yml
   - from-file: packages/flatpaks.yml
-  - from-file: packages/noctalia.yml
+  - from-file: packages/test-kit.yml # variant-only: Bodhi karma tooling (docs/fedora-testing.md)
+  - from-file: packages/dms-hyprland-gnome.yml
 
   - type: brew
     direct-pull: true
@@ -52,9 +55,6 @@ modules:
       enabled:
         - rpm-ostreed-automatic.timer
         - flatpak-system-update.timer # from ublue-os-update-services
-        - greetd.service # Noctalia Greeter replaces GDM as the login screen
-      disabled:
-        - gdm.service # stays installed (part of the GNOME base), just not running; see docs/noctalia.md
     user:
       enabled:
         - flatpak-user-update.timer # from ublue-os-update-services
