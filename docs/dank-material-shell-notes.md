@@ -61,14 +61,22 @@ Log out and back in for all changes to take effect.
 
 The `hyprland` package from the `sdegler/hyprland` COPR lists `kitty` in its `Recommends`. Because dnf installs recommended packages by default, `kitty` is pulled in automatically when `hyprland` is installed — it does not need to be listed explicitly in the recipe.
 
-### Removing kitty
+### Keeping kitty out
 
-Add `kitty` to the `remove.packages` list in the dnf module (e.g. `recipes/packages/dms-hyprland.yml`):
+Adding `kitty` to the `remove.packages` list in the same dnf module does **not** work: within a single dnf module, BlueBuild removes packages *before* installing them, so the removal is a no-op and hyprland then pulls kitty back in as a weak dependency.
+
+Instead, exclude it during install (see `recipes/packages/dms-hyprland-gnome.yml`):
 
 ```yaml
-  remove:
+  install:
     packages:
+    - dgop
+    - dms
+    - hyprland
+    - matugen
+    - quickshell
+    exclude:
     - kitty
 ```
 
-If kitty is removed, update the terminal setting in `~/.config/environment.d/90-dms.conf` (`TERMINAL=kitty`) and in DMS settings to point to another terminal (e.g. `ghostty`).
+Since kitty is excluded, point the terminal setting in `~/.config/environment.d/90-dms.conf` (`TERMINAL=kitty`) and in DMS settings to another terminal (e.g. `ghostty`).

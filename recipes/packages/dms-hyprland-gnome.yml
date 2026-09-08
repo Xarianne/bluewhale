@@ -18,7 +18,8 @@ modules:
     - hyprland
     - matugen
     - quickshell
-
-  remove:
-    packages:
+    # hyprland from the sdegler/hyprland COPR Recommends kitty; exclude stops
+    # dnf pulling it in. A `remove:` block here is useless: within one dnf
+    # module, remove runs BEFORE install.
+    exclude:
     - kitty
