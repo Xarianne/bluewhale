@@ -1,7 +1,6 @@
 # yaml-language-server: $schema=https://schema.blue-build.org/recipe-v1.json
-# Pull in Universal Blue's ujust setup and udev rules from their official
-# COPR, so we automatically track upstream changes on each rebuild.
-# See docs/ublue-packages.md for details.
+# Pull in Universal Blue's ujust setup and update-service units from their
+# official COPR, so we automatically track upstream changes on each rebuild.
 modules:
   - type: dnf
     repos:
@@ -11,7 +10,6 @@ modules:
     install:
       packages:
         - ublue-os-just
-        - ublue-os-udev-rules
         - ublue-os-update-services
         # Tools used by ujust recipes
         - dmidecode

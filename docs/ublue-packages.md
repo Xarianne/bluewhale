@@ -1,8 +1,8 @@
 # Universal Blue packages (`recipes/packages/ublue.yml`)
 
 We build on plain Fedora Atomic, but pull Universal Blue's ujust setup and
-udev rules from their official `ublue-os/packages` COPR — the same packages
-Universal Blue installs in their own base images (`ublue-os/main`'s
+update services from their official `ublue-os/packages` COPR — the same
+packages Universal Blue installs in their own base images (`ublue-os/main`'s
 `build_files/install.sh`). Every rebuild tracks upstream automatically.
 
 ## What each package provides
@@ -13,8 +13,8 @@ Universal Blue installs in their own base images (`ublue-os/main`'s
   `60-custom.just` — where the BlueBuild `justfiles` module places
   `files/justfiles/`. (`ublue-os-luks` is pulled in automatically as a hard
   dependency; it provides the LUKS TPM unlock scripts.)
-- `ublue-os-udev-rules`: vendors `fabiscafe/game-devices-udev` (from Codeberg,
-  release-tracked), plus Sunshine and Framework device rules.
+- (`ublue-os-udev-rules` is no longer used — game-controller udev rules are
+  vendored from upstream instead; see building-conventions.md.)
 - `ublue-os-update-services`: flatpak auto-update timers (system + user),
   enabled in `recipes/recipe.yml`'s `systemd` module. Its `/usr/lib` drop-in
   for `rpm-ostreed-automatic.timer` is masked by our own same-named drop-in

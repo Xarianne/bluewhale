@@ -47,8 +47,10 @@ branched pre-release Fedora", and **46** as "the then-current rawhide".
   The rawhide image is for early bug hunting and test days; the karma tools
   ride along anyway so the image stays a superset of the testing one.
 - Expect **occasional failed daily builds** when rawhide churn breaks a COPR
-  package. A failed build just means no new image that day — the installed
-  system keeps working and picks up the next good one.
+  or RPM Fusion package — e.g. a major ffmpeg version landing in rpmfusion
+  before Fedora rawhide's ffmpeg-free follows (soname skew), which blocks the
+  codec swap until Fedora catches up. A failed build just means no new image
+  that day — the installed system keeps working and picks up the next good one.
 
 ## Giving karma
 
