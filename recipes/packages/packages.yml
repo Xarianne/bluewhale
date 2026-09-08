@@ -20,3 +20,8 @@ modules:
     remove:
       packages:
         - fedora-flathub-remote # Shipping in the Fedora base; we use Flathub instead
+        # Firefox RPM replaced by Mozilla's official tarball (~/Apps/firefox):
+        # self-updating, full codecs, upstream sandbox unpatch­ed by Fedora
+        - firefox
+        - firefox-langpacks
+        - fedora-bookmarks # default bookmarks preset for the RPM firefox
