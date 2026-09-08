@@ -12,9 +12,9 @@ description: Fedora branched (pre-release) testing variant of my personal OS ima
 
 # the base image to build on top of (FROM) and the version tag to use
 base-image: quay.io/fedora/fedora-silverblue
-# Pin the branched release number — there is no floating "branched" tag.
-# BUMP after every Fedora GA (branched becomes stable, stop being a test
-# rig) to the newly branched version: 45 -> 46 around Aug/Oct 2026+6mo.
+# Pin the branched pre-release version tag — there is no floating
+# "branched" tag. BUMP to the next branch number (e.g. 45 -> 46) after each
+# Fedora GA, once that branch exists; see docs/fedora-testing.md
 image-version: 45
 
 # builds as ghcr.io/.../bluewhale-testing:latest (plus :45 and timestamp tags)

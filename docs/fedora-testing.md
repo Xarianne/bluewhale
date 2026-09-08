@@ -6,44 +6,49 @@ Both are full clones of the main image, differing only in `image-version` plus
 the karma toolset from [`recipes/packages/test-kit.yml`](../recipes/packages/test-kit.yml)
 (`fedora-easy-karma` + `bodhi-client`).
 
+Throughout this doc, **45** is just the example: read it as "the currently
+branched pre-release Fedora", and **46** as "the then-current rawhide".
+
 ## `bluewhale-testing` = the branched release
 
-- Base: `quay.io/fedora/fedora-silverblue:45` — the branched **F45 pre-release**
-  (branched from Rawhide Aug 2026; GA ~end Oct 2026), rebuilt as nightly
-  composes (`45.<date>.n.0` tags). Built daily like the others.
+- Base: `quay.io/fedora/fedora-silverblue:45` — the branched pre-release
+  Fedora, published as nightly composes (`45.<date>.n.0` tags). A release
+  goes: rawhide → branched → Beta → GA (final release), and this image
+  tracks the middle part.
 - **`updates-testing` is enabled by default during the pre-release phase** —
   that's exactly what makes the base image "the testing image", so the recipe
   deliberately does no repo juggling. At GA a `fedora-release` update flips
-  `updates_testing_enabled` to 0 and the image becomes plain stable F45.
-- **Freezes** (Beta ~mid-Sept, Final ~2 weeks before GA) pause *stable pushes*:
-  the compose repo only takes blocker/freeze-exception fixes, so the nightly
-  base churns less for a few weeks. `updates-testing` keeps flowing the whole
-  time — freeze karma on blockers is the most valuable kind.
-- **Recurrent chore**: after each Fedora GA, bump `image-version: 45` → the
-  next branched version (46, then 47, ...) in
-  [`recipes/recipe-testing.yml`](../recipes/recipe-testing.yml) — once the new
-  branch exists (~Aug branch point / shortly after GA). There is no floating
-  `branched` tag, so this can't be automated via the tag. The recipe comment
-  says the same thing.
+  `updates_testing_enabled` off, and keeping the image on the released version
+  afterwards is just stable Fedora again.
+- **Freezes** (a few weeks around the Beta and Final milestones) pause
+  *stable pushes*: the compose repo only takes blocker/freeze-exception fixes,
+  so the nightly base churns less during those windows. `updates-testing`
+  keeps flowing the whole time — freeze karma on blockers is the most
+  valuable kind.
+- **Recurrent chore**: after each Fedora GA, bump `image-version` in
+  [`recipes/recipe-testing.yml`](../recipes/recipe-testing.yml) to the next
+  branched number (e.g. `45` → `46`), once that branch exists. There is no
+  floating `branched` tag, so this can't be automated via the tag — the
+  recipe comment repeats the reminder.
 
 ## `bluewhale-rawhide`
 
-- Base: `quay.io/fedora/fedora-silverblue:rawhide` — the floating, always-
-  rolling development stream. **Never bump `image-version`.** BlueBuild
-  resolves the actual number (46 as of Sept 2026) from the base image's
-  os-release at build time; it only shows up in the auto-generated version
-  tags (`:46` today, `:47` after the next branch point).
+- Base: `quay.io/fedora/fedora-silverblue:rawhide` — the floating,
+  always-rolling development stream. **Never bump `image-version`.**
+  BlueBuild resolves the number itself from the base image's os-release at
+  build time; it only shows up in the auto-generated version tags (e.g.
+  `:46` while F46 is rawhide, silently becoming `:47` after the next branch
+  point).
 - RPM Fusion needs no rawhide-specific handling in the recipe: `%OS_VERSION%`
-  resolves to that same number, and `rpmfusion-free-release-<n>` is identical
-  to `-rawhide` (verified byte-for-byte when this was set up).
+  resolves to that same number, and for the current rawhide number `n` the
+  `rpmfusion-free-release-<n>` package is the same bits as `-rawhide`.
 - **Bodhi karma does not apply to rawhide builds** — rawhide updates bypass
   Bodhi gating; karma flows through branched + stable `updates-testing` only.
   The rawhide image is for early bug hunting and test days; the karma tools
   ride along anyway so the image stays a superset of the testing one.
 - Expect **occasional failed daily builds** when rawhide churn breaks a COPR
-  package (all six COPRs used here had `fedora-rawhide` chroots as of Sept
-  2026, but rawhide is rawhide). A failed build just means no new image that
-  day — the installed system keeps working and picks up the next good one.
+  package. A failed build just means no new image that day — the installed
+  system keeps working and picks up the next good one.
 
 ## Giving karma
 
