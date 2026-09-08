@@ -1,26 +1,13 @@
 # yaml-language-server: $schema=https://schema.blue-build.org/recipe-v1.json
 # RPM Fusion for multimedia codecs and mesa (freeworld versions with
 # patented codec support, replacing Fedora's stripped builds).
-# See docs/rpmfusion.md for details.
+# Implemented as a script rather than dnf modules: the build needs exact
+# control over transaction order and flags across Fedora streams (released /
+# branched / rawhide). See docs/rpmfusion.md for details.
+#
+# Must stay first in every recipe: it adds the RPM Fusion repos which later
+# modules install from (e.g. steam).
 modules:
-  # Enable RPM Fusion repos
-  - type: dnf
-    install:
-      packages:
-        - https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-%OS_VERSION%.noarch.rpm
-        - https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-%OS_VERSION%.noarch.rpm
-
-  - type: dnf
-    install:
-      packages:
-        # mesa VA/VDPAU with full codec support (h264, h265, ...)
-        - mesa-va-drivers-freeworld
-        # Multimedia codecs
-        - libavcodec-freeworld
-        - gstreamer1-plugin-libav
-    replace:
-      - from-repo: rpmfusion-free-updates
-        allow-erasing: true
-        packages:
-          - old: ffmpeg-free
-            new: ffmpeg
+  - type: script
+    scripts:
+      - rpmfusion.sh
