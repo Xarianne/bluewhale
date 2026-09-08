@@ -19,6 +19,6 @@ modules:
     - matugen
     - quickshell
 
-install:
+  remove:
     packages:
     - kitty
