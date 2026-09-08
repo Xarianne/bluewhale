@@ -4,11 +4,12 @@ A personal custom [BlueBuild](https://blue-build.org/) Fedora Atomic image for s
 
 ## Variants
 
+Two images are published from this repo (single branch, no branch-based variants):
+
 - **`ghcr.io/xarianne/bluewhale:main`** — Silverblue (GNOME) with Hyprland + [Dank Material Shell](https://danklinux.com/) alongside. Builds on every push to `main` and daily at 06:00 UTC.
+- **`ghcr.io/xarianne/bluewhale-noctalia:noctalia`** — experimental variant with the [Noctalia](https://noctalia.dev/) family instead: Noctalia shell, Umbriel compositor, Noctalia Greeter (via greetd) replacing GDM. **Manual builds only** (Actions → bluebuild → Run workflow); parked because Umbriel is still rough around the edges (e.g. games intermittently losing mouse input). Details: [docs/noctalia.md](docs/noctalia.md)
 
-There is also an experimental **Noctalia** variant (Noctalia shell, Umbriel compositor, Noctalia Greeter via greetd replacing GDM) on the [`noctalia` branch](https://github.com/Xarianne/bluewhale/tree/noctalia). It never builds automatically. Can be triggered manually via Actions → bluebuild → Run workflow → `noctalia`, which publishes `ghcr.io/xarianne/bluewhale:br-noctalia-44`. Parked because Umbriel is still rough around the edges (e.g. games intermittently losing mouse input).
-
-Switch between them with `sudo bootc switch ghcr.io/xarianne/bluewhale:<tag>`.
+Switch between them with `sudo bootc switch ghcr.io/xarianne/<image>:<tag>`.
 
 - How the image is built and edited: [docs/building-conventions.md](docs/building-conventions.md)
 - More docs: [docs/rpmfusion.md](docs/rpmfusion.md) · [docs/ublue-packages.md](docs/ublue-packages.md) · [docs/Workarounds.md](docs/Workarounds.md) · [docs/vscode-repo.md](docs/vscode-repo.md) · [Setup.md](Setup.md)

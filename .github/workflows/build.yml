@@ -5,7 +5,7 @@ on:
         "00 06 * * *" # build at 06:00 UTC every day
         # (20 minutes after last ublue images start building)
   push:
-    branches: # only main builds automatically; other branches (e.g. noctalia) are dispatch-only
+    branches: # only main builds automatically
       - main
     paths-ignore: # don't rebuild if only documentation has changed
       - "**.md"
@@ -17,26 +17,42 @@ concurrency:
   cancel-in-progress: true
 jobs:
   bluebuild:
-    name: Build Custom Image
+    name: Build Main Image
     runs-on: ubuntu-latest
     permissions:
       contents: read
       packages: write
       id-token: write
-    strategy:
-      fail-fast: false # stop GH from cancelling all matrix builds if one fails
-      matrix:
-        recipe:
-          # !! Add your recipes here
-          - recipe.yml # :main — GNOME + Hyprland/DMS
-          # (the Noctalia variant lives on the noctalia branch: builds only via
-          #  manual workflow_dispatch there, tagged br-noctalia-44)
     steps:
       # the build is fully handled by the reusable github action
       - name: Build Custom Image
         uses: blue-build/github-action@v1.12
         with:
-          recipe: ${{ matrix.recipe }}
+          recipe: recipe.yml # :main — GNOME + Hyprland/DMS
+          cosign_private_key: ${{ secrets.SIGNING_SECRET }}
+          registry_token: ${{ github.token }}
+          pr_event_number: ${{ github.event.number }}
+
+          # enabled by default, disable if your image is small and you want faster builds
+          maximize_build_space: true
+
+  noctalia:
+    name: Build Noctalia Image
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+      id-token: write
+    # Manual builds only (Actions → bluebuild → Run workflow).
+    # To build it daily too, comment out the line below and uncomment this one:
+    # if: github.event_name == 'workflow_dispatch' || github.event_name == 'schedule'
+    if: github.event_name == 'workflow_dispatch'
+    steps:
+      # the build is fully handled by the reusable github action
+      - name: Build Custom Image
+        uses: blue-build/github-action@v1.12
+        with:
+          recipe: recipe-noctalia.yml # bluewhale-noctalia:noctalia — Noctalia shell + Umbriel + greetd
           cosign_private_key: ${{ secrets.SIGNING_SECRET }}
           registry_token: ${{ github.token }}
           pr_event_number: ${{ github.event.number }}
