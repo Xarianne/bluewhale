@@ -6,7 +6,7 @@ Installed this way, the browser also still auto-updates, it also does it faster 
 
 ## So why not use the Firefox Flatpak?
 
-Because the Flatpak sandboxing causes some issues with Firefox's own internal sandbox. That's the sandbox that makes it harder for websites to snoop on each other from other tabs. The Flatpak sandboxing restricts access to the Kernel's user namespaces (the stuff that makes a process think it is running as root), which weakens the isolation that Firefox provides between websites and makes it easier to exfiltrate cookies and other browser data.
+Because the Flatpak sandboxing causes some issues with Firefox's own internal sandbox. The Flatpak sandboxing restricts access to the Kernel's user namespaces (the stuff that makes a process think it is running as root), which weakens the isolation that Firefox provides between websites and makes it easier to exfiltrate cookies and other browser data.
 
 ## Can't you just avoid codecs in the Rawhide and testing images?
 
