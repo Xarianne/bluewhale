@@ -13,4 +13,4 @@ Because the Flatpak sandboxing causes some issues with Firefox's own internal sa
 I can. But then it's extra work to get them to parity with my daily driver if I install something that expects the codecs to be in the system. This way I just don't do that ever, and I save myself work. Maybe. We'll see ;) But it's a way to make me use those images for longer than 5 minutes, so I can test them in real world usage without extra maintenance. 
 
 ## Isn't this a bit annoying to install though?
-Yes, so I have created a just script for that. Running ujust install-firefox, will download and install the latest Firefox tarball from Mozilla, drops it into PATH and adds a desktop shortcut.
+Yes, so I have created a just script for that. Running `ujust install-firefox`, will download and install the latest Firefox tarball from Mozilla, drops it into PATH and adds a desktop shortcut.
