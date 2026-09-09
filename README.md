@@ -19,7 +19,7 @@ Switch between them with `sudo bootc switch ghcr.io/xarianne/<image>:latest`.
 Taking a page from Tumbleweed's book. Hyprland and Umbriel are fast-moving, occasionally something breaks, so having a secondary desktop environment I can log into is a safety net.
 
 ## A note on Firefox
-Firefox is installed directly from Mozilla. Run `ujust install-firefox` to install it. More info in [docs/firefox.md](docs/firefox.md).
+Firefox is installed directly from Mozilla. Run `ujust install-firefox` to install it. More info in [docs/Firefox.md](docs/Firefox.md).
 
 ## Docs
 
