@@ -32,10 +32,6 @@ HIDE=(
   "30-distrobox.just|^distrobox-assemble CONTAINER="
   "30-distrobox.just|^alias distrobox :="
   "30-distrobox.just|^distrobox-new IMAGE="
-  "30-distrobox.just|^install-resolve ACTION="
-  "30-distrobox.just|^alias install-resolve-studio :="
-  "30-distrobox.just|^alias install-davinci :="
-  "30-distrobox.just|^alias install-davinci-resolve :="
   "30-distrobox.just|^setup-distrobox-app CONTAINER="
   # 40-nvidia.just (AMD-only system)
   "40-nvidia.just|^toggle-nvk:"
