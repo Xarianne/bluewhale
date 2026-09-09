@@ -1,6 +1,6 @@
 # Why are you installing the Firefox tarball from Mozilla?
 
-Because I can't be bothered with codecs. I do occasionally install proprietary codecs in the image, but they are often a bit of an issue when I then want to use a testing or the rawhide image. I do QA for Fedora and the third party repos that handle those codecs, including RPM Fusion, can get out of sync with those images. The tarball bundles its codecs, so you don't need to install them separately. 
+Because I can't be bothered with codecs. I do sometimes install proprietary codecs in the image, but they are often a bit of an issue when I then want to use a testing or the rawhide image. I do QA for Fedora and the third party repos that handle those codecs, including RPM Fusion and Negativo 17, can get out of sync with those images. The tarball bundles its codecs, so you don't need to install them separately. 
 
 Installed this way, the browser also still auto-updates, it also does it faster because it's directly from the source, so security updates can potentially land faster. If an auto-update ever introduces features I don't want after an update, then I just ditch the browser.
 
