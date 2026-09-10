@@ -39,6 +39,7 @@ modules:
       enabled:
         - rpm-ostreed-automatic.timer
         - flatpak-system-update.timer # from ublue-os-update-services
+        - input-remapper.service
     user:
       enabled:
         - flatpak-user-update.timer # from ublue-os-update-services
