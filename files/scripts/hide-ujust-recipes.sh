@@ -18,6 +18,7 @@ HIDE=(
   "00-default.just|^enroll-secure-boot-key:"
   "00-default.just|^toggle-user-motd:"
   "00-default.just|^device-info:"
+  "00-default.just|^check-power-draw:"
   # 10-update.just (we handle updates ourselves; firmware via update-firmware stays)
   "10-update.just|^update VERB_LEVEL="
   "10-update.just|^alias upgrade :="
