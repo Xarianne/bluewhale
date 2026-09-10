@@ -4,12 +4,6 @@ modules:
   # repos, which steam installs from. Cannot be one transaction with the steam install
   # dnf resolves all packages before installing anything, so the repos wouldn't exist yet when steam is looked up.
   - type: dnf
-    install:
-      packages:
-        - https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-%OS_VERSION%.noarch.rpm
-        - https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-%OS_VERSION%.noarch.rpm
-
-  - type: dnf
     repos:
       cleanup: true
       copr:
@@ -36,7 +30,7 @@ modules:
     install:
       packages:
         # Gaming
-        - steam # RPM Fusion
+        - steam
         - input-remapper
         # Everything else
         - bat
@@ -51,8 +45,3 @@ modules:
     remove:
       packages:
         - fedora-flathub-remote
-        # Firefox RPM replaced by Mozilla's official tarball (~/Apps/firefox):
-        # self-updating, full codecs, upstream sandbox unpatched by Fedora
-        - firefox
-        - firefox-langpacks
-        - fedora-bookmarks # default bookmarks preset for the RPM firefox

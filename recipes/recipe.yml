@@ -6,7 +6,7 @@ name: bluewhale
 description: This is my personal OS image. Not meant for distribution.
 
 # the base image to build on top of (FROM) and the version tag to use
-base-image: quay.io/fedora/fedora-silverblue
+base-image: ghcr.io/ublue-os/silverblue-main
 image-version: 44 # latest is also supported if you want new updates ASAP
 
 # builds as ghcr.io/.../bluewhale:latest (plus :44 and timestamp tags)
@@ -18,8 +18,6 @@ modules:
     files:
       - source: system
         destination: / # copies files/system/* (* means everything inside it) into your image's root folder /
-
-  - from-file: packages/ublue.yml
 
   - type: justfiles # must come after ublue.yml so /usr/bin/ujust exists; BlueBuild then skips blujust and injects into ujust's 60-custom.just
 

@@ -11,6 +11,3 @@ modules:
       packages:
         - ublue-os-just
         - ublue-os-update-services
-        # Tools used by ujust recipes
-        - dmidecode
-        - fpaste
