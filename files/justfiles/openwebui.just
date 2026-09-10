@@ -4,7 +4,7 @@
 
 # Start Open WebUI and Open Terminal via rootless Podman
 [group('AI')]
-start-open-webui: start-open-terminal
+_start-open-webui: start-open-terminal
     @echo "Booting Open WebUI container..."
     @if podman ps -q --filter name=^open-webui$ | grep -q .; then \
         echo "Open WebUI is already running."; \
@@ -19,13 +19,13 @@ start-open-webui: start-open-terminal
 
 # Stop Open WebUI and Open Terminal gracefully
 [group('AI')]
-stop-open-webui: stop-open-terminal
+_stop-open-webui: stop-open-terminal
     @echo "Stopping Open WebUI container..."
     @podman rm -f open-webui >/dev/null 2>&1 || true
 
 # Update Open WebUI and Open Terminal (pull latest images and restart)
 [group('AI')]
-update-open-webui:
+_update-open-webui:
     @echo "Pulling latest Open WebUI image..."
     @podman pull ghcr.io/open-webui/open-webui:main
     @echo "Pulling latest Open Terminal image..."
@@ -40,7 +40,7 @@ update-open-webui:
 
 # Start Open Terminal via rootless Podman (called automatically by start-open-webui)
 [group('AI')]
-start-open-terminal:
+_start-open-terminal:
     @echo "Booting Open Terminal container..."
     @if podman ps -q --filter name=^open-terminal$ | grep -q .; then \
         echo "Open Terminal is already running."; \
@@ -54,6 +54,6 @@ start-open-terminal:
 
 # Stop Open Terminal gracefully (called automatically by stop-open-webui)
 [group('AI')]
-stop-open-terminal:
+_stop-open-terminal:
     @echo "Stopping Open Terminal container..."
     @podman rm -f open-terminal >/dev/null 2>&1 || true
