@@ -10,7 +10,7 @@ modules:
     copr:
     - avengemedia/danklinux
     - avengemedia/dms
-    - sdegler/hyprland
+    - lionheartp/Hyprland
   install:
     packages:
     - dgop
