@@ -1,8 +1,5 @@
 # yaml-language-server: $schema=https://schema.blue-build.org/recipe-v1.json
 modules:
-  # Must stay first and stay separate: it establishes the RPM Fusion
-  # repos, which steam installs from. Cannot be one transaction with the steam install
-  # dnf resolves all packages before installing anything, so the repos wouldn't exist yet when steam is looked up.
   - type: dnf
     repos:
       cleanup: true
@@ -13,9 +10,6 @@ modules:
         - boot-windows
         - nautilus-copy-path
 
-  # ghostty isn't in the official Fedora repos; the host only finds it via a
-  # COPR (avengemedia/danklinux). Use scottames/ghostty, the COPR recommended
-  # on ghostty.org.
   - type: dnf
     repos:
       cleanup: true
@@ -25,7 +19,6 @@ modules:
       packages:
         - ghostty
 
-  # everything else (Fedora repos + steam from RPM Fusion).
   - type: dnf
     install:
       packages:
