@@ -25,6 +25,3 @@ modules:
     packages:
     - hyprland
 
-    exclude:
-    - kitty # comes as a dep of hyprland
-
