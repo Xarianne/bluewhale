@@ -10,16 +10,21 @@ modules:
     copr:
     - avengemedia/danklinux
     - avengemedia/dms
-    - lionheartp/Hyprland
   install:
     packages:
     - dgop
     - dms
-    - hyprland
     - matugen
     - quickshell
-    # hyprland from the sdegler/hyprland COPR Recommends kitty; exclude stops
-    # dnf pulling it in. A `remove:` block here is useless: within one dnf
-    # module, remove runs BEFORE install.
+
+- type: dnf
+  repos:
+    copr:
+    - lionheartp/Hyprland
+  install:
+    packages:
+    - hyprland
+
     exclude:
-    - kitty
+    - kitty # comes as a dep of hyprland
+
