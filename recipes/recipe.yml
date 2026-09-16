@@ -26,7 +26,6 @@ modules:
 
   - from-file: packages/packages.yml
   - from-file: packages/flatpaks.yml
-  - from-file: packages/dms-hyprland-gnome.yml
 
   - type: brew
     direct-pull: true
