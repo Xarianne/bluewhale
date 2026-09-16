@@ -5,25 +5,24 @@ name: bluewhale
 # description will be included in the image's metadata
 description: This is my personal OS image. Not meant for distribution.
 
-# the base image to build on top of (FROM) and the version tag to use
-base-image: ghcr.io/ublue-os/silverblue-main
+base-image: ghcr.io/ublue-os/kinoite-main
 image-version: 44 # latest is also supported if you want new updates ASAP
 
 # builds as ghcr.io/.../bluewhale:latest (plus :44 and timestamp tags)
 
-# module configuration, executed in order
-# you can include multiple instances of the same module
+# Module configuration, executed in order
+# Can include multiple instances of the same module
 modules:
   - type: files
     files:
       - source: system
-        destination: / # copies files/system/* (* means everything inside it) into your image's root folder /
+        destination: /
 
-  - type: justfiles # must come after ublue.yml so /usr/bin/ujust exists; BlueBuild then skips blujust and injects into ujust's 60-custom.just
+  - type: justfiles
 
-  - type: script # must come after ublue.yml (needs ublue-os-just installed)
+  - type: script
     scripts:
-      - hide-ujust-recipes.sh # hide unwanted upstream ujust recipes from listings, see docs/ublue-packages.md
+      - hide-ujust-recipes.sh
 
   - from-file: packages/packages.yml
   - from-file: packages/flatpaks.yml
@@ -31,24 +30,20 @@ modules:
 
   - type: brew
     direct-pull: true
-    nofile-limits: true # increase nofile limits
+    nofile-limits: true
     brew-analytics: true
 
   - type: systemd
     system:
       enabled:
         - rpm-ostreed-automatic.timer
-        - flatpak-system-update.timer # from ublue-os-update-services
         - input-remapper.service
-    user:
-      enabled:
-        - flatpak-user-update.timer # from ublue-os-update-services
 
   - type: kargs
     arch: x86_64
     kargs:
         - amdgpu.ppfeaturemask=0xffffffff # AMD overclocking
 
-  - type: initramfs # rebuild includes tpm2-tss module → LUKS TPM2 auto-unlock works (ublue base does this too)
+  - type: initramfs # allows use of LUKS TPM2 auto-unlock works as it includes necessary intramfs module
 
-  - type: signing # this sets up the proper policy & signing files for signed images to work fully
+  - type: signing # Cosign

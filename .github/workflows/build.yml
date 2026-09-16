@@ -2,7 +2,7 @@ name: bluebuild
 on:
   schedule:
     - cron:
-        "53 5 * * *" # build daily ~06:00 UTC; off the hour mark — GitHub delays/drops top-of-hour schedules under load
+        "30 11 * * *" # build daily 11:30 UTC
   push:
     branches:
       - main

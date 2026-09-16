@@ -8,16 +8,6 @@ modules:
     install:
       packages:
         - boot-windows
-        - nautilus-copy-path
-
-  - type: dnf
-    repos:
-      cleanup: true
-      copr:
-        - scottames/ghostty
-    install:
-      packages:
-        - ghostty
 
   - type: dnf
     install:
