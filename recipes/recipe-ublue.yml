@@ -5,7 +5,7 @@ name: bluewhale
 # description will be included in the image's metadata
 description: This is my personal OS image. Not meant for distribution.
 
-base-image: quay.io/fedora-ostree-desktops/kinoite
+base-image: ghcr.io/ublue-os/kinoite-main
 image-version: 44 # latest is also supported if you want new updates ASAP
 
 # builds as ghcr.io/.../bluewhale:latest (plus :44 and timestamp tags)
@@ -20,10 +20,9 @@ modules:
 
   - type: justfiles
 
-  # RPM Fusion + multimedia codecs.
   - type: script
     scripts:
-      - rpm-fusion-codecs.sh
+      - hide-ujust-recipes.sh
 
   - from-file: packages/packages.yml
   - from-file: packages/flatpaks.yml
