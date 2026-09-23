@@ -1,5 +1,3 @@
-# bluewhale &nbsp; [![bluebuild build badge](https://github.com/xarianne/bluewhale/actions/workflows/build.yml/badge.svg)](https://github.com/xarianne/bluewhale/actions/workflows/build.yml)
-
 A personal custom [BlueBuild](https://blue-build.org/) Fedora Atomic image for someone who likes to tinker and experiment. Not intended for distribution.
 
 Switch to it with `sudo bootc switch ghcr.io/xarianne/bluewhale:latest`.
