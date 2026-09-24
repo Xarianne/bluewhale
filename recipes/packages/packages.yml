@@ -19,6 +19,7 @@ modules:
         - bat
         - eza
         - fastfetch
+        - fish
         - fuse-libs # Needed for some appimages, fuse already in image
         - fzf
         - gum
@@ -41,4 +42,3 @@ modules:
     install:
       packages:
         - starship
-
