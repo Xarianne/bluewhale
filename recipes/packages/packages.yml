@@ -22,9 +22,23 @@ modules:
         - fuse-libs # Needed for some appimages, fuse already in image
         - fzf
         - gum
+        - just
         - trash-cli
         - zoxide
 
     remove:
       packages:
         - fedora-flathub-remote
+
+  - type: dnf
+    repos:
+      cleanup: true
+      keys:
+        # keep the terraXX version in sync with image-version in the main recipe
+        - https://repos.fyralabs.com/terra44/key.asc
+      files:
+        - https://raw.githubusercontent.com/terrapkg/subatomic-repos/main/terra.repo
+    install:
+      packages:
+        - starship
+
