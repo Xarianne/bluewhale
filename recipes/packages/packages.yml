@@ -10,6 +10,15 @@ modules:
         - boot-windows
 
   - type: dnf
+    repos:
+      cleanup: true
+      copr:
+        - deltacopy/darkly
+    install:
+      packages:
+        - darkly
+
+  - type: dnf
     install:
       packages:
         # Gaming
@@ -22,6 +31,7 @@ modules:
         - fish
         - fuse-libs # Needed for some appimages, fuse already in image
         - fzf
+        - gh
         - gum
         - just
         - trash-cli
@@ -41,4 +51,8 @@ modules:
         - https://raw.githubusercontent.com/terrapkg/subatomic-repos/main/terra.repo
     install:
       packages:
+        - fresh
         - starship
+        - superfile
+        - topgrade
+        - yadm
