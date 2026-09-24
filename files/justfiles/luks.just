@@ -49,14 +49,17 @@ enable-tpm2-unlock:
     KEYSLOT=$(sudo cryptsetup luksDump "$CRYPT_DISK" | sed -n '/systemd-tpm2$/,/Keyslot:/p' | grep Keyslot | awk '{print $2}')
     sudo cryptsetup config --key-slot "$KEYSLOT" --priority prefer "$CRYPT_DISK"
 
-    # Make sure the initramfs can do TPM2 unlock. On ostree/bootc systems the
-    # initramfs is managed by rpm-ostree — plain `dracut -f` tries to write to
-    # /boot/efi/<machine-id>/<kver>, which doesn't exist in the ostree layout.
+    # Make sure the initramfs can do TPM2 unlock. This is a bootc system
+    # (ostree backend): plain `dracut -f` targets /boot/efi/<machine-id>/<kver>
+    # which doesn't exist here, and /usr is read-only so dracut can't write
+    # /usr/lib/modules/<kver>/initramfs.img directly. rpm-ostree handles
+    # regenerating the initramfs as part of a new deployment (bootc 1.16 has
+    # no `bootc initramfs` subcommand; newer bootc versions do).
     if ! grep -q 'tpm2-tss' /etc/dracut.conf.d/*.conf 2>/dev/null; then
         echo 'add_dracutmodules+=" tpm2-tss "' | sudo tee /etc/dracut.conf.d/tpm2-tss.conf >/dev/null
     fi
     if [ -f /run/ostree-booted ]; then
-        sudo rpm-ostree initramfs --force-enable
+        sudo rpm-ostree initramfs --enable
     else
         sudo dracut -f
     fi
