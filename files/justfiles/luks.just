@@ -49,11 +49,17 @@ enable-tpm2-unlock:
     KEYSLOT=$(sudo cryptsetup luksDump "$CRYPT_DISK" | sed -n '/systemd-tpm2$/,/Keyslot:/p' | grep Keyslot | awk '{print $2}')
     sudo cryptsetup config --key-slot "$KEYSLOT" --priority prefer "$CRYPT_DISK"
 
-    # Make sure the initramfs can do TPM2 unlock (dracut, not rpm-ostree, on dnf Fedora).
+    # Make sure the initramfs can do TPM2 unlock. On ostree/bootc systems the
+    # initramfs is managed by rpm-ostree — plain `dracut -f` tries to write to
+    # /boot/efi/<machine-id>/<kver>, which doesn't exist in the ostree layout.
     if ! grep -q 'tpm2-tss' /etc/dracut.conf.d/*.conf 2>/dev/null; then
         echo 'add_dracutmodules+=" tpm2-tss "' | sudo tee /etc/dracut.conf.d/tpm2-tss.conf >/dev/null
     fi
-    sudo dracut -f
+    if [ -f /run/ostree-booted ]; then
+        sudo rpm-ostree initramfs --force-enable
+    else
+        sudo dracut -f
+    fi
 
     echo "TPM2 LUKS auto-unlock configured. Reboot to test."
 
