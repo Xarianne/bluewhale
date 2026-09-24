@@ -2,7 +2,7 @@ name: bluebuild
 on:
   schedule:
     - cron:
-        "30 06 * * *" # build daily
+        "18 17 * * *" # build daily
   push:
     branches:
       - main
@@ -28,7 +28,8 @@ jobs:
       matrix:
         recipe:
           # !! Add your recipes here
-          - recipe.yml # bluewhale:latest — GNOME + Hyprland/DMS
+          - recipe.yml # bluewhale:latest
+          - recipe-noctalia.yml # bluewhale-noctalia:latest
     steps:
       # the build is fully handled by the reusable github action
       - name: Build Custom Image
