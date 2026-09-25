@@ -18,12 +18,21 @@ modules:
       - upower
       - accountsservice
       - xdg-user-dirs
-      - thunar # file manager + archive/volume/thumbnail helpers + gvfs
-      - thunar-archive-plugin
-      - thunar-volman
-      - tumbler
-      - gvfs
+      - nautilus
+      - gvfs # Allows file managers to see disk and network mounts
       - gnome-text-editor # rides ghostty's GTK4/libadwaita stack
+      - vdirsyncer # syncs Proton calendar ICS links into a local vdir that
+                   # Noctalia's calendar service reads via the "vdir" account
+                   # type (keeps the secret calendar URLs out of the config)
+
+- type: dnf
+  repos:
+    cleanup: true
+    copr:
+      - xariann/tools
+  install:
+    packages:
+      - nautilus-copy-path
 
 - type: dnf
   repos:
@@ -44,4 +53,16 @@ modules:
   system:
     enabled:
       - greetd.service
+
+# Per-user calendar sync: files/system-vdirsyncer ships the user units (the
+# systemd module also auto-copies files/systemd/user/* into /usr/lib/systemd/user,
+# but keeping these with the rest of the noctalia file sources is more explicit).
+# `user: enabled` runs `systemctl --global enable`, which links the timer for
+# every user, so it starts on login with no per-user setup. The vdirsyncer
+# config itself (with the secret Proton URLs) lives in the user's dotfiles,
+# not in the image.
+- type: systemd
+  user:
+    enabled:
+      - vdirsyncer.timer
 

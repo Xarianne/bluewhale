@@ -3,6 +3,6 @@
 # Implemented as a single script so the ffmpeg swap happens before any other
 # RPM Fusion packages are installed, avoiding conflicts with ffmpeg-free.
 modules:
-  - type: script
-    scripts:
-      - rpm-fusion-codecs.sh
+- type: script
+  scripts:
+    - rpm-fusion-codecs.sh

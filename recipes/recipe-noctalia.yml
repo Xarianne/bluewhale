@@ -13,40 +13,40 @@ image-version: 44 # latest is also supported if you want new updates ASAP
 # Module configuration, executed in order
 # Can include multiple instances of the same module
 modules:
-  - type: files
-    files:
-      - source: system
-        destination: /
-      - source: system-noctalia
-        destination: /
+- type: files
+  files:
+    - source: system
+      destination: /
+    - source: system-noctalia
+      destination: /
 
-  - type: justfiles
+- type: justfiles
 
-  # RPM Fusion + multimedia codecs.
-  - type: script
-    scripts:
-      - rpm-fusion-codecs.sh
+# RPM Fusion + multimedia codecs.
+- type: script
+  scripts:
+    - rpm-fusion-codecs.sh
 
-  - from-file: packages/packages.yml
-  - from-file: packages/flatpaks.yml
-  - from-file: packages/noctalia.yml
+- from-file: packages/packages.yml
+- from-file: packages/flatpaks.yml
+- from-file: packages/noctalia.yml
 
-  - type: brew
-    direct-pull: true
-    nofile-limits: true
-    brew-analytics: true
+- type: brew
+  direct-pull: true
+  nofile-limits: true
+  brew-analytics: true
 
-  - type: systemd
-    system:
-      enabled:
-        - rpm-ostreed-automatic.timer
-        - input-remapper.service
+- type: systemd
+  system:
+    enabled:
+      - rpm-ostreed-automatic.timer
+      - input-remapper.service
 
-  - type: kargs
-    arch: x86_64
-    kargs:
-        - amdgpu.ppfeaturemask=0xffffffff # AMD overclocking
+- type: kargs
+  arch: x86_64
+  kargs:
+      - amdgpu.ppfeaturemask=0xffffffff # AMD overclocking
 
-  - type: initramfs # allows use of LUKS TPM2 auto-unlock works as it includes necessary intramfs module
+- type: initramfs # allows use of LUKS TPM2 auto-unlock works as it includes necessary intramfs module
 
-  - type: signing # Cosign
+- type: signing # Cosign
