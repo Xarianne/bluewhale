@@ -1,6 +1,5 @@
 # yaml-language-server: $schema=https://schema.blue-build.org/recipe-v1.json
 #
-# ----------------------------------------------------------------
 # Noctalia family: https://noctalia.dev/
 #
 # - noctalia:        desktop shell (v5), from the Fedora repos
@@ -9,6 +8,33 @@
 #   (wired up via files/system-noctalia/etc/greetd/config.toml and the
 #   systemd module below)
 modules:
+# Desktop plumbing: everything the no-desktop base lacks (docs/base-atomic.md).
+- type: dnf
+  install:
+    packages:
+      - polkit
+      - gnome-keyring
+      - gnome-keyring-pam # pam_gnome_keyring.so, referenced by greetd's PAM stack
+      - upower
+      - accountsservice
+      - xdg-user-dirs
+      - nautilus
+      - gvfs # Allows file managers to see disk and network mounts
+      - gnome-text-editor # libadwaita; same GTK4 stack as nautilus (kwrite was
+                          # rejected: it drags in the whole KF6/Qt6 tree)
+      - vdirsyncer # syncs Proton calendar ICS links into a local vdir that
+                   # Noctalia's calendar service reads via the "vdir" account
+                   # type (keeps the secret calendar URLs out of the config)
+
+- type: dnf
+  repos:
+    cleanup: true
+    copr:
+      - xariann/tools
+  install:
+    packages:
+      - nautilus-copy-path
+
 - type: dnf
   repos:
     cleanup: true # clean up the Terra repo after this module is done
@@ -23,11 +49,18 @@ modules:
       - umbriel-nightly # pulls in xwayland-satellite and xdg-desktop-portal-umbriel-nightly
       - noctalia-greeter
       - greetd
+      - ghostty # terminal; not in the Fedora repos, Terra only
 
 - type: systemd
   system:
     enabled:
       - greetd.service
-    disabled:
-      - plasmalogin.service
+
+# Per-user calendar sync. The vdirsyncer Fedora package ships no systemd units,
+# so upstream's contrib units are vendored in files/systemd/user/ — the systemd
+# module auto-copies that directory into /usr/lib/systemd/user.
+- type: systemd
+  user:
+    enabled:
+      - vdirsyncer.timer
 

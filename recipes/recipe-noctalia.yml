@@ -1,17 +1,13 @@
 ---
 # yaml-language-server: $schema=https://schema.blue-build.org/recipe-v1.json
 # image will be published to ghcr.io/<user>/<name>
-name: bluewhale-noctalia
+name: bluewhale-noctalia-testing
 # description will be included in the image's metadata
 description: Experimental Noctalia/Umbriel variant of my personal OS image. Not meant for distribution.
 
-base-image: quay.io/fedora-ostree-desktops/kinoite
+base-image: quay.io/fedora-ostree-desktops/base-atomic
 image-version: 44 # latest is also supported if you want new updates ASAP
 
-# builds as ghcr.io/.../bluewhale-noctalia:latest (plus :44 and timestamp tags)
-
-# Module configuration, executed in order
-# Can include multiple instances of the same module
 modules:
 - type: files
   files:
