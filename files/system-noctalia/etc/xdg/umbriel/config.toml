@@ -1,8 +1,8 @@
 # bluewhale default Umbriel configuration
-# Based on upstream examples/config.toml, with changes:
+# Based on upstream examples/config.toml, with two changes:
 #   1. autostart launches Noctalia (upstream default is empty -> plain black screen)
-#   2. Mod+Return opens the Noctalia launcher, Mod+T spawns ghostty
-#      (the terminal installed explicitly by the recipe)
+#   2. Mod+Return opens the Noctalia launcher instead of spawning kitty;
+#      ghostty is available per-user via Mod+T
 # Lookup order: ~/.config/umbriel/config.toml wins over this file.
 # Sync occasionally with https://github.com/noctalia-dev/umbriel/blob/main/examples/config.toml
 
@@ -28,7 +28,7 @@
 # ────────────────────────────────────────────────────────────────────────────
 
 [include]
-files = ["noctalia.toml"]                                      # Catppuccin palette shipped alongside this file
+files = ["noctalia.toml"]                                      # Example: ["noctalia.toml", "outputs.toml"]
 
 # ─────────────────────────────── General ────────────────────────────────────
 # Configure startup commands, session behavior, environment variables, and
@@ -37,7 +37,8 @@ files = ["noctalia.toml"]                                      # Catppuccin pale
 # ────────────────────────────────────────────────────────────────────────────
 
 [general]
-autostart = ["noctalia"]                       # Commands run once when the session starts
+autostart = ["/usr/libexec/kf6/polkit-kde-authentication-agent-1", "noctalia"] # Commands run once when the session starts
+                                                # First entry: polkit agent, so pkexec/greeter-sync can show a password dialog
 # mod_key = "Super"                             # Force Super instead of nested-session Alt
 xwayland = true                                 # Requires xwayland-satellite; restart to change
 show_cheatsheet = true                          # Show the keybind overlay on startup
@@ -52,6 +53,9 @@ honor_restored_maximize = false                 # Honor restored maximized state
 [environment]
 # GTK_THEME = "Adwaita:dark"
 # QT_QPA_PLATFORMTHEME = "qt5ct"
+# Make Qt apps (dolphin, konsole, ...) follow the KDE settings in
+# ~/.config/kdeglobals: Darkly widget style, Layan colors, Tela-circle icons.
+# QT_QPA_PLATFORMTHEME = "kde"
 
 # Hardware events
 # These commands run when a laptop lid opens or closes. Uncomment either hook
@@ -73,6 +77,16 @@ honor_restored_maximize = false                 # Honor restored maximized state
 # Use a connector when the rule belongs to a port. To follow one physical
 # display between machines or ports, replace the header with its quoted Config
 # name, for example [output."Some Make Some Model ABC123"].
+
+# Physical monitor setup for this machine.
+# HP P224 on the left at 60 Hz, Dell S2721DGF on the right at 165 Hz.
+[output.DP-1]
+mode = "2560x1440@165.080"
+position = [1920, 0]
+
+[output.HDMI-A-1]
+mode = "1920x1080@60.000"
+position = [0, 0]
 
 # [output.DP-1]
 # enabled = true                                # False removes the output but preserves its state
@@ -203,7 +217,7 @@ middle_click_paste = true                       # Primary-selection paste; appli
 
 [input.keyboard]
 # Physical keyboard XKB settings. Virtual keyboards provide their own keymaps.
-layout = ""                                     # Example: "us,de"; empty uses the system default
+layout = "gb"                                     # UK layout
 variant = ""                                    # Example: ",nodeadkeys" for two layouts
 options = ""                                    # Example: "grp:alt_shift_toggle"
 repeat_rate = 25                                # Key repeats per second, 0-1000
@@ -283,10 +297,10 @@ follows_mouse = false                           # Focus the pointer target after
 
 # Applications and session
 "Mod+Return" = "spawn:noctalia msg panel-toggle launcher" # launcher (bare Mod tap also works)
-"Mod" = "spawn:noctalia msg panel-toggle launcher"
-"Mod+Q" = "window-close"
 "Mod+D" = { action = "spawn:nautilus", repeat = false }    # file manager
 "Mod+B" = { action = "spawn:firefox", repeat = false }     # browser
+"Mod" = "spawn:noctalia msg panel-toggle launcher"
+"Mod+Q" = "window-close"
 
 # Focus navigation. In overview, Mod+Up/Down retain normal layout focus, so they
 # traverse stacks in the default horizontal layout. Bare Up/Down move between
@@ -417,7 +431,6 @@ follows_mouse = false                           # Focus the pointer target after
 [layout]
 mode = "scrolling"                              # scrolling, dwindle, or master
 gap = 8                                         # Logical pixels between tiles, 0-500
-width_presets = [0.333, 0.5, 0.667]             # Width and height cycling fractions
 
 [layout.struts]
 # Signed logical pixels reserved after panel exclusive zones. Negative values
@@ -429,10 +442,9 @@ bottom = 0
 
 [layout.scrolling]
 # direction = "horizontal"                      # horizontal or vertical strip axis
-default_width_fraction = 0.5                    # Initial width for new columns, 0.1-1.0
+default_extent_fraction = 0.5                   # Initial width for new columns, 0.1-1.0
 center_underfull_strip = true                   # Center a strip narrower than the viewport
-center_focused = false                          # Always center the focused column
-expand_single_column = true                     # Let a lone column fill the viewport
+center_focused = "never"                        # never, always, or on_overflow
 
 [layout.dwindle]
 # preserve_split = false                        # Keep every split direction fixed after creation
@@ -466,13 +478,18 @@ default_scrolling_extent = 1.0
 [[window_rule]]
 match.app_id = "^dev.noctalia.Noctalia$"
 default_floating = true
-default_size = [1020, 900]
 
 # Noctalia share picker
 [[window_rule]]
 match.app_id = "^dev.noctalia.UmbrielSharePicker$"
 default_floating = true
-default_size = [800, 600]
+
+# Force WoW (Xwayland window from Battle.net launch) fullscreen on DP-1
+[[window_rule]]
+match.app_id = "^steam_app_default$"
+match.title = "^(World of Warcraft|World of Warcraft.*)$"
+default_fullscreen = true
+default_output = "DP-1"
 
 # Browsers expose no semantic PiP role or global position control.
 [[window_rule]]
@@ -488,13 +505,6 @@ match.title = "^notificationtoasts_.+_desktop"
 default_position = { x = 0, y = 0, anchor = "bottom_right" }
 default_focused = false
 default_pinned = true
-
-# Force WoW (Xwayland window from Battle.net launch) fullscreen on DP-1
-[[window_rule]]
-match.app_id = "^steam_app_default$"
-match.title = "^(World of Warcraft|World of Warcraft.*)$"
-default_fullscreen = true
-default_output = "DP-1"
 
 # Optional placement recipe. Output names follow the same rules as [output.*].
 
