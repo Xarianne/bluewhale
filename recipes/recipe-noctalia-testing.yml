@@ -1,0 +1,48 @@
+---
+# yaml-language-server: $schema=https://schema.blue-build.org/recipe-v1.json
+# image will be published to ghcr.io/<user>/<name>
+name: bluewhale-noctalia-testing
+# description will be included in the image's metadata
+description: Experimental Noctalia/Umbriel variant of my personal OS image. Not meant for distribution.
+
+base-image: quay.io/fedora-ostree-desktops/base-atomic
+image-version: 44 # latest is also supported if you want new updates ASAP
+
+modules:
+  - type: files
+    files:
+      - source: system
+        destination: /
+      - source: system-noctalia
+        destination: /
+
+  - type: justfiles
+
+  # RPM Fusion + multimedia codecs.
+  - type: script
+    scripts:
+      - rpm-fusion-codecs.sh
+
+  - from-file: packages/packages.yml
+  - from-file: packages/flatpaks.yml
+  - from-file: packages/noctalia-testing.yml
+
+  - type: brew
+    direct-pull: true
+    nofile-limits: true
+    brew-analytics: true
+
+  - type: systemd
+    system:
+      enabled:
+        - rpm-ostreed-automatic.timer
+        - input-remapper.service
+
+  - type: kargs
+    arch: x86_64
+    kargs:
+        - amdgpu.ppfeaturemask=0xffffffff # AMD overclocking
+
+  - type: initramfs # allows use of LUKS TPM2 auto-unlock works as it includes necessary intramfs module
+
+  - type: signing # Cosign

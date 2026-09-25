@@ -1,0 +1,47 @@
+# yaml-language-server: $schema=https://schema.blue-build.org/recipe-v1.json
+#
+# Noctalia family: https://noctalia.dev/
+#
+# - noctalia:        desktop shell (v5), from the Fedora repos
+# - umbriel-nightly: Wayland compositor, from Terra (no Fedora package yet)
+# - noctalia-greeter + greetd: login screen, replaces Plasma login manager (PLM)
+#   (wired up via files/system-noctalia/etc/greetd/config.toml and the
+#   systemd module below)
+modules:
+# Desktop plumbing: everything the no-desktop base lacks (docs/base-atomic.md).
+- type: dnf
+  install:
+    packages:
+      - polkit
+      - gnome-keyring
+      - gnome-keyring-pam # pam_gnome_keyring.so, referenced by greetd's PAM stack
+      - upower
+      - accountsservice
+      - xdg-user-dirs
+      - thunar # file manager + archive/volume/thumbnail helpers + gvfs
+      - thunar-archive-plugin
+      - thunar-volman
+      - tumbler
+      - gvfs
+      - gnome-text-editor # rides ghostty's GTK4/libadwaita stack
+
+- type: dnf
+  repos:
+    cleanup: true # clean up the Terra repo after this module is done
+    keys:
+      # keep the terraXX version in sync with image-version in the main recipe
+      - https://repos.fyralabs.com/terra44/key.asc
+    files:
+      - https://raw.githubusercontent.com/terrapkg/subatomic-repos/main/terra.repo
+  install:
+    packages:
+      - noctalia
+      - umbriel-nightly # pulls in xwayland-satellite and xdg-desktop-portal-umbriel-nightly
+      - noctalia-greeter
+      - greetd
+
+- type: systemd
+  system:
+    enabled:
+      - greetd.service
+

@@ -28,8 +28,9 @@ jobs:
       matrix:
         recipe:
           # !! Add your recipes here
-          - recipe.yml # bluewhale:latest
-          - recipe-noctalia.yml # bluewhale-noctalia:latest
+          # - recipe.yml # bluewhale:latest
+          # - recipe-noctalia.yml # bluewhale-noctalia:latest
+          - recipe-noctalia-testing.yml # bluewhale-noctalia:latest
     steps:
       # the build is fully handled by the reusable github action
       - name: Build Custom Image
