@@ -2,7 +2,7 @@ name: bluebuild
 on:
   schedule:
     - cron:
-        "18 17 * * *" # build daily
+        "18 04 * * *" # build daily
   push:
     branches:
       - main
