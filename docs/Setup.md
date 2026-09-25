@@ -30,6 +30,24 @@ To rebase an existing atomic Fedora installation to the latest build:
 
 The `latest` tag will automatically point to the latest build. That build will still always use the Fedora version specified in `recipe.yml`, so you won't get accidentally updated to the next major version.
 
+## Umbriel config layout
+
+`/etc/xdg/umbriel/config.toml` (baked in from `files/system-noctalia/`) is the
+source of truth for the compositor config. However, Noctalia's theming module
+rewrites `~/.config/umbriel/noctalia.toml` on theme changes and, if the user
+config directory lacks a `config.toml`, regenerates a stub main file there —
+which then shadows `/etc/xdg/umbriel/config.toml` entirely and loses all
+keybinds. To prevent this, `~/.config/umbriel/config.toml` is an include-only
+shim:
+
+```toml
+[include]
+files = ["/etc/xdg/umbriel/config.toml", "noctalia.toml"]
+```
+
+Never put real settings in `~/.config/umbriel/` — edit the repo copy and
+`pkexec cp` it to `/etc/xdg/umbriel/`.
+
 ## ISO
 
 If build on Fedora Atomic, you can generate an offline ISO with the instructions available [here](https://blue-build.org/learn/universal-blue/#fresh-install-from-an-iso). These ISOs cannot unfortunately be distributed on GitHub for free due to large sizes, so for public projects something else has to be used for hosting.

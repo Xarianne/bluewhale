@@ -4,6 +4,10 @@
 #   2. Mod+Return opens the Noctalia launcher instead of spawning kitty;
 #      ghostty is available per-user via Mod+T
 # Lookup order: ~/.config/umbriel/config.toml wins over this file.
+# Noctalia's theming module rewrites ~/.config/umbriel/noctalia.toml and
+# regenerates a stub ~/.config/umbriel/config.toml if missing, so the user
+# directory must hold an include-only shim that pulls this file in (see
+# docs/Setup.md). Keep this file as the single source of truth.
 # Sync occasionally with https://github.com/noctalia-dev/umbriel/blob/main/examples/config.toml
 
 # Umbriel example configuration
