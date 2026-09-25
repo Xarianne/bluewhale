@@ -20,7 +20,8 @@ modules:
       - xdg-user-dirs
       - nautilus
       - gvfs # Allows file managers to see disk and network mounts
-      - gnome-text-editor # rides ghostty's GTK4/libadwaita stack
+      - gnome-text-editor # libadwaita; same GTK4 stack as nautilus (kwrite was
+                          # rejected: it drags in the whole KF6/Qt6 tree)
       - vdirsyncer # syncs Proton calendar ICS links into a local vdir that
                    # Noctalia's calendar service reads via the "vdir" account
                    # type (keeps the secret calendar URLs out of the config)
@@ -48,6 +49,7 @@ modules:
       - umbriel-nightly # pulls in xwayland-satellite and xdg-desktop-portal-umbriel-nightly
       - noctalia-greeter
       - greetd
+      - ghostty # terminal; not in the Fedora repos, Terra only
 
 - type: systemd
   system:

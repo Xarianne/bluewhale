@@ -1,8 +1,8 @@
 # bluewhale default Umbriel configuration
-# Based on upstream examples/config.toml, with two changes:
+# Based on upstream examples/config.toml, with changes:
 #   1. autostart launches Noctalia (upstream default is empty -> plain black screen)
-#   2. Mod+Return opens the Noctalia launcher instead of spawning kitty;
-#      kitty (installed explicitly by the recipe) is available per-user via Mod+T
+#   2. Mod+Return opens the Noctalia launcher, Mod+T spawns ghostty
+#      (the terminal installed explicitly by the recipe)
 # Lookup order: ~/.config/umbriel/config.toml wins over this file.
 # Sync occasionally with https://github.com/noctalia-dev/umbriel/blob/main/examples/config.toml
 
@@ -28,7 +28,7 @@
 # ────────────────────────────────────────────────────────────────────────────
 
 [include]
-files = []                                      # Example: ["noctalia.toml", "outputs.toml"]
+files = ["noctalia.toml"]                                      # Catppuccin palette shipped alongside this file
 
 # ─────────────────────────────── General ────────────────────────────────────
 # Configure startup commands, session behavior, environment variables, and
@@ -285,6 +285,8 @@ follows_mouse = false                           # Focus the pointer target after
 "Mod+Return" = "spawn:noctalia msg panel-toggle launcher" # launcher (bare Mod tap also works)
 "Mod" = "spawn:noctalia msg panel-toggle launcher"
 "Mod+Q" = "window-close"
+"Mod+D" = { action = "spawn:nautilus", repeat = false }    # file manager
+"Mod+B" = { action = "spawn:firefox", repeat = false }     # browser
 
 # Focus navigation. In overview, Mod+Up/Down retain normal layout focus, so they
 # traverse stacks in the default horizontal layout. Bare Up/Down move between
@@ -295,8 +297,9 @@ follows_mouse = false                           # Focus the pointer target after
 "Mod+Right" = "window-focus-right"
 
 # Window state and layout
-"Mod+T" = "window-toggle-floating"
+"Mod+T" = { action = "spawn:ghostty", repeat = false }      # terminal (floating toggle moved to Mod+Shift+T)
 "Mod+Shift+T" = "window-focus-switch-floating"
+"Mod+Shift+F" = "window-toggle-floating"       # floating toggle (Mod+T now spawns ghostty)
 "Mod+P" = "window-toggle-pinned"
 "Mod+M" = "window-toggle-maximize-to-edges"
 
@@ -313,14 +316,29 @@ follows_mouse = false                           # Focus the pointer target after
 # "Mod+J" = "window-focus-down"
 # "Mod+K" = "window-focus-up"
 # "Mod+L" = "window-focus-right"
-# "Mod+Shift+Left" = "column-move-left"
+"Mod+Shift+Left" = "column-move-left"
 # "Mod+Shift+Down" = "window-move-down"
 # "Mod+Shift+Up" = "window-move-up"
-# "Mod+Shift+Right" = "column-move-right"
+"Mod+Shift+Right" = "column-move-right"
+
+# Move the focused window to the adjacent output (screen)
+"Mod+Alt+Left" = "window-move-to-output-left"
+"Mod+Alt+Right" = "window-move-to-output-right"
+"Mod+Alt+Up" = "window-move-to-output-up"
+"Mod+Alt+Down" = "window-move-to-output-down"
 # "Mod+F" = "window-toggle-fullscreen"
 # "Mod+Ctrl+F" = "window-toggle-maximize"
-# "Mod+R" = "window-cycle-width"
-# "Mod+Shift+R" = "window-cycle-width-back"
+
+# Resizing (action names valid for umbriel 0.1.0)
+"Mod+Minus" = "window-modify-width-left:-0.05"      # grow left edge
+"Mod+Equal" = "window-modify-width-right:0.05"      # grow right edge
+"Mod+Shift+Minus" = "window-modify-width-left:0.05" # shrink left edge
+"Mod+Shift+Equal" = "window-modify-width-right:-0.05"
+"Mod+Ctrl+Minus" = "window-modify-height-up:-0.05"
+"Mod+Ctrl+Equal" = "window-modify-height-down:0.05"
+"Mod+F" = "window-toggle-fullscreen"
+"Mod+R" = "window-cycle-primary-extent"
+"Mod+Shift+R" = "window-cycle-primary-extent-back"
 # "Mod+Comma" = "window-consume-left"
 # "Mod+Period" = "window-consume-right"
 # "Mod+WheelUp" = "window-focus-left"
@@ -436,6 +454,14 @@ new_on_top = true                               # Put new windows at the top of 
 blur = true
 blur_optimized = false
 
+# A lone tiled window fills the viewport; when a second window spawns the
+# effect is removed and the column falls back to its scrolling extent, so
+# windows share the output and the strip scrolls on overflow.
+# https://docs.noctalia.dev/umbriel/window-rules/#the-only-window-in-the-workspace
+[[window_rule]]
+match.is_alone = true
+default_scrolling_extent = 1.0
+
 # Noctalia settings
 [[window_rule]]
 match.app_id = "^dev.noctalia.Noctalia$"
@@ -462,6 +488,13 @@ match.title = "^notificationtoasts_.+_desktop"
 default_position = { x = 0, y = 0, anchor = "bottom_right" }
 default_focused = false
 default_pinned = true
+
+# Force WoW (Xwayland window from Battle.net launch) fullscreen on DP-1
+[[window_rule]]
+match.app_id = "^steam_app_default$"
+match.title = "^(World of Warcraft|World of Warcraft.*)$"
+default_fullscreen = true
+default_output = "DP-1"
 
 # Optional placement recipe. Output names follow the same rules as [output.*].
 
