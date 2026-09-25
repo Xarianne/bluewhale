@@ -1,7 +1,7 @@
 ---
 # yaml-language-server: $schema=https://schema.blue-build.org/recipe-v1.json
 # image will be published to ghcr.io/<user>/<name>
-name: bluewhale-noctalia-testing
+name: bluewhale-noctalia
 # description will be included in the image's metadata
 description: Experimental Noctalia/Umbriel variant of my personal OS image. Not meant for distribution.
 
@@ -24,8 +24,9 @@ modules:
     - rpm-fusion-codecs.sh
 
 - from-file: packages/packages.yml
-- from-file: packages/flatpaks.yml
 - from-file: packages/noctalia.yml
+- from-file: packages/flatpaks.yml
+- from-file: packages/flatpaks-noctalia.yml
 
 - type: brew
   direct-pull: true

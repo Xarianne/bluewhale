@@ -3,13 +3,13 @@
 registry := "localhost:5000"
 
 # One-time setup: allow unencrypted transport on loopback
-setup:
+setup-registry:
     sudo mkdir -p /etc/containers/registries.conf.d
     printf '[[registry]]\nlocation = "localhost:5000"\ninsecure = true\n\n[[registry]]\nlocation = "127.0.0.1:5000"\ninsecure = true\n' | sudo tee /etc/containers/registries.conf.d/local-registry.conf > /dev/null
     @echo "Configuration written to /etc/containers/registries.conf.d/local-registry.conf"
 
 # Start registry bound strictly to loopback
-start:
+start-registry:
     @podman start local-registry 2>/dev/null || podman run -d \
         --name local-registry \
         -p 127.0.0.1:5000:5000 \
@@ -18,7 +18,7 @@ start:
     @echo "Registry active on {{registry}}."
 
 # Start the Web UI at http://localhost:5001
-ui: start
+start-git-ui: start-registry
     @podman start registry-ui 2>/dev/null || podman run -d \
         --name registry-ui \
         -p 127.0.0.1:5001:80 \
@@ -28,7 +28,7 @@ ui: start
     @echo "Registry UI active at http://localhost:5001"
 
 # Stop registry and UI containers
-stop:
+stop-registry:
     @podman stop -t 1 registry-ui local-registry 2>/dev/null || true
     @echo "Containers stopped."
 
@@ -65,7 +65,7 @@ build recipe="recipe.yml":
     bluebuild build "$rel_recipe"
 
 # Tag and push: :latest, :<image_version>, and :<git_sha>
-push recipe="recipe.yml": start
+push-build recipe="recipe.yml": start-registry
     #!/usr/bin/env bash
     set -euo pipefail
     target="{{recipe}}"
@@ -108,7 +108,7 @@ push recipe="recipe.yml": start
     podman push --tls-verify=false "{{registry}}/${image_name}:${git_sha}"
 
 # One-time switch: builds, pushes all tags, rebases host, and cleans up
-rebase recipe="recipe.yml": start (push recipe)
+rebase recipe="recipe.yml": start-registry (push-build recipe)
     #!/usr/bin/env bash
     set -euo pipefail
     target="{{recipe}}"
@@ -133,7 +133,7 @@ rebase recipe="recipe.yml": start (push recipe)
     podman stop -t 1 local-registry 2>/dev/null || true
 
 # Routine update: starts registry, builds, tags all three, upgrades host, and stops container
-update recipe="recipe.yml":
+update-build recipe="recipe.yml":
     #!/usr/bin/env bash
     set -euo pipefail
     trap "podman stop -t 1 local-registry 2>/dev/null || true" EXIT

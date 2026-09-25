@@ -28,10 +28,6 @@ modules:
       - trash-cli
       - zoxide
 
-  remove:
-    packages:
-      - fedora-flathub-remote
-
 - type: dnf
   repos:
     cleanup: true

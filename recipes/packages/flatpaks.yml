@@ -1,5 +1,11 @@
 # yaml-language-server: $schema=https://schema.blue-build.org/recipe-v1.json
 modules:
+
+- type: dnf
+  remove:
+    packages:
+      - fedora-flathub-remote
+      
 - type: default-flatpaks
   configurations:
   - notify: false # Send notification after install/uninstall is finished (true/false)
@@ -9,6 +15,7 @@ modules:
     # Gaming
     - io.github.Faugus.faugus-launcher
     - com.vysp3r.ProtonPlus
+    - io.github.ilya_zlobintsev.LACT
 
     # System Tools
     - com.github.tchx84.Flatseal
