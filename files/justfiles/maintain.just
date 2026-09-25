@@ -5,14 +5,6 @@
 prune-images:
     podman image prune -a -f
 
-# Remove packages that are no longer needed by anything
-_autoremove:
-    sudo dnf autoremove
-
-# Check for .rpmnew/.rpmsave config files (Fedora's equivalent of Arch's .pacnew)
-_rpmconf:
-    sudo rpmconf -a
-
 # Show all messages from this boot
 logs-this-boot:
     sudo journalctl --no-hostname -b 0
@@ -30,6 +22,3 @@ save-this-boot:
 save-last-boot:
     sudo journalctl --no-hostname -b -1 > ~/last-boot.log
     echo "Saved to ~/last-boot.log"
-
-# Run the full maintenance pass
-clean: prune-images _autoremove _rpmconf
