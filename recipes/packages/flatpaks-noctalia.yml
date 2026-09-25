@@ -12,3 +12,4 @@ modules:
     - org.gnome.Loupe
     - org.gnome.Decibels
     - org.gnome.font-viewer
+    - be.alexandervanhee.gradia

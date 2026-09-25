@@ -20,6 +20,7 @@ modules:
       - eza
       - fastfetch
       - fish
+      - fuse # Needed for some appimages, fuse already in image
       - fuse-libs # Needed for some appimages, fuse already in image
       - fzf
       - gh
@@ -42,4 +43,3 @@ modules:
       - starship
       - superfile
       - topgrade
-      - yadm
