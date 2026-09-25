@@ -56,13 +56,12 @@ modules:
     enabled:
       - greetd.service
 
-# Per-user calendar sync: files/system-vdirsyncer ships the user units (the
-# systemd module also auto-copies files/systemd/user/* into /usr/lib/systemd/user,
-# but keeping these with the rest of the noctalia file sources is more explicit).
-# `user: enabled` runs `systemctl --global enable`, which links the timer for
-# every user, so it starts on login with no per-user setup. The vdirsyncer
-# config itself (with the secret Proton URLs) lives in the user's dotfiles,
-# not in the image.
+# Per-user calendar sync. The vdirsyncer Fedora package ships no systemd units,
+# so upstream's contrib units are vendored in files/systemd/user/ — the systemd
+# module auto-copies that directory into /usr/lib/systemd/user. `user: enabled`
+# runs `systemctl --global enable`, which links the timer for every user, so it
+# starts on login with no per-user setup. The vdirsyncer config itself (with the
+# secret Proton URLs) lives in the user's dotfiles, not in the image.
 - type: systemd
   user:
     enabled:
