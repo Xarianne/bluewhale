@@ -17,6 +17,12 @@ modules:
       - gnome-text-editor
       - vdirsyncer # syncs calendar ICS links
       - fuse # needed for some appimages
+      - hyprland-guiutils # Required dep for Hyprland on Fedora
+      # DMS doctor "optional features":
+      - power-profiles-daemon # power profile control (performance/balanced/power-saver)
+      - cups-pk-helper # authenticated printer management from DMS
+      - qt6-qtimageformats # WebP/TIFF/GIF/JP2/ICNS for wallpapers & notification images
+      - kf6-kimageformats # AVIF/HEIF/JXL/EXR image formats
 
 - type: dnf
   repos:

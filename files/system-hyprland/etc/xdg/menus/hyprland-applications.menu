@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE Menu PUBLIC "-//freedesktop//DTD Menu 1.0//EN" "http://www.freedesktop.org/standards/menu-spec/1.0/menu.dtd">
+<!--
+  Hyprland sets XDG_MENU_PREFIX=hyprland- in the session environment, but no
+  hyprland-applications.menu ships anywhere. Without this file, apps that read
+  the XDG menu (DMS launcher, GTK "Open With", ...) see an empty app list and
+  the DMS doctor warns "hyprland- (menu file not found)".
+  Flat generic menu: one entry per main category (OR within one <Include>),
+  so nearly every desktop app shows up.
+-->
+<Menu>
+  <Name>Applications</Name>
+  <DefaultAppDirs/>
+  <DefaultDirectoryDirs/>
+  <Include>
+    <Category>Network</Category>
+    <Category>Utility</Category>
+    <Category>Office</Category>
+    <Category>Graphics</Category>
+    <Category>AudioVideo</Category>
+    <Category>Development</Category>
+    <Category>Science</Category>
+    <Category>Education</Category>
+    <Category>Game</Category>
+    <Category>System</Category>
+    <Category>Settings</Category>
+  </Include>
+</Menu>
