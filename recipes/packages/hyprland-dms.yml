@@ -1,13 +1,6 @@
 ---
 # yaml-language-server: $schema=https://schema.blue-build.org/recipe-v1.json
-#
-# Noctalia family: https://noctalia.dev/
-#
-# - noctalia:        desktop shell (v5), from the Fedora repos
-# - umbriel-nightly: Wayland compositor, from Terra (no Fedora package yet)
-# - noctalia-greeter + greetd: login screen, replaces Plasma login manager (PLM)
-#   (wired up via files/system-noctalia/etc/greetd/config.toml and the
-#   systemd module below)
+
 modules:
 # Desktop plumbing: everything the no-desktop base lacks.
 - type: dnf
@@ -36,6 +29,14 @@ modules:
 
 - type: dnf
   repos:
+    copr:
+    - lionheartp/Hyprland
+  install:
+    packages:
+    - hyprland
+
+- type: dnf
+  repos:
     cleanup: true
     keys:
       # keep the terraXX version in sync with image-version in the main recipe
@@ -44,22 +45,36 @@ modules:
       - https://raw.githubusercontent.com/terrapkg/subatomic-repos/main/terra.repo
   install:
     packages:
-      - noctalia
-      - umbriel-nightly # pulls in xwayland-satellite and xdg-desktop-portal-umbriel-nightly
-      - noctalia-greeter
-      - greetd
       - ghostty # terminal; not in the Fedora repos, Terra only
+    
+- type: dnf
+  repos:
+    copr:
+    - avengemedia/danklinux
+    - avengemedia/dms
+  install:
+    packages:
+    - cava
+    - dankcalendar-git # no stable build in the COPR; -git only
+    - dcal
+    - dgop
+    - dms
+    - dms-greeter # greeter; runs under greetd, configured via files/system-hyprland
+    - dsearch
+    - matugen
+    - quickshell
+    - qt6-qtmultimedia # Fedora's name for qt6-multimedia
 
 - type: systemd
   system:
     enabled:
       - greetd.service
 
-# Per-user calendar sync. The vdirsyncer Fedora package ships no systemd units,
-# so upstream's contrib units are vendored in files/systemd/user/ — the systemd
-# module auto-copies that directory into /usr/lib/systemd/user.
-- type: systemd
-  user:
-    enabled:
-      - vdirsyncer.timer
+# Calendar integration
+- type: dnf
+  install:
+    packages:
+      - khal
+      - vdirsyncer 
+      - python3-aiohttp-oauthlib
 

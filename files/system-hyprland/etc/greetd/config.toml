@@ -1,0 +1,13 @@
+# DankGreeter (dms-greeter) as the login screen (replaces Plasma login manager / PLM).
+# The greetd package ships a default config running agreety; this overrides it
+# (rpm %config(noreplace) keeps this file and writes the packaged one as .rpmnew).
+# `user` is "greeter": that is the account the dms-greeter package's
+# /usr/lib/sysusers.d/dms-greeter.conf creates (home /var/lib/greeter).
+# Unlike noctalia-greeter, no custom tmpfiles.d entry is needed: the dms-greeter
+# RPM ships its own, creating /var/cache/dms-greeter and /var/lib/greeter at boot.
+[terminal]
+vt = 1
+
+[default_session]
+command = "dms-greeter --command Hyprland"
+user = "greeter"

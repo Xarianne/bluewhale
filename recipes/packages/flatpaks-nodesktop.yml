@@ -1,0 +1,16 @@
+---
+# yaml-language-server: $schema=https://schema.blue-build.org/recipe-v1.json
+modules:  
+- type: default-flatpaks
+  configurations:
+  - notify: false # Send notification after install/uninstall is finished (true/false)
+    scope: system
+    # If no repo information is specified, Flathub will be used by default
+    install:
+    # Utilities
+    - org.gnome.Calculator
+    - org.gnome.SimpleScan
+    - org.gnome.Loupe
+    - org.gnome.Decibels
+    - org.gnome.font-viewer
+    - be.alexandervanhee.gradia
