@@ -1,0 +1,5 @@
+{
+  "policy_version": 1,
+  "immutable_system": false,
+  "message": "Image-managed override: this atomic image runs 'dms setup headless' via dms-setup@.service at first login."
+}

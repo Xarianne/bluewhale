@@ -1,0 +1,28 @@
+# One-time DMS config deployment for a user on an atomic (ostree) system.
+#
+# 'dms setup' is blocked by default on immutable systems (dms's immutable
+# policy), but this image ships /etc/dms/cli-policy.json setting
+# immutable_system=false so the headless setup can run as the user.
+#
+# Runs once per user: the ConditionPathExists guard skips the unit once
+# ~/.config/hypr/hyprland.lua exists, and stays skipped across rebases
+# (home persists; this unit and the dms binary come from the new image).
+# To regenerate manually: dms setup headless --compositor hyprland \
+#   --terminal ghostty --force (backs up the old config first).
+#
+# Enable per user in the image recipe: dms-setup@<username>.service
+
+[Unit]
+Description=Deploy DMS starter compositor config for user %i (first login only)
+Documentation=https://danklinux.com/docs/dankmaterialshell/installation
+ConditionPathExists=!/var/home/%i/.config/hypr/hyprland.lua
+
+[Service]
+Type=oneshot
+User=%i
+# --skip-existing (not --force): never clobbers an existing config if only
+# part of the setup is present; --force is for manual regeneration.
+ExecStart=/usr/bin/dms setup headless --compositor hyprland --terminal ghostty --skip-existing
+
+[Install]
+WantedBy=multi-user.target

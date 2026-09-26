@@ -75,6 +75,7 @@ modules:
   system:
     enabled:
       - greetd.service
+      - dms-setup@xariann.service # one-time DMS config deploy for this user
 
 # Calendar integration
 - type: dnf
