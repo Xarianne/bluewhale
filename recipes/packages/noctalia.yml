@@ -20,11 +20,9 @@ modules:
       - xdg-user-dirs
       - nautilus
       - gvfs # Allows file managers to see disk and network mounts
-      - gnome-text-editor # libadwaita; same GTK4 stack as nautilus (kwrite was
-                          # rejected: it drags in the whole KF6/Qt6 tree)
-      - vdirsyncer # syncs Proton calendar ICS links into a local vdir that
-                   # Noctalia's calendar service reads via the "vdir" account
-                   # type (keeps the secret calendar URLs out of the config)
+      - gnome-text-editor
+      - vdirsyncer # syncs calendar ICS links
+      - fuse # needed for some appimages
 
 - type: dnf
   repos:
