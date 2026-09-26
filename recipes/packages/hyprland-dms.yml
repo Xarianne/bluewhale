@@ -40,6 +40,10 @@ modules:
     packages:
     - hyprland
     - hyprland-guiutils
+  
+  remove:
+    packages:
+    - kitty
 
 - type: dnf
   repos:
