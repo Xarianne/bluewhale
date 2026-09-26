@@ -79,9 +79,6 @@ modules:
   system:
     enabled:
       - greetd.service
-      # dms-setup@<user>.service instances are enabled per-boot by the
-      # dms-setup-users generator (files/system-hyprland/usr/lib/systemd/
-      # system-generators/), so no username is hardcoded here.
 
 # Calendar integration
 - type: dnf
