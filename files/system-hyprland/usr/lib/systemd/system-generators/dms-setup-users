@@ -1,0 +1,33 @@
+#!/bin/bash
+# systemd generator: enable dms-setup@<user>.service for every regular user.
+#
+# Runs at boot before units are loaded ($1 = unit dir the generator may write
+# into). For each human user (UID >= 1000, real login shell, home under
+# /var/home or /home — /home is a symlink to /var/home on ostree systems) it
+# creates a wants symlink pulling that user's dms-setup instance into
+# multi-user.target. The unit's own ConditionPathExists makes each instance a
+# one-shot (skipped once ~/.config/hypr/dms exists), so this re-running every
+# boot is harmless: it just re-establishes the same symlinks.
+#
+# Replaces a hardcoded "dms-setup@xariann.service" enable line in the image
+# recipe, so a username change needs no image edit.
+
+set -u
+units_dir="${1%/}"
+wants_dir="$units_dir/multi-user.target.wants"
+mkdir -p "$wants_dir"
+
+while IFS=: read -r user _ uid _ _ home shell; do
+    [ "$uid" -ge 1000 ] || continue
+    case "$shell" in
+        /bin/false | */nologin) continue ;;
+    esac
+    case "$home" in
+        /var/home/* | /home/*) ;;
+        *) continue ;;
+    esac
+    [ -d "$home" ] || continue
+    ln -s "../dms-setup@.service" "$wants_dir/dms-setup@$user.service" 2>/dev/null || true
+done < /etc/passwd
+
+exit 0

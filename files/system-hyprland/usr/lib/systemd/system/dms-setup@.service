@@ -14,6 +14,8 @@
 #   --terminal ghostty --force (backs up the old config first).
 #
 # Enable per user in the image recipe: dms-setup@<username>.service
+# (the dms-setup-users generator does this automatically for every
+# regular user, so no recipe edit is needed when users change).
 
 [Unit]
 Description=Deploy DMS starter compositor config for user %i (first login only)

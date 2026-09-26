@@ -79,7 +79,9 @@ modules:
   system:
     enabled:
       - greetd.service
-      - dms-setup@xariann.service # one-time DMS config deploy for this user
+      # dms-setup@<user>.service instances are enabled per-boot by the
+      # dms-setup-users generator (files/system-hyprland/usr/lib/systemd/
+      # system-generators/), so no username is hardcoded here.
 
 # Calendar integration
 - type: dnf
