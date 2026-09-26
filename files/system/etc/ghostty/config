@@ -1,4 +1,0 @@
-# System-wide Ghostty defaults (user config in ~/.config/ghostty/config
-# overrides these). Shipped via the image so every user gets fish without
-# chsh; the DMS-deployed user config only manages theming, not the shell.
-command = /usr/bin/fish
