@@ -1,2 +1,0 @@
-# Enable the DMS first-login config deploy for every user.
-enable dms-setup.service

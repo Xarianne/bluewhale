@@ -1,9 +1,9 @@
 # Deploy DMS's starter compositor config on a user's first login.
 #
 # This is a *user* unit: it runs under systemd --user, which only exists for
-# logged-in users, so "which users to run it for" is solved for free — no
-# username is hardcoded, and every user (present or future) gets it via the
-# preset file (etc/systemd/user-preset/90-dms-setup.preset).
+# logged-in users, so every user gets it automatically via the symlink
+# etc/systemd/user/default.target.wants/dms-setup.service (presets are NOT
+# re-applied to managers that already exist).
 #
 # 'dms setup' is blocked by default on immutable systems (dms's immutable
 # policy), but this image ships /etc/dms/cli-policy.json setting
