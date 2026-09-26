@@ -1,5 +1,0 @@
-# System-wide Ghostty defaults. On Linux Ghostty reads this from
-# XDG_CONFIG_DIRS (/etc/xdg), NOT /etc/ghostty (macOS-only path).
-# User config ~/.config/ghostty/config overrides these; the DMS-deployed
-# user config only manages theming, not the shell.
-command = /usr/bin/fish
