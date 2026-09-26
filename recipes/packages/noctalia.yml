@@ -8,7 +8,7 @@
 #   (wired up via files/system-noctalia/etc/greetd/config.toml and the
 #   systemd module below)
 modules:
-# Desktop plumbing: everything the no-desktop base lacks (docs/base-atomic.md).
+# Desktop plumbing: everything the no-desktop base lacks.
 - type: dnf
   install:
     packages:
@@ -35,7 +35,7 @@ modules:
 
 - type: dnf
   repos:
-    cleanup: true # clean up the Terra repo after this module is done
+    cleanup: true
     keys:
       # keep the terraXX version in sync with image-version in the main recipe
       - https://repos.fyralabs.com/terra44/key.asc
