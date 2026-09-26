@@ -17,7 +17,6 @@ modules:
       - gnome-text-editor
       - vdirsyncer # syncs calendar ICS links
       - fuse # needed for some appimages
-      - hyprland-guiutils # Required dep for Hyprland on Fedora
       # DMS doctor "optional features":
       - power-profiles-daemon # power profile control (performance/balanced/power-saver)
       - cups-pk-helper # authenticated printer management from DMS
@@ -40,6 +39,7 @@ modules:
   install:
     packages:
     - hyprland
+    - hyprland-guiutils
 
 - type: dnf
   repos:
